@@ -12,6 +12,14 @@ class SongSegment: Equatable {
     private var name: String
     private var recordings: [Recording]
 
+    var hasNoRecordings: Bool {
+        return recordings.isEmpty
+    }
+
+    var numOfRecordings: Int {
+        return recordings.count
+    }
+
     init (name: String) {
         self.name = name
         self.recordings = []

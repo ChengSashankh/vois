@@ -1,6 +1,6 @@
 //
-//  voisTests.swift
-//  voisTests
+//  VoisTests.swift
+//  VoisTests
 //
 //  Created by Jiang Yuxin on 14/3/20.
 //  Copyright © 2020 vois. All rights reserved.

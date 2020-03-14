@@ -13,6 +13,30 @@ class Recording: Equatable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
 
+    var hasNoAudioComments: Bool {
+        return audioComments.isEmpty
+    }
+
+    var hasNoTextComments: Bool {
+        return textComments.isEmpty
+    }
+
+    var hasNoComments: Bool {
+        return self.hasNoAudioComments && self.hasNoTextComments
+    }
+
+    var numOfAudioComments: Int {
+        return audioComments.count
+    }
+
+    var numOfTextComments: Int {
+        return textComments.count
+    }
+
+    var numOfComments: Int {
+        return self.numOfAudioComments + self.numOfTextComments
+    }
+
     init (filePath: URL) {
         self.filePath = filePath
         self.audioComments = []

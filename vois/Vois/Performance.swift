@@ -13,7 +13,7 @@ class Performance: Equatable {
     private var songs: [Song]
     private var date: Date?
 
-    var isEmpty: Bool {
+    var hasNoSongs: Bool {
         return songs.isEmpty
     }
 
