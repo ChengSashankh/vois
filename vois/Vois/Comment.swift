@@ -18,19 +18,19 @@ protocol Comment {
 }
 
 extension Comment {
-    
+
     mutating func setTimeStamp(newTimeStamp: Double) {
         self.timeStamp = newTimeStamp
     }
-    
+
     func getTimeStamp() -> Double {
         return self.timeStamp
     }
-    
+
     mutating func setAuthor(newAuthor: String) {
         self.author = newAuthor
     }
-    
+
     func getAuthor() -> String {
         return self.author
     }
@@ -39,7 +39,7 @@ extension Comment {
 enum CommentType: String {
     case audio
     case text
-    
+
     func type() -> String {
         return self.rawValue
     }
