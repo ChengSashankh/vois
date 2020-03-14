@@ -79,6 +79,9 @@
 		CACC0D8D241CC25C006D2E68 /* vois */ = {
 			isa = PBXGroup;
 			children = (
+				CACC0DB3241CC343006D2E68 /* Controller */,
+				CACC0DB2241CC33C006D2E68 /* View */,
+				CACC0DB0241CC322006D2E68 /* Model */,
 				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
 				CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */,
 				CACC0D92241CC25C006D2E68 /* ViewController.swift */,
@@ -97,6 +100,27 @@
 				CACC0DA7241CC261006D2E68 /* Info.plist */,
 			);
 			path = voisTests;
+			sourceTree = "<group>";
+		};
+		CACC0DB0241CC322006D2E68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CACC0DB2241CC33C006D2E68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CACC0DB3241CC343006D2E68 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
