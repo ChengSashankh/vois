@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CB241D0854009C6E91 /* Performance.swift */; };
+		6C7F96CE241D0863009C6E91 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CD241D0863009C6E91 /* Song.swift */; };
+		6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CF241D0870009C6E91 /* Recording.swift */; };
+		6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96D1241D0883009C6E91 /* SongSegment.swift */; };
+		6C7F96D4241D08A7009C6E91 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96D3241D08A7009C6E91 /* Comment.swift */; };
+		6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96D5241D0D2E009C6E91 /* AudioComment.swift */; };
+		6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96D7241D0D3D009C6E91 /* TextComment.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -27,7 +34,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CACC0D8B241CC25C006D2E68 /* vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C7F96CB241D0854009C6E91 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
+		6C7F96CD241D0863009C6E91 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		6C7F96CF241D0870009C6E91 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		6C7F96D1241D0883009C6E91 /* SongSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSegment.swift; sourceTree = "<group>"; };
+		6C7F96D3241D08A7009C6E91 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		6C7F96D5241D0D2E009C6E91 /* AudioComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioComment.swift; sourceTree = "<group>"; };
+		6C7F96D7241D0D3D009C6E91 /* TextComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComment.swift; sourceTree = "<group>"; };
+		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CACC0D92241CC25C006D2E68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +72,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C7F96D9241D1B54009C6E91 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				6C7F96D3241D08A7009C6E91 /* Comment.swift */,
+				6C7F96D5241D0D2E009C6E91 /* AudioComment.swift */,
+				6C7F96D7241D0D3D009C6E91 /* TextComment.swift */,
+			);
+			name = Comment;
+			sourceTree = "<group>";
+		};
 		CACC0D82241CC25C006D2E68 = {
 			isa = PBXGroup;
 			children = (
@@ -70,7 +94,7 @@
 		CACC0D8C241CC25C006D2E68 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CACC0D8B241CC25C006D2E68 /* vois.app */,
+				CACC0D8B241CC25C006D2E68 /* Vois.app */,
 				CACC0DA1241CC261006D2E68 /* voisTests.xctest */,
 			);
 			name = Products;
@@ -105,6 +129,11 @@
 		CACC0DB0241CC322006D2E68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6C7F96D9241D1B54009C6E91 /* Comment */,
+				6C7F96CB241D0854009C6E91 /* Performance.swift */,
+				6C7F96CD241D0863009C6E91 /* Song.swift */,
+				6C7F96D1241D0883009C6E91 /* SongSegment.swift */,
+				6C7F96CF241D0870009C6E91 /* Recording.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -140,7 +169,7 @@
 			);
 			name = vois;
 			productName = vois;
-			productReference = CACC0D8B241CC25C006D2E68 /* vois.app */;
+			productReference = CACC0D8B241CC25C006D2E68 /* Vois.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CACC0DA0241CC261006D2E68 /* voisTests */ = {
@@ -225,8 +254,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */,
+				6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */,
+				6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */,
 				CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */,
+				6C7F96D4241D08A7009C6E91 /* Comment.swift in Sources */,
+				6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */,
+				6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */,
+				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
+				6C7F96CE241D0863009C6E91 /* Song.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,8 +428,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vois.vois;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = Vois.Vois;
+				PRODUCT_NAME = Vois;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -409,8 +445,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vois.vois;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = Vois.Vois;
+				PRODUCT_NAME = Vois;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
