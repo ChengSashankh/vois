@@ -30,17 +30,17 @@ class SongSegment: Equatable {
     }
 
     func updateRecording(oldRecording: Recording, newRecording: Recording) {
-        guard let index = recordings.firstIndex(of: oldRecording) else {
+        guard let index = self.recordings.firstIndex(of: oldRecording) else {
             return
         }
-        recordings[index] = newRecording
+        self.recordings[index] = newRecording
     }
 
     func removeRecording(recording: Recording) {
-        guard let index = recordings.firstIndex(of: recording) else {
+        guard let index = self.recordings.firstIndex(of: recording) else {
             return
         }
-        recordings.remove(at: index)
+        self.recordings.remove(at: index)
     }
 
     func getAudioComments() -> [Recording] {

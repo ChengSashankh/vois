@@ -9,12 +9,12 @@
 import Foundation
 
 class Recording: Equatable {
-    private var audioFilePath: URL
+    private var filePath: URL
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
 
-    init (audioFilePath: URL) {
-        self.audioFilePath = audioFilePath
+    init (filePath: URL) {
+        self.filePath = filePath
         self.audioComments = []
         self.textComments = []
     }
@@ -25,17 +25,17 @@ class Recording: Equatable {
     }
 
     func updateAudioComment(oldAudioComment: AudioComment, newAudioComment: AudioComment) {
-        guard let index = audioComments.firstIndex(of: oldAudioComment) else {
+        guard let index = self.audioComments.firstIndex(of: oldAudioComment) else {
             return
         }
-        audioComments[index] = newAudioComment
+        self.audioComments[index] = newAudioComment
     }
 
     func removeAudioComment(audioComment: AudioComment) {
-        guard let index = audioComments.firstIndex(of: audioComment) else {
+        guard let index = self.audioComments.firstIndex(of: audioComment) else {
             return
         }
-        audioComments.remove(at: index)
+        self.audioComments.remove(at: index)
     }
 
     func getAudioComments() -> [AudioComment] {
@@ -74,7 +74,7 @@ class Recording: Equatable {
     }
 
     static func == (lhs: Recording, rhs: Recording) -> Bool {
-        return lhs.audioFilePath == rhs.audioFilePath
+        return lhs.filePath == rhs.filePath
             && lhs.audioComments == rhs.audioComments
             && lhs.textComments == rhs.textComments
     }

@@ -13,6 +13,14 @@ class Performance: Equatable {
     private var songs: [Song]
     private var date: Date?
 
+    var isEmpty: Bool {
+        return songs.isEmpty
+    }
+
+    var numOfSongs: Int {
+        return songs.count
+    }
+
     init (name: String, date: Date?) {
         self.name = name
         self.songs = []

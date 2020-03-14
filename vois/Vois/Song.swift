@@ -30,17 +30,17 @@ class Song: Equatable {
     }
 
     func updateSegment(oldSegment: SongSegment, newSegment: SongSegment) {
-        guard let index = segments.firstIndex(of: oldSegment) else {
+        guard let index = self.segments.firstIndex(of: oldSegment) else {
             return
         }
-        segments[index] = newSegment
+        self.segments[index] = newSegment
     }
 
     func removeSegment(segment: SongSegment) {
-        guard let index = segments.firstIndex(of: segment) else {
+        guard let index = self.segments.firstIndex(of: segment) else {
             return
         }
-        segments.remove(at: index)
+        self.segments.remove(at: index)
     }
 
     func getSegments() -> [SongSegment] {
