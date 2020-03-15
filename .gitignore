@@ -11,8 +11,8 @@
 build/
 DerivedData/
 
-## Pods 
-vois/Pods/*
+## Pod files
+vois/Pods
 vois/Podfile.lock
 
 ## Various settings
