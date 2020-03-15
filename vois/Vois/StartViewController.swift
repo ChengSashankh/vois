@@ -6,4 +6,14 @@
 //  Copyright © 2020 Vois. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import Firebase
+
+class StartViewController: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if Auth.auth().currentUser != nil {
+            self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
+        }
+    }
+}
