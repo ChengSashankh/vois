@@ -13,7 +13,7 @@ DerivedData/
 
 ## Pod files
 vois/Pods
-Podfile.lock
+vois/Podfile.lock
 
 ## Various settings
 *.pbxuser
