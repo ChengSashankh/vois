@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24B6CFAD241E408800FDAFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */; };
 		24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36133241DFB8C0047EC46 /* RecordingViewController.swift */; };
 		24C36136241DFC070047EC46 /* RecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36135241DFC070047EC46 /* RecordingController.swift */; };
 		24F6794A241E31570075F344 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F67949241E31570075F344 /* PlaybackController.swift */; };
@@ -21,7 +22,6 @@
 		6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */; };
 		6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96E1241D3EF3009C6E91 /* Performances.swift */; };
 		6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96E7241E25D4009C6E91 /* CommentTest.swift */; };
-		6C7F96EA241E29CF009C6E91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C7F96E9241E29CF009C6E91 /* GoogleService-Info.plist */; };
 		70BF4CA02FB6E914757964F0 /* Pods_VoisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF44D3BB05C1FE5DC9DF5CD /* Pods_VoisTests.framework */; };
 		75A23B790104A5024F3BF7B3 /* Pods_Vois.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C4088B9F5379D923C46281 /* Pods_Vois.framework */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
@@ -44,10 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17C4088B9F5379D923C46281 /* Pods_Vois.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vois.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24C36133241DFB8C0047EC46 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		24C36135241DFC070047EC46 /* RecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingController.swift; sourceTree = "<group>"; };
 		24F67949241E31570075F344 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
-		17C4088B9F5379D923C46281 /* Pods_Vois.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vois.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C7F96CB241D0854009C6E91 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		6C7F96CD241D0863009C6E91 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		6C7F96CF241D0870009C6E91 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentTest.swift; sourceTree = "<group>"; };
 		6C7F96E1241D3EF3009C6E91 /* Performances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performances.swift; sourceTree = "<group>"; };
 		6C7F96E7241E25D4009C6E91 /* CommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTest.swift; sourceTree = "<group>"; };
-		6C7F96E9241E29CF009C6E91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DB19923A376F7DCC93066C6 /* Pods-Vois.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vois.release.xcconfig"; path = "Target Support Files/Pods-Vois/Pods-Vois.release.xcconfig"; sourceTree = "<group>"; };
 		AAD1949FF65EB08008D3BC96 /* Pods-VoisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoisTests.release.xcconfig"; path = "Target Support Files/Pods-VoisTests/Pods-VoisTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9880456BCD4A15E6CA649AC /* Pods-VoisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoisTests.debug.xcconfig"; path = "Target Support Files/Pods-VoisTests/Pods-VoisTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,7 +106,6 @@
 				B9880456BCD4A15E6CA649AC /* Pods-VoisTests.debug.xcconfig */,
 				AAD1949FF65EB08008D3BC96 /* Pods-VoisTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -170,6 +169,7 @@
 		CACC0D8D241CC25C006D2E68 /* Vois */ = {
 			isa = PBXGroup;
 			children = (
+				24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */,
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
@@ -181,7 +181,6 @@
 				CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */,
 				CACC0D9C241CC260006D2E68 /* Info.plist */,
 				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
-				6C7F96E9241E29CF009C6E91 /* GoogleService-Info.plist */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -311,7 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CACC0D9B241CC260006D2E68 /* LaunchScreen.storyboard in Resources */,
-				6C7F96EA241E29CF009C6E91 /* GoogleService-Info.plist in Resources */,
+				24B6CFAD241E408800FDAFBE /* GoogleService-Info.plist in Resources */,
 				CACC0D98241CC260006D2E68 /* Assets.xcassets in Resources */,
 				CACC0D96241CC25C006D2E68 /* Main.storyboard in Resources */,
 			);
