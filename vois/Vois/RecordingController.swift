@@ -24,10 +24,8 @@ class RecordingController {
         self.recordingCounter = recordingCounter
     }
 
-    init() {
-        self.recordingSession = AVAudioSession()
-        self.audioRecorder = AVAudioRecorder()
-        self.recordingCounter = 0
+    convenience init() {
+        self.init(recordingCounter: 0)
     }
 
     func getDefaultFileName() -> String {
