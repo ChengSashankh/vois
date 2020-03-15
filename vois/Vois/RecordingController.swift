@@ -12,20 +12,21 @@ import AVFoundation
 class RecordingController {
     var recordingSession: AVAudioSession
     var audioRecorder: AVAudioRecorder
-    var recordingInProgress: Bool
     var recordingCounter: Int
+
+    var recordingInProgress: Bool {
+        return audioRecorder.isRecording
+    }
 
     init(recordingCounter: Int) {
         self.recordingSession = AVAudioSession()
         self.audioRecorder = AVAudioRecorder()
-        self.recordingInProgress = false
         self.recordingCounter = recordingCounter
     }
 
     init() {
         self.recordingSession = AVAudioSession()
         self.audioRecorder = AVAudioRecorder()
-        self.recordingInProgress = false
         self.recordingCounter = 0
     }
 
@@ -63,7 +64,6 @@ class RecordingController {
 
             audioRecorder.record()
             audioRecorder.delegate = recorderDelegate
-            recordingInProgress = true
         } catch {
             // TODO: Handle error correctly
             print("Something went wrong here!")
@@ -77,7 +77,6 @@ class RecordingController {
 
         UserDefaults.standard.set(recordingCounter, forKey: "recordingCounter")
         audioRecorder.stop()
-        recordingInProgress = false
     }
 
     func getCurrentRecordingDuration() -> TimeInterval {
