@@ -9,9 +9,9 @@
 import Foundation
 
 class Recording: Equatable {
-    private var filePath: URL
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
+    private var filePath: URL
 
     var hasNoAudioComments: Bool {
         return audioComments.isEmpty

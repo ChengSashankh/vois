@@ -27,8 +27,8 @@ class TextCommentTest: XCTestCase {
                                           text: "Nice vocals!")
 
     func testGetText() {
-        XCTAssertEqual(comment.getText(), "Nice pitch!")
-        XCTAssertNotEqual(comment.getText(), "I love it!")
+        XCTAssertEqual(comment.text, "Nice pitch!")
+        XCTAssertNotEqual(comment.text, "I love it!")
     }
 
     func testEqualComment() {
@@ -42,8 +42,8 @@ class TextCommentTest: XCTestCase {
     }
 
     func testSetText() {
-        comment.setText(newText: "I love it!")
-        XCTAssertEqual(comment.getText(), "I love it!")
-        XCTAssertNotEqual(comment.getText(), "Nice pitch!")
+        comment.text = "I love it!"
+        XCTAssertEqual(comment.text, "I love it!")
+        XCTAssertNotEqual(comment.text, "Nice pitch!")
     }
 }

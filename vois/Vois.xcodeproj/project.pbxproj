@@ -17,6 +17,7 @@
 		6C7F96DD241D3BCD009C6E91 /* AudioCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96DC241D3BCD009C6E91 /* AudioCommentTest.swift */; };
 		6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */; };
 		6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96E1241D3EF3009C6E91 /* Performances.swift */; };
+		6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96E7241E25D4009C6E91 /* CommentTest.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 		6C7F96DC241D3BCD009C6E91 /* AudioCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCommentTest.swift; sourceTree = "<group>"; };
 		6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentTest.swift; sourceTree = "<group>"; };
 		6C7F96E1241D3EF3009C6E91 /* Performances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performances.swift; sourceTree = "<group>"; };
+		6C7F96E7241E25D4009C6E91 /* CommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTest.swift; sourceTree = "<group>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,24 @@
 			name = Comment;
 			sourceTree = "<group>";
 		};
+		6C7F96E5241E245F009C6E91 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C7F96E6241E2466009C6E91 /* Comment */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C7F96E6241E2466009C6E91 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				6C7F96E7241E25D4009C6E91 /* CommentTest.swift */,
+				6C7F96DC241D3BCD009C6E91 /* AudioCommentTest.swift */,
+				6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		CACC0D82241CC25C006D2E68 = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +146,8 @@
 		CACC0DA4241CC261006D2E68 /* VoisTests */ = {
 			isa = PBXGroup;
 			children = (
+				6C7F96E5241E245F009C6E91 /* Model */,
 				CACC0DA5241CC261006D2E68 /* VoisTests.swift */,
-				6C7F96DC241D3BCD009C6E91 /* AudioCommentTest.swift */,
-				6C7F96DE241D3BDD009C6E91 /* TextCommentTest.swift */,
 				CACC0DA7241CC261006D2E68 /* Info.plist */,
 			);
 			path = VoisTests;
@@ -304,6 +323,7 @@
 				6C7F96DD241D3BCD009C6E91 /* AudioCommentTest.swift in Sources */,
 				CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */,
 				6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */,
+				6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
