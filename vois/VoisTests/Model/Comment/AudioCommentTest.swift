@@ -10,7 +10,7 @@ import XCTest
 @testable import Vois
 
 class AudioCommentTest: XCTestCase {
-    var comment = AudioComment(timeStamp: 1584204199,
+    let comment = AudioComment(timeStamp: 1584204199,
                                   author: "John Doe",
                                   filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
     let equalComment = AudioComment(timeStamp: 1584204199,

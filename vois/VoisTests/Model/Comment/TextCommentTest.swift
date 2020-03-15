@@ -10,7 +10,7 @@ import XCTest
 @testable import Vois
 
 class TextCommentTest: XCTestCase {
-    var comment = TextComment(timeStamp: 1584204199,
+    let comment = TextComment(timeStamp: 1584204199,
                               author: "John Doe",
                               text: "Nice pitch!")
     let equalComment = TextComment(timeStamp: 1584204199,
