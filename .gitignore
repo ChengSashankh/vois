@@ -11,6 +11,10 @@
 build/
 DerivedData/
 
+## Pods 
+vois/Pods/*
+vois/Podfile.lock
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
