@@ -9,9 +9,9 @@
 import Foundation
 
 class Performance: Equatable {
-    private var name: String
     private var songs: [Song]
-    private var date: Date?
+    var name: String
+    var date: Date?
 
     var hasNoSongs: Bool {
         return songs.isEmpty
@@ -25,22 +25,6 @@ class Performance: Equatable {
         self.name = name
         self.songs = []
         self.date = date
-    }
-
-    func setName(newName: String) {
-        self.name = newName
-    }
-
-    func getName() -> String {
-        return self.name
-    }
-
-    func setDate(date: Date) {
-        self.date = date
-    }
-
-    func getDate() -> Date? {
-        return self.date
     }
 
     func addSong(song: Song) {

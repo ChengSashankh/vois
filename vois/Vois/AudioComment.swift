@@ -9,22 +9,14 @@
 import Foundation
 
 class AudioComment: Comment, Equatable {
-    private var filePath: URL
-    internal var timeStamp: Double
-    internal var author: String
+    var filePath: URL
+    var timeStamp: Double
+    var author: String
 
     init (timeStamp: Double, author: String, filePath: URL) {
         self.timeStamp = timeStamp
         self.author = author
         self.filePath = filePath
-    }
-
-    func setFilePath(newFilePath: URL) {
-        self.filePath = newFilePath
-    }
-
-    func getFilePath() -> URL {
-        return self.filePath
     }
 
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {

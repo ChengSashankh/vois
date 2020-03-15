@@ -9,22 +9,14 @@
 import Foundation
 
 class TextComment: Comment, Equatable {
-    private var text: String
-    internal var timeStamp: Double
-    internal var author: String
+    var text: String
+    var timeStamp: Double
+    var author: String
 
     init (timeStamp: Double, author: String, text: String) {
         self.timeStamp = timeStamp
         self.author = author
         self.text = text
-    }
-
-    func setText(newText: String) {
-        self.text = newText
-    }
-
-    func getText() -> String {
-        return self.text
     }
 
     static func == (lhs: TextComment, rhs: TextComment) -> Bool {

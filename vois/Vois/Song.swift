@@ -9,8 +9,8 @@
 import Foundation
 
 class Song: Equatable {
-    private var name: String
     private var segments: [SongSegment]
+    var name: String
 
     var hasNoSegments: Bool {
         return segments.isEmpty
@@ -23,14 +23,6 @@ class Song: Equatable {
     init (name: String) {
         self.name = name
         self.segments = []
-    }
-
-    func setName(newName: String) {
-        self.name = newName
-    }
-
-    func getName() -> String {
-        return self.name
     }
 
     func addSegment(segment: SongSegment) {
