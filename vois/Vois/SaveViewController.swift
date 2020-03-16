@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class SaveViewController: UIViewController {
-    var delegate: RecordingViewController?
+    weak var delegate: RecordingViewController?
     var filePath: URL?
 
     @IBOutlet weak var uiTextField: UITextField!
@@ -22,6 +22,12 @@ class SaveViewController: UIViewController {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectoryPath = paths[0]
         return documentDirectoryPath
+    }
+
+    func getTrimmedName(fileName: String) -> String {
+        return fileName
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: .punctuationCharacters)
     }
 
     @IBAction func onDiscardButtonClick(_ sender: Any) {
@@ -40,7 +46,8 @@ class SaveViewController: UIViewController {
     @IBAction func onSaveButtonClick(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
 
-        let newPath = getRecordingDirectoryPath().appendingPathComponent(uiTextField.text! + ".m4a")
+        let newFileName = getTrimmedName(fileName: uiTextField.text!)
+        let newPath = getRecordingDirectoryPath().appendingPathComponent(newFileName + ".m4a")
 
         let fileManager = FileManager()
 

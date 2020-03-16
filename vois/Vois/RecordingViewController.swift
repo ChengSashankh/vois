@@ -46,7 +46,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     }
 
     func showSaveModal() {
-        let saveViewController : SaveViewController? = storyboard!.instantiateViewController(withIdentifier: "saveViewController") as? SaveViewController
+        let saveViewController: SaveViewController? =
+            storyboard!.instantiateViewController(withIdentifier: "saveViewController") as? SaveViewController
         saveViewController!.delegate = self
         saveViewController!.filePath = recordingController.audioRecorder.url
         saveViewController!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
@@ -106,7 +107,6 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
             playbackController.play()
         } catch {
             // TODO: Handle error
-        } 
-
+        }
     }
 }
