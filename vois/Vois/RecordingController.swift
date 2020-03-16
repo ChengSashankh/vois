@@ -39,6 +39,18 @@ class RecordingController {
         return documentDirectoryPath
     }
 
+    func convertLogScalePowerToLinear(logScaleValue: Float) -> Float {
+        let linearScaleValue = pow(10.0, logScaleValue / 20.0) * 100.0
+        return linearScaleValue
+    }
+
+    func getCurrentRecordingPower() -> Float {
+        audioRecorder.updateMeters()
+        let logScalePower = audioRecorder.peakPower(forChannel: 0)
+        let linearScaleValue = convertLogScalePowerToLinear(logScaleValue: logScalePower)
+        return linearScaleValue
+    }
+
     func startRecording(recorderDelegate: AVAudioRecorderDelegate) {
         if recordingInProgress {
             return
@@ -60,6 +72,8 @@ class RecordingController {
                 settings: settingsDict
             )
 
+            audioRecorder.prepareToRecord()
+            audioRecorder.isMeteringEnabled = true
             audioRecorder.record()
             audioRecorder.delegate = recorderDelegate
         } catch {

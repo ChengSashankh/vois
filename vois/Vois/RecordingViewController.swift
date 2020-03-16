@@ -14,14 +14,15 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     var playbackController: PlaybackController!
     var recordingCount = 0
     var recordingDurationTimer: Timer!
-    var recordingRefreshTimer: Timer!
+    var recordingPowerTimer: Timer!
     var recordings: [URL]!
 
     @IBOutlet weak var uiRecordButton: UIButton!
-    @IBOutlet weak var uiWaveForm: UIImageView!
+    @IBOutlet weak var uiPowerBarBackground: UIImageView!
     @IBOutlet weak var uiTimeLabel: UILabel!
     @IBOutlet weak var uiTableView: UITableView!
-
+    @IBOutlet weak var uiPowerBarSlider: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,12 +57,30 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
 
     func startRecordingDurationTimer() {
         recordingDurationTimer = Timer.scheduledTimer(
-            timeInterval: 0.02,
+            timeInterval: 0.5,
             target: self,
             selector: #selector(self.updateRecordingDuration),
             userInfo: nil,
             repeats: true
         )
+    }
+
+    func startRecordingPowerTimer() {
+        recordingPowerTimer = Timer.scheduledTimer(
+            timeInterval: 0.016,
+            target: self,
+            selector: #selector(self.updateRecordingPower),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+
+    @objc func updateRecordingPower() {
+        let recordingPower = recordingController.getCurrentRecordingPower()
+        let powerBarWidth = Double(uiPowerBarBackground.frame.width)
+        let currentOffset = Double(recordingPower / 100) * powerBarWidth
+        let currentPosition = Double(uiPowerBarBackground.frame.origin.x) + currentOffset
+        uiPowerBarSlider.frame.origin.x = CGFloat(currentPosition)
     }
 
     @objc func updateRecordingDuration() {
@@ -78,6 +97,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     func startRecording() {
         recordingController.startRecording(recorderDelegate: self)
         startRecordingDurationTimer()
+        startRecordingPowerTimer()
     }
 
     func refreshRecordings() {
@@ -86,6 +106,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
 
     func stopRecording() {
         recordingDurationTimer.invalidate()
+        recordingPowerTimer.invalidate()
         recordingController.stopRecording()
         uiTableView.reloadData()
     }
