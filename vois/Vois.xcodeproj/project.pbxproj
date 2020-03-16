@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451F3F4241E717900884AEE /* SaveViewController.swift */; };
 		24B6CFAD241E408800FDAFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */; };
 		24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36133241DFB8C0047EC46 /* RecordingViewController.swift */; };
 		24C36136241DFC070047EC46 /* RecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36135241DFC070047EC46 /* RecordingController.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		17C4088B9F5379D923C46281 /* Pods_Vois.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vois.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2451F3F4241E717900884AEE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24C36133241DFB8C0047EC46 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		24C36135241DFC070047EC46 /* RecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */,
 				CACC0D9C241CC260006D2E68 /* Info.plist */,
 				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
+				2451F3F4241E717900884AEE /* SaveViewController.swift */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C36136241DFC070047EC46 /* RecordingController.swift in Sources */,
+				2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */,
 				CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */,
 				6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */,
 				6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */,

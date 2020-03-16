@@ -14,6 +14,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     var playbackController: PlaybackController!
     var recordingCount = 0
     var recordingDurationTimer: Timer!
+    var recordingRefreshTimer: Timer!
     var recordings: [URL]!
 
     @IBOutlet weak var uiRecordButton: UIButton!
@@ -26,7 +27,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
 
         recordingController = RecordingController()
 
-        recordings = recordingController.getRecordings()
+        refreshRecordings()
 
         if let storedRecordingCount: Int = UserDefaults.standard.object(forKey: "recordingCount") as? Int {
             recordingCount = storedRecordingCount
@@ -36,11 +37,20 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     @IBAction func onRecordButtonTap(_ sender: UIButton) {
         if recordingController.recordingInProgress {
             stopRecording()
+            showSaveModal()
             sender.setImage(UIImage(named: "Record Button.png"), for: .normal)
         } else {
             startRecording()
             sender.setImage(UIImage(named: "Stop Button.png"), for: .normal)
         }
+    }
+
+    func showSaveModal() {
+        let saveViewController : SaveViewController? = storyboard!.instantiateViewController(withIdentifier: "saveViewController") as? SaveViewController
+        saveViewController!.delegate = self
+        saveViewController!.filePath = recordingController.audioRecorder.url
+        saveViewController!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        self.present(saveViewController!, animated: true, completion: nil)
     }
 
     func startRecordingDurationTimer() {
@@ -69,10 +79,13 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
         startRecordingDurationTimer()
     }
 
+    func refreshRecordings() {
+        recordings = recordingController.getRecordings()
+    }
+
     func stopRecording() {
         recordingDurationTimer.invalidate()
         recordingController.stopRecording()
-        recordings = recordingController.getRecordings()
         uiTableView.reloadData()
     }
 
@@ -93,7 +106,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
             playbackController.play()
         } catch {
             // TODO: Handle error
-        }
+        } 
 
     }
 }
