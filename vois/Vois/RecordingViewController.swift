@@ -157,6 +157,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
         recordingDurationTimer.invalidate()
         recordingPowerTimer.invalidate()
         recordingController.stopRecording()
+        setUpLineChart()
+        updateRecordingDuration()
         uiTableView.reloadData()
     }
 
