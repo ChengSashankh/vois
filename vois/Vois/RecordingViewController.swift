@@ -8,34 +8,74 @@
 
 import UIKit
 import AVFoundation
+import Charts
 
-class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource {
+class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource, ChartViewDelegate {
     var recordingController: RecordingController!
     var playbackController: PlaybackController!
     var recordingCount = 0
     var recordingDurationTimer: Timer!
     var recordingPowerTimer: Timer!
     var recordings: [URL]!
+    var xIndex: Int!
 
+    @IBOutlet weak var uiLineChartView: LineChartView!
     @IBOutlet weak var uiRecordButton: UIButton!
-    @IBOutlet weak var uiPowerBarBackground: UIImageView!
     @IBOutlet weak var uiTimeLabel: UILabel!
     @IBOutlet weak var uiTableView: UITableView!
-    @IBOutlet weak var uiPowerBarSlider: UIImageView!
     
+    func setUpLineChart() {
+        // Set up line chart
+        uiLineChartView.delegate = self
+        xIndex = 0
+        let powerValues = [ChartDataEntry]()
+        let powerData = LineChartDataSet(entries: powerValues, label: "")
+        let powerDataNegative = LineChartDataSet(entries: powerValues, label: "")
+
+        powerData.drawCirclesEnabled = false
+        powerData.setColor(.blue)
+        powerData.fill = Fill.fillWithColor(.blue)
+        powerData.drawFilledEnabled = true
+        powerData.drawValuesEnabled = false
+        powerData.mode = .cubicBezier
+
+        powerDataNegative.drawCirclesEnabled = false
+        powerDataNegative.setColor(.blue)
+        powerDataNegative.fill = Fill.fillWithColor(.blue)
+        powerDataNegative.drawFilledEnabled = true
+        powerDataNegative.drawValuesEnabled = false
+        powerDataNegative.mode = .cubicBezier
+
+        let dataSet = LineChartData(dataSets: [powerData, powerDataNegative])
+
+        uiLineChartView.data = dataSet
+        uiLineChartView.legend.enabled = false
+        uiLineChartView.xAxis.drawGridLinesEnabled = false
+        uiLineChartView.xAxis.drawAxisLineEnabled = false
+        uiLineChartView.xAxis.drawLabelsEnabled = false
+        uiLineChartView.rightAxis.enabled = false
+        uiLineChartView.leftAxis.enabled = false
+        uiLineChartView.leftAxis.axisMinimum = -100.0
+        uiLineChartView.leftAxis.axisMaximum = 100.0
+        uiLineChartView.rightAxis.axisMinimum = -100.0
+        uiLineChartView.rightAxis.axisMaximum = 100.0
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recordingController = RecordingController()
-
         refreshRecordings()
 
         if let storedRecordingCount: Int = UserDefaults.standard.object(forKey: "recordingCount") as? Int {
             recordingCount = storedRecordingCount
             recordingController = RecordingController(recordingCounter: recordingCount)
         }
+
+        setUpLineChart()
     }
-    @IBAction func onRecordButtonTap(_ sender: UIButton) {
+
+    @IBAction private func onRecordButtonTap(_ sender: UIButton) {
         if recordingController.recordingInProgress {
             stopRecording()
             showSaveModal()
@@ -77,10 +117,19 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
 
     @objc func updateRecordingPower() {
         let recordingPower = recordingController.getCurrentRecordingPower()
-        let powerBarWidth = Double(uiPowerBarBackground.frame.width)
-        let currentOffset = Double(recordingPower / 100) * powerBarWidth
-        let currentPosition = Double(uiPowerBarBackground.frame.origin.x) + currentOffset
-        uiPowerBarSlider.frame.origin.x = CGFloat(currentPosition)
+        uiLineChartView.data?.addEntry(
+            ChartDataEntry(x: Double(xIndex), y: Double(recordingPower)),
+            dataSetIndex: 0
+        )
+        uiLineChartView.data?.addEntry(
+            ChartDataEntry(x: Double(xIndex), y: Double(-1 * recordingPower)),
+            dataSetIndex: 1
+        )
+        xIndex += 1
+
+        uiLineChartView.notifyDataSetChanged()
+        uiLineChartView.moveViewToX(Double(xIndex))
+        uiLineChartView.xAxis.labelCount = 100
     }
 
     @objc func updateRecordingDuration() {
