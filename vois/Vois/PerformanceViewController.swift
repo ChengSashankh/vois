@@ -46,7 +46,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
     private var performances: Performances = Performances()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return performances.numOfPerformances
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,9 +54,21 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         guard let performanceCell = cell as? PerformanceCell else {
             return cell
         }
+        let performance = performances.getPerformances(at: indexPath.row)
 
-        performanceCell.title?.text = "Kent ridge hall event"
-        performanceCell.dateTime?.text = "15 March 2020, 19:00"
+        performanceCell.title?.text = performance.name
+
+        if let performanceDate = performance.date {
+            performanceCell.dateTime?.text = performanceDate.toString
+        }
         return performanceCell
+    }
+}
+
+extension Date {
+    var toString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        return dateFormatter.string(from: self)
     }
 }

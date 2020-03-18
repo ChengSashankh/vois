@@ -45,6 +45,10 @@ class Performances {
         return self.performances
     }
 
+    func getPerformances(at index: Int) -> Performance {
+        return self.performances[index]
+    }
+
     func removeAllPerformances() {
         self.performances = []
     }
