@@ -2,73 +2,42 @@
 //  PerformanceViewController.swift
 //  Vois
 //
-//  Created by Jiang Yuxin on 16/3/20.
+//  Created by Jiang Yuxin on 19/3/20.
 //  Copyright © 2020 Vois. All rights reserved.
 //
 
 import UIKit
 
 class PerformanceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var completionIndicator: UIProgressView!
 
-    @IBOutlet weak var performancesView: UITableView! {
+    @IBOutlet weak var countDownLabel: UILabel!
+
+    @IBOutlet weak var filterControl: UISegmentedControl!
+
+    @IBOutlet weak var songTableView: UITableView! {
         didSet {
-            performancesView.delegate = self
-            performancesView.dataSource = self
-            performancesView.separatorStyle = .none
+            songTableView.delegate = self
+            songTableView.dataSource = self
         }
     }
 
-    private func configureSearchBar() {
-        searchBar.layer.borderWidth = 1
-        searchBar.layer.borderColor = UIColor.white.cgColor
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureSearchBar()
-    }
-
-    @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
-        guard let displayModeBarButton = splitViewController?.displayModeButtonItem,
-            let displayAction = displayModeBarButton.action else {
-            return
-        }
-        if splitViewController?.isCollapsed ?? false {
-            parent?.navigationController?.popViewController(animated: true)
-
-        } else {
-        UIApplication.shared.sendAction(displayAction, to: displayModeBarButton.target, from: nil, for: nil)
-        }
-    }
-
-    private var performances: Performances = Performances()
+    var performance: Performance = Performance(name: "Test", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 100)!))
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return performances.numOfPerformances
+        return performance.numOfSongs
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = performancesView.dequeueReusableCell(withIdentifier: "PerformanceCell", for: indexPath)
-        guard let performanceCell = cell as? PerformanceCell else {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        guard let songCell = cell as? SongCell else {
             return cell
         }
-        let performance = performances.getPerformances(at: indexPath.row)
+        songCell.songNameLabel.text = performance.getSegments()[indexPath.row].name
 
-        performanceCell.title?.text = performance.name
-
-        if let performanceDate = performance.date {
-            performanceCell.dateTime?.text = performanceDate.toString
-        }
-        return performanceCell
+        return songCell
     }
-}
 
-extension Date {
-    var toString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy"
-        return dateFormatter.string(from: self)
-    }
 }
