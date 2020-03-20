@@ -15,7 +15,11 @@ class RecordingController {
     var recordingCounter: Int
 
     var recordingInProgress: Bool {
-        return audioRecorder.isRecording
+        audioRecorder.isRecording
+    }
+
+    var currentRecordingDuration: TimeInterval {
+        audioRecorder.currentTime
     }
 
     init(recordingCounter: Int) {
@@ -40,9 +44,10 @@ class RecordingController {
     }
 
     func getTrimmedName(fileName: String) -> String {
-        return fileName
+        let trimmedString = fileName
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .trimmingCharacters(in: .punctuationCharacters)
+        return trimmedString
     }
 
     func convertLogScalePowerToLinear(logScaleValue: Float) -> Float {
@@ -91,7 +96,7 @@ class RecordingController {
 
         let settingsDict = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
+            AVSampleRateKey: 12_000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
@@ -119,10 +124,6 @@ class RecordingController {
 
         UserDefaults.standard.set(recordingCounter, forKey: "recordingCounter")
         audioRecorder.stop()
-    }
-
-    func getCurrentRecordingDuration() -> TimeInterval {
-        return audioRecorder.currentTime
     }
 
     func getRecordings() -> [URL] {

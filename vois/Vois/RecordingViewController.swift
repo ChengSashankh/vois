@@ -105,7 +105,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
 
     @objc
      func updateRecordingDuration() {
-        let secondsElapsed = recordingController.getCurrentRecordingDuration()
+        let secondsElapsed = recordingController.currentRecordingDuration
         let seconds = secondsElapsed.truncatingRemainder(dividingBy: 60)
         let minutes = Int(secondsElapsed / 60)
 
