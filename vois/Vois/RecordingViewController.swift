@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 import Charts
 
-class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource, ChartViewDelegate {
+class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
+    UITableViewDelegate, UITableViewDataSource, ChartViewDelegate {
+
     var recordingController: RecordingController!
     var playbackController: PlaybackController!
     var recordingCount = 0
@@ -19,47 +21,10 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     var recordings: [URL]!
     var xIndex: Int!
 
-    @IBOutlet weak var uiLineChartView: LineChartView!
-    @IBOutlet weak var uiRecordButton: UIButton!
-    @IBOutlet weak var uiTimeLabel: UILabel!
-    @IBOutlet weak var uiTableView: UITableView!
-    
-    func setUpLineChart() {
-        // Set up line chart
-        uiLineChartView.delegate = self
-        xIndex = 0
-        let powerValues = [ChartDataEntry]()
-        let powerData = LineChartDataSet(entries: powerValues, label: "")
-        let powerDataNegative = LineChartDataSet(entries: powerValues, label: "")
-
-        powerData.drawCirclesEnabled = false
-        powerData.setColor(.blue)
-        powerData.fill = Fill.fillWithColor(.blue)
-        powerData.drawFilledEnabled = true
-        powerData.drawValuesEnabled = false
-        powerData.mode = .cubicBezier
-
-        powerDataNegative.drawCirclesEnabled = false
-        powerDataNegative.setColor(.blue)
-        powerDataNegative.fill = Fill.fillWithColor(.blue)
-        powerDataNegative.drawFilledEnabled = true
-        powerDataNegative.drawValuesEnabled = false
-        powerDataNegative.mode = .cubicBezier
-
-        let dataSet = LineChartData(dataSets: [powerData, powerDataNegative])
-
-        uiLineChartView.data = dataSet
-        uiLineChartView.legend.enabled = false
-        uiLineChartView.xAxis.drawGridLinesEnabled = false
-        uiLineChartView.xAxis.drawAxisLineEnabled = false
-        uiLineChartView.xAxis.drawLabelsEnabled = false
-        uiLineChartView.rightAxis.enabled = false
-        uiLineChartView.leftAxis.enabled = false
-        uiLineChartView.leftAxis.axisMinimum = -100.0
-        uiLineChartView.leftAxis.axisMaximum = 100.0
-        uiLineChartView.rightAxis.axisMinimum = -100.0
-        uiLineChartView.rightAxis.axisMaximum = 100.0
-    }
+    @IBOutlet private var uiLineChartView: LineChartView!
+    @IBOutlet private var uiRecordButton: UIButton!
+    @IBOutlet private var uiTimeLabel: UILabel!
+    @IBOutlet private var uiTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +41,15 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
     }
 
     @IBAction private func onRecordButtonTap(_ sender: UIButton) {
+        let recordButtonImageName = "Record Button.png"
+        let stopButtonImageName = "Stop Button.png"
         if recordingController.recordingInProgress {
             stopRecording()
             showSaveModal()
-            sender.setImage(UIImage(named: "Record Button.png"), for: .normal)
+            sender.setImage(UIImage(named: recordButtonImageName), for: .normal)
         } else {
             startRecording()
-            sender.setImage(UIImage(named: "Stop Button.png"), for: .normal)
+            sender.setImage(UIImage(named: stopButtonImageName), for: .normal)
         }
     }
 
@@ -95,7 +62,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
         self.present(saveViewController!, animated: true, completion: nil)
     }
 
-    func startRecordingDurationTimer() {
+    func setUpRecordingTimers() {
         recordingDurationTimer = Timer.scheduledTimer(
             timeInterval: 0.5,
             target: self,
@@ -103,9 +70,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
             userInfo: nil,
             repeats: true
         )
-    }
 
-    func startRecordingPowerTimer() {
         recordingPowerTimer = Timer.scheduledTimer(
             timeInterval: 0.016,
             target: self,
@@ -115,7 +80,13 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
         )
     }
 
-    @objc func updateRecordingPower() {
+    func invalidateRecordingTimers() {
+        recordingDurationTimer.invalidate()
+        recordingPowerTimer.invalidate()
+    }
+
+    @objc
+     func updateRecordingPower() {
         let recordingPower = recordingController.getCurrentRecordingPower()
         uiLineChartView.data?.addEntry(
             ChartDataEntry(x: Double(xIndex), y: Double(recordingPower)),
@@ -132,7 +103,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
         uiLineChartView.xAxis.labelCount = 100
     }
 
-    @objc func updateRecordingDuration() {
+    @objc
+     func updateRecordingDuration() {
         let secondsElapsed = recordingController.getCurrentRecordingDuration()
         let seconds = secondsElapsed.truncatingRemainder(dividingBy: 60)
         let minutes = Int(secondsElapsed / 60)
@@ -145,20 +117,26 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
 
     func startRecording() {
         recordingController.startRecording(recorderDelegate: self)
-        startRecordingDurationTimer()
-        startRecordingPowerTimer()
+        setUpRecordingTimers()
+    }
+
+    func stopRecording() {
+        invalidateRecordingTimers()
+        recordingController.stopRecording()
+        clearTimerAndWaveform()
     }
 
     func refreshRecordings() {
         recordings = recordingController.getRecordings()
     }
 
-    func stopRecording() {
-        recordingDurationTimer.invalidate()
-        recordingPowerTimer.invalidate()
-        recordingController.stopRecording()
+    func clearTimerAndWaveform() {
         setUpLineChart()
         updateRecordingDuration()
+        reloadTableData()
+    }
+
+    func reloadTableData() {
         uiTableView.reloadData()
     }
 
@@ -178,7 +156,55 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, UITabl
             playbackController = try PlaybackController(recordingFileName: recordings[indexPath.row])
             playbackController.play()
         } catch {
-            // TODO: Handle error
+            displayErrorAlert(title: "Oops", message: "Something went wrong during playback")
         }
+    }
+
+    func configureLineChartView() {
+        uiLineChartView.legend.enabled = false
+
+        uiLineChartView.xAxis.drawGridLinesEnabled = false
+        uiLineChartView.xAxis.drawAxisLineEnabled = false
+        uiLineChartView.xAxis.drawLabelsEnabled = false
+
+        uiLineChartView.rightAxis.enabled = false
+        uiLineChartView.rightAxis.axisMinimum = -100.0
+        uiLineChartView.rightAxis.axisMaximum = 100.0
+
+        uiLineChartView.leftAxis.enabled = false
+        uiLineChartView.leftAxis.axisMinimum = -100.0
+        uiLineChartView.leftAxis.axisMaximum = 100.0
+    }
+
+    func configureLineChartDataset() -> LineChartDataSet {
+        let powerValues = [ChartDataEntry]()
+        let powerData = LineChartDataSet(entries: powerValues, label: "")
+
+        powerData.drawCirclesEnabled = false
+        powerData.setColor(.blue)
+        powerData.fill = Fill.fillWithColor(.blue)
+        powerData.drawFilledEnabled = true
+        powerData.drawValuesEnabled = false
+        powerData.mode = .cubicBezier
+
+        return powerData
+    }
+
+    func setUpLineChart() {
+        uiLineChartView.delegate = self
+        xIndex = 0
+
+        let powerData = configureLineChartDataset()
+        let powerDataNegative = configureLineChartDataset()
+        let dataSet = LineChartData(dataSets: [powerData, powerDataNegative])
+        uiLineChartView.data = dataSet
+
+        configureLineChartView()
+    }
+
+    func displayErrorAlert(title: String, message: String) {
+        let uiErrorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        uiErrorAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        present(uiErrorAlert, animated: true, completion: nil)
     }
 }

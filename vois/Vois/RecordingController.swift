@@ -39,6 +39,12 @@ class RecordingController {
         return documentDirectoryPath
     }
 
+    func getTrimmedName(fileName: String) -> String {
+        return fileName
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: .punctuationCharacters)
+    }
+
     func convertLogScalePowerToLinear(logScaleValue: Float) -> Float {
         let linearScaleValue = pow(10.0, logScaleValue / 20.0) * 100.0
         return linearScaleValue
@@ -49,6 +55,30 @@ class RecordingController {
         let logScalePower = audioRecorder.peakPower(forChannel: 0)
         let linearScaleValue = convertLogScalePowerToLinear(logScaleValue: logScalePower)
         return linearScaleValue
+    }
+
+    func discardRecording(atPath: URL) -> Bool {
+        let fileManager = FileManager()
+
+        do {
+            try fileManager.removeItem(at: atPath)
+        } catch {
+            return false
+        }
+
+        return true
+    }
+
+    func renameRecording(atPath: URL, toPath: URL) -> Bool {
+        let fileManager = FileManager()
+
+        do {
+            try fileManager.moveItem(at: atPath, to: toPath)
+        } catch {
+            return false
+        }
+
+        return true
     }
 
     func startRecording(recorderDelegate: AVAudioRecorderDelegate) {
