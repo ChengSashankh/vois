@@ -6,12 +6,13 @@ target 'Vois' do
   use_frameworks!
 
   # Pods for Vois
-  pod 'Firebase/Analytics', '~> 6.19.0'
   pod 'Firebase/Auth', '~> 6.19.0'
+  pod 'Firebase/Core', '~> 6.19.0'
 
   target 'VoisTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Firebase'
   end
 
 end
