@@ -255,6 +255,9 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Zw2-JK-9ag"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="uiSlider" destination="uKt-Fn-hbE" id="Psk-2o-7pK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cP-dw-NO4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

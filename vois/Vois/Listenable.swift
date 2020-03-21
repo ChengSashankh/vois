@@ -43,4 +43,18 @@ extension Listenable {
     func backwardEnd() {
         player.currentTime = 0.0
     }
+
+    func playFrom(time: Double) {
+        guard time >= 0 && time <= self.player.duration else {
+            return
+        }
+
+        self.player.pause()
+        self.player.currentTime = time
+        self.player.play()
+    }
+
+    var audioLength: Double {
+        self.player.duration
+    }
 }
