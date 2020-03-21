@@ -38,10 +38,4 @@ class ProfileViewController: UIViewController {
         UIApplication.shared.sendAction(displayAction, to: displayModeBarButton.target, from: nil, for: nil)
         }
     }
-
-    override func viewWillLayoutSubviews() {
-           if splitViewController?.preferredDisplayMode != .primaryOverlay {
-               splitViewController?.preferredDisplayMode = .primaryOverlay
-           }
-       }
 }
