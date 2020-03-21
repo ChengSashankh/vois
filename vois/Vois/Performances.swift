@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Performances {
+class Performances: Codable {
     private var performances: [Performance]
 
     var hasNoPerformances: Bool {

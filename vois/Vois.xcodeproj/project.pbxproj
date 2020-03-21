@@ -31,6 +31,7 @@
 		CA3D27FF24226C8F006509C5 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */; };
 		CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280024234FF5006509C5 /* PerformanceViewController.swift */; };
 		CA3D280324239EFE006509C5 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280224239EFE006509C5 /* SongCell.swift */; };
+		CA3D28052426574D006509C5 /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D28042426574D006509C5 /* PerformanceFilesDirectory.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -74,9 +75,10 @@
 		CA11DE0B241FB2850030598D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CA11DE0D241FC7280030598D /* PerformanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceCell.swift; sourceTree = "<group>"; };
 		CA3D27FC242208B4006509C5 /* DateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
-		CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerCell.swift; path = Vois/DatePickerCell.swift; sourceTree = "<group>"; };
+		CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA3D280024234FF5006509C5 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
 		CA3D280224239EFE006509C5 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		CA3D28042426574D006509C5 /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +165,6 @@
 		CACC0D82241CC25C006D2E68 = {
 			isa = PBXGroup;
 			children = (
-				CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */,
 				CACC0D8D241CC25C006D2E68 /* Vois */,
 				CACC0DA4241CC261006D2E68 /* VoisTests */,
 				CACC0D8C241CC25C006D2E68 /* Products */,
@@ -184,6 +185,7 @@
 		CACC0D8D241CC25C006D2E68 /* Vois */ = {
 			isa = PBXGroup;
 			children = (
+				CA3D28042426574D006509C5 /* PerformanceFilesDirectory.swift */,
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
@@ -225,6 +227,7 @@
 		CACC0DB2241CC33C006D2E68 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */,
 				CA11DE0D241FC7280030598D /* PerformanceCell.swift */,
 				CA118DE22420C69E0098BF29 /* EventNameCell.swift */,
 				CA3D27FC242208B4006509C5 /* DateCell.swift */,
@@ -446,6 +449,7 @@
 				6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */,
 				6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */,
 				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
+				CA3D28052426574D006509C5 /* PerformanceFilesDirectory.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
 				6C7F96CE241D0863009C6E91 /* Song.swift in Sources */,
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
