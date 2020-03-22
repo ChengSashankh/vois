@@ -47,6 +47,7 @@ extension FDWaveformView {
         playbackDelegate.textCommentButtons.append(button)
 
         button.addTarget(self, action: #selector(showComment(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(removeComment(sender:)), for: .touchDragExit)
 
         self.addSubview(button)
 
@@ -66,5 +67,14 @@ extension FDWaveformView {
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         delegate.present(alert, animated: true)
+    }
+
+    @objc private func removeComment(sender: TextCommentButton) {
+        guard let delegate = sender.delegate as? FDPlaybackDelegate else {
+            return
+        }
+
+        sender.removeFromSuperview()
+        delegate.textCommentButtons.removeAll(where: { $0 == sender })
     }
 }

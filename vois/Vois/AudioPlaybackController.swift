@@ -117,15 +117,20 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
             RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
             self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength, textComment: comment, delegate: self)
+            do {
+                try RecordingTable.saveRecordingsToStorage()
+            } catch {
+                //print("RIP")
+            }
         }
         present(controller, animated: true)
     }
 
     private func refreshView() {
-        print(textCommentButtons)
+        //print(textCommentButtons)
         uiWaveformView.removeTextCommentButtons(from: self)
         let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
         textComments.forEach({ self.uiWaveformView.addComment(audioLength: audioPlayer.audioLength, textComment: $0, delegate: self) })
-        print(textCommentButtons)
+        //print(textCommentButtons)
     }
 }
