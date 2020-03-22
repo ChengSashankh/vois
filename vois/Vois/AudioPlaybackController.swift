@@ -103,4 +103,16 @@ class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
         uiWaveformView.highlightedSamples = Range((0...Int(Double(uiWaveformView.totalSamples) * ratio)))
     }
 
+    @IBAction func makeTextComment(_ sender: UIButton) {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TextCommentController") as? TextCommentController else {
+            return
+        }
+
+        controller.addCommentClosure = { text in
+            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
+            RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
+            self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength, textComment: comment, delegate: self)
+        }
+        present(controller, animated: true)
+    }
 }
