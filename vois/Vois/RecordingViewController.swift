@@ -29,14 +29,14 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        recordingController = RecordingController()
-        refreshRecordings()
-
         if let storedRecordingCount: Int = UserDefaults.standard.object(forKey: "recordingCount") as? Int {
             recordingCount = storedRecordingCount
             recordingController = RecordingController(recordingCounter: recordingCount)
+        } else {
+            recordingController = RecordingController()
         }
 
+        refreshRecordings()
         setUpLineChart()
     }
 
