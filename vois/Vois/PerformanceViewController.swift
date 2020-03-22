@@ -42,7 +42,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         guard let songCell = cell as? SongCell else {
             return cell
         }
-        songCell.songNameLabel.text = performance.getSegments()[indexPath.row].name
+        songCell.songNameLabel.text = performance.getSongs()[indexPath.row].name
 
         return songCell
     }

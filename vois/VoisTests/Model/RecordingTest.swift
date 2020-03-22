@@ -50,6 +50,34 @@ class RecordingTest: XCTestCase {
         XCTAssertFalse(recording.hasNoTextComments)
     }
 
+    func testNumOfAudioComments() {
+        XCTAssertEqual(recording.numOfAudioComments, 0)
+        recording.addAudioComment(audioComment: audioCommentOne)
+        XCTAssertEqual(recording.numOfAudioComments, 1)
+        recording.addAudioComment(audioComment: audioCommentTwo)
+        XCTAssertEqual(recording.numOfAudioComments, 2)
+        recording.updateAudioComment(oldAudioComment: audioCommentOne, newAudioComment: audioCommentTwo)
+        XCTAssertEqual(recording.numOfAudioComments, 2)
+        recording.removeAudioComment(audioComment: audioCommentTwo)
+        XCTAssertEqual(recording.numOfAudioComments, 1)
+        recording.removeAllAudioComments()
+        XCTAssertEqual(recording.numOfAudioComments, 0)
+    }
+
+    func testNumOfTextComments() {
+        XCTAssertEqual(recording.numOfTextComments, 0)
+        recording.addTextComment(textComment: textCommentOne)
+        XCTAssertEqual(recording.numOfTextComments, 1)
+        recording.addTextComment(textComment: textCommentTwo)
+        XCTAssertEqual(recording.numOfTextComments, 2)
+        recording.updateTextComment(oldTextComment: textCommentOne, newTextComment: textCommentTwo)
+        XCTAssertEqual(recording.numOfTextComments, 2)
+        recording.removeTextComment(textComment: textCommentTwo)
+        XCTAssertEqual(recording.numOfTextComments, 1)
+        recording.removeAllTextComments()
+        XCTAssertEqual(recording.numOfTextComments, 0)
+    }
+
     func testAddAudioComments() {
         recording.addAudioComment(audioComment: audioCommentOne)
         XCTAssertTrue(recording.getAudioComments().elementsEqual([audioCommentOne]))
@@ -59,7 +87,7 @@ class RecordingTest: XCTestCase {
         XCTAssertTrue(recording.getAudioComments().elementsEqual([audioCommentOne, audioCommentTwo, audioCommentOne]))
     }
 
-    func testDeleteAudioComments() {
+    func testRemoveAudioComments() {
         recording.addAudioComment(audioComment: audioCommentOne)
         recording.addAudioComment(audioComment: audioCommentTwo)
         recording.addAudioComment(audioComment: audioCommentOne)
@@ -72,6 +100,15 @@ class RecordingTest: XCTestCase {
         XCTAssertTrue(recording.getAudioComments().isEmpty)
     }
 
+    func testUpdateAudioComments() {
+        recording.addAudioComment(audioComment: audioCommentOne)
+        XCTAssertTrue(recording.getAudioComments().elementsEqual([audioCommentOne]))
+        recording.addAudioComment(audioComment: audioCommentTwo)
+        XCTAssertTrue(recording.getAudioComments().elementsEqual([audioCommentOne, audioCommentTwo]))
+        recording.updateAudioComment(oldAudioComment: audioCommentOne, newAudioComment: audioCommentTwo)
+        XCTAssertTrue(recording.getAudioComments().elementsEqual([audioCommentTwo, audioCommentTwo]))
+    }
+
     func testAddTextComments() {
         recording.addTextComment(textComment: textCommentOne)
         XCTAssertTrue(recording.getTextComments().elementsEqual([textCommentOne]))
@@ -81,7 +118,7 @@ class RecordingTest: XCTestCase {
         XCTAssertTrue(recording.getTextComments().elementsEqual([textCommentOne, textCommentTwo, textCommentOne]))
     }
 
-    func testDeleteTextComments() {
+    func testRemoveTextComments() {
         recording.addTextComment(textComment: textCommentOne)
         recording.addTextComment(textComment: textCommentTwo)
         recording.addTextComment(textComment: textCommentOne)
@@ -94,22 +131,51 @@ class RecordingTest: XCTestCase {
         XCTAssertTrue(recording.getTextComments().isEmpty)
     }
 
-    func testRemoveAllComments() {
-        XCTAssertTrue(recording.hasNoComments)
+    func testUpdateTextComments() {
+        recording.addTextComment(textComment: textCommentOne)
+        XCTAssertTrue(recording.getTextComments().elementsEqual([textCommentOne]))
+        recording.addTextComment(textComment: textCommentTwo)
+        XCTAssertTrue(recording.getTextComments().elementsEqual([textCommentOne, textCommentTwo]))
+        recording.updateTextComment(oldTextComment: textCommentOne, newTextComment: textCommentTwo)
+        XCTAssertTrue(recording.getTextComments().elementsEqual([textCommentTwo, textCommentTwo]))
+    }
+
+    func testRemoveAllAudioComments() {
+        XCTAssertTrue(recording.hasNoAudioComments)
+        XCTAssertTrue(recording.hasNoTextComments)
 
         recording.addAudioComment(audioComment: audioCommentOne)
+        recording.addAudioComment(audioComment: audioCommentTwo)
         XCTAssertFalse(recording.hasNoAudioComments)
         XCTAssertTrue(recording.hasNoTextComments)
 
-        recording.addTextComment(textComment: textCommentOne)
-        XCTAssertFalse(recording.hasNoAudioComments)
-        XCTAssertFalse(recording.hasNoTextComments)
-
         recording.removeAllAudioComments()
+        XCTAssertTrue(recording.hasNoAudioComments)
+        XCTAssertTrue(recording.hasNoTextComments)
+    }
+
+    func testRemoveAllTextComments() {
+        XCTAssertTrue(recording.hasNoAudioComments)
+        XCTAssertTrue(recording.hasNoTextComments)
+
+        recording.addTextComment(textComment: textCommentOne)
+        recording.addTextComment(textComment: textCommentTwo)
         XCTAssertTrue(recording.hasNoAudioComments)
         XCTAssertFalse(recording.hasNoTextComments)
 
         recording.removeAllTextComments()
+        XCTAssertTrue(recording.hasNoAudioComments)
+        XCTAssertTrue(recording.hasNoTextComments)
+    }
+
+    func testRemoveAllComments() {
+        XCTAssertTrue(recording.hasNoComments)
+
+        recording.addAudioComment(audioComment: audioCommentOne)
+        recording.addTextComment(textComment: textCommentOne)
+
+        XCTAssertFalse(recording.hasNoComments)
+        recording.removeAllComments()
         XCTAssertTrue(recording.hasNoComments)
     }
 }
