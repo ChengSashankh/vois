@@ -24,4 +24,8 @@ extension RecordingList {
             self.currentIndex += self.recordings.count
         }
     }
+
+    func audioName() -> String {
+        self.recordings[currentIndex].lastPathComponent
+    }
 }
