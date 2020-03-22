@@ -34,8 +34,8 @@ class Performances {
         self.performances[index] = newPerformance
     }
 
-    func removePerformance(segment: Performance) {
-        guard let index = self.performances.firstIndex(of: segment) else {
+    func removePerformance(performance: Performance) {
+        guard let index = self.performances.firstIndex(of: performance) else {
             return
         }
         self.performances.remove(at: index)

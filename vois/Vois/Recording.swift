@@ -3,7 +3,7 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
@@ -95,6 +95,11 @@ class Recording: Equatable {
 
     func removeAllTextComments() {
         self.textComments = []
+    }
+    
+    func removeAllComments() {
+        removeAllAudioComments()
+        removeAllTextComments()
     }
 
     static func == (lhs: Recording, rhs: Recording) -> Bool {
