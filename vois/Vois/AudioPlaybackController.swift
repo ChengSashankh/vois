@@ -8,9 +8,9 @@
 
 import Foundation
 import UIKit
-import Charts
+import FDWaveformView
 
-class AudioPlaybackController: UIViewController {
+class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
 
     var fileURL: URL!
     var audioPlayer: AudioPlayer!
@@ -18,6 +18,8 @@ class AudioPlaybackController: UIViewController {
     @IBOutlet private var uiSlider: UISlider!
     @IBOutlet private var uiSongLabel: UILabel!
     @IBOutlet private var playPauseButton: UIButton!
+
+    @IBOutlet private var uiWaveformView: FDWaveformView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,10 @@ class AudioPlaybackController: UIViewController {
 
         displayLink = CADisplayLink(target: self, selector: #selector(step))
         displayLink.add(to: .current, forMode: .default)
+
+        uiWaveformView.audioURL = audioPlayer.getAudioURL()
+        uiWaveformView.progressColor = .cyan
+        uiWaveformView.wavesColor = .blue
     }
 
     func setAudioURL(url: URL, recordingList: [URL]) {
@@ -78,6 +84,7 @@ class AudioPlaybackController: UIViewController {
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSongLabel.text = audioPlayer.audioName()
         refreshButtonImage()
+        uiWaveformView.audioURL = audioPlayer.getAudioURL()
     }
 
     func resumeLoop() {
@@ -92,6 +99,8 @@ class AudioPlaybackController: UIViewController {
             uiSlider.setValue(Float(audioPlayer.currentTime), animated: false)
         }
         refreshButtonImage()
+        let ratio = audioPlayer.currentTime / audioPlayer.audioLength
+        uiWaveformView.highlightedSamples = Range((0...Int(Double(uiWaveformView.totalSamples) * ratio)))
     }
 
 }

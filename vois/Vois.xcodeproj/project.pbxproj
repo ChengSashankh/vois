@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,7 @@
 		C8D2018024265E5800409CF4 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2017F24265E5800409CF4 /* AudioPlayer.swift */; };
 		C8D2018224265ED600409CF4 /* Listenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2018124265ED600409CF4 /* Listenable.swift */; };
 		C8D20184242672AD00409CF4 /* RecordingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D20183242672AD00409CF4 /* RecordingList.swift */; };
+		C8D2018724274D2F00409CF4 /* FDWaveformView in Frameworks */ = {isa = PBXBuildFile; productRef = C8D2018624274D2F00409CF4 /* FDWaveformView */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -97,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D2018724274D2F00409CF4 /* FDWaveformView in Frameworks */,
 				75A23B790104A5024F3BF7B3 /* Pods_Vois.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +266,9 @@
 			dependencies = (
 			);
 			name = Vois;
+			packageProductDependencies = (
+				C8D2018624274D2F00409CF4 /* FDWaveformView */,
+			);
 			productName = vois;
 			productReference = CACC0D8B241CC25C006D2E68 /* Vois.app */;
 			productType = "com.apple.product-type.application";
@@ -315,6 +320,9 @@
 				Base,
 			);
 			mainGroup = CACC0D82241CC25C006D2E68;
+			packageReferences = (
+				C8D2018524274D2F00409CF4 /* XCRemoteSwiftPackageReference "FDWaveformView" */,
+			);
 			productRefGroup = CACC0D8C241CC25C006D2E68 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -722,6 +730,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C8D2018524274D2F00409CF4 /* XCRemoteSwiftPackageReference "FDWaveformView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fulldecent/FDWaveformView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C8D2018624274D2F00409CF4 /* FDWaveformView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8D2018524274D2F00409CF4 /* XCRemoteSwiftPackageReference "FDWaveformView" */;
+			productName = FDWaveformView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CACC0D83241CC25C006D2E68 /* Project object */;
 }

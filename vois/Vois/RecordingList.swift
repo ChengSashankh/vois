@@ -28,4 +28,8 @@ extension RecordingList {
     func audioName() -> String {
         self.recordings[currentIndex].lastPathComponent
     }
+
+    func getAudioURL() -> URL {
+        self.recordings[currentIndex]
+    }
 }

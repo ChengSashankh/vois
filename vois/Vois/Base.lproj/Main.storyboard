@@ -247,15 +247,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuD-cI-zCT" customClass="FDWaveformView" customModule="FDWaveformView">
+                                <rect key="frame" x="87" y="178" width="240" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-OF-gyP" userLabel="Comment Stack">
+                                <rect key="frame" x="177" y="495" width="60.5" height="24"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNh-dD-8W0">
+                                        <rect key="frame" x="0.0" y="0.0" width="27.5" height="24"/>
+                                        <state key="normal" image="text.bubble.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fTe-cH-Rzb">
+                                        <rect key="frame" x="35.5" y="0.0" width="25" height="24"/>
+                                        <state key="normal" image="mic.circle.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="uKt-Fn-hbE" firstAttribute="top" secondItem="GuD-cI-zCT" secondAttribute="bottom" constant="72" id="4Ec-hz-fZz"/>
                             <constraint firstItem="uKt-Fn-hbE" firstAttribute="leading" secondItem="cRZ-xX-oKY" secondAttribute="leading" constant="92" id="EVu-4b-qyb"/>
+                            <constraint firstItem="GuD-cI-zCT" firstAttribute="leading" secondItem="cRZ-xX-oKY" secondAttribute="leading" constant="87" id="Frf-tN-cBY"/>
                             <constraint firstItem="fOO-mA-dvw" firstAttribute="top" secondItem="cRZ-xX-oKY" secondAttribute="top" constant="43" id="Gge-xc-0bb"/>
                             <constraint firstItem="fOO-mA-dvw" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="ORk-Ju-z64"/>
+                            <constraint firstItem="GuD-cI-zCT" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="T7Y-ZK-DGI"/>
                             <constraint firstItem="uKt-Fn-hbE" firstAttribute="centerX" secondItem="tCn-oq-K48" secondAttribute="centerX" id="UK7-GR-Rps"/>
+                            <constraint firstItem="tPE-OF-gyP" firstAttribute="top" secondItem="tCn-oq-K48" secondAttribute="bottom" constant="35" id="W6J-3g-g0A"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="Xgd-S5-MRQ"/>
+                            <constraint firstItem="tPE-OF-gyP" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="YyW-Py-nqS"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerY" secondItem="yy9-eX-J6c" secondAttribute="centerY" id="f6n-sC-eSv"/>
+                            <constraint firstItem="GuD-cI-zCT" firstAttribute="top" secondItem="fOO-mA-dvw" secondAttribute="bottom" constant="70.5" id="hZn-dP-Kch"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="top" secondItem="uKt-Fn-hbE" secondAttribute="bottom" constant="28" id="i7c-Hk-3ks"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cRZ-xX-oKY"/>
@@ -267,6 +294,7 @@
                         <outlet property="playPauseButton" destination="JVN-QB-myH" id="D2S-c2-bKx"/>
                         <outlet property="uiSlider" destination="uKt-Fn-hbE" id="Psk-2o-7pK"/>
                         <outlet property="uiSongLabel" destination="fOO-mA-dvw" id="zE9-5x-Gsw"/>
+                        <outlet property="uiWaveformView" destination="GuD-cI-zCT" id="7e0-jW-5Fp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cP-dw-NO4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -351,6 +379,8 @@
         <image name="Record Button" width="170" height="169"/>
         <image name="backward.end.fill" catalog="system" width="64" height="50"/>
         <image name="forward.end.fill" catalog="system" width="64" height="50"/>
+        <image name="mic.circle.fill" catalog="system" width="64" height="60"/>
         <image name="play.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="text.bubble.fill" catalog="system" width="64" height="54"/>
     </resources>
 </document>
