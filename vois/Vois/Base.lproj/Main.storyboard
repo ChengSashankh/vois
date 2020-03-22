@@ -11,7 +11,12 @@
         <scene sceneID="K1b-Ov-Baf">
             <objects>
                 <navigationController id="pOI-tf-jCJ" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="sum-xf-EIb"/>
+                    <navigationItem key="navigationItem" id="sum-xf-EIb">
+                        <leftBarButtonItems>
+                            <barButtonItem title="Item" id="yqz-75-sYA"/>
+                            <barButtonItem title="Item" id="Nup-dC-Xnu"/>
+                        </leftBarButtonItems>
+                    </navigationItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mFU-xX-Kw6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -70,7 +75,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="laD-AW-tVV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0H0-NT-sEb"/>
+                    <navigationItem key="navigationItem" id="0H0-NT-sEb">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="mHu-yr-wdm">
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="Mc4-4v-xfX" kind="show" identifier="alreadyLoggedIn" id="9S7-3Y-Uhj"/>
                     </connections>
@@ -426,6 +435,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="KCA-4i-PUx" kind="show" identifier="closeProfile" id="8b5-fT-SuE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0rG-TC-mAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -950,7 +962,7 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8QV-dk-K3z"/>
-        <segue reference="u0z-lu-C3e"/>
+        <segue reference="8b5-fT-SuE"/>
+        <segue reference="9S7-3Y-Uhj"/>
     </inferredMetricsTieBreakers>
 </document>
