@@ -116,7 +116,9 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     }
 
     func startRecording() {
-        recordingController.startRecording(recorderDelegate: self)
+        if !recordingController.startRecording(recorderDelegate: self) {
+            displayErrorAlert(title: "Oops", message: "Could not start recording")
+        }
         setUpRecordingTimers()
     }
 

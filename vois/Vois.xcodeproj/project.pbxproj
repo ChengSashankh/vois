@@ -11,6 +11,7 @@
 		24B6CFAD241E408800FDAFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */; };
 		24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36133241DFB8C0047EC46 /* RecordingViewController.swift */; };
 		24C36136241DFC070047EC46 /* RecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36135241DFC070047EC46 /* RecordingController.swift */; };
+		24DB020C242756F300AA15AC /* RecordingControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB020B242756F300AA15AC /* RecordingControllerTests.swift */; };
 		24F6794A241E31570075F344 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F67949241E31570075F344 /* PlaybackController.swift */; };
 		6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CB241D0854009C6E91 /* Performance.swift */; };
 		6C7F96CE241D0863009C6E91 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CD241D0863009C6E91 /* Song.swift */; };
@@ -50,6 +51,7 @@
 		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24C36133241DFB8C0047EC46 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		24C36135241DFC070047EC46 /* RecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingController.swift; sourceTree = "<group>"; };
+		24DB020B242756F300AA15AC /* RecordingControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingControllerTests.swift; sourceTree = "<group>"; };
 		24F67949241E31570075F344 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		6C7F96CB241D0854009C6E91 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		6C7F96CD241D0863009C6E91 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -100,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24DB020D242756FB00AA15AC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24DB020B242756F300AA15AC /* RecordingControllerTests.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		4302983B61D11DE06975B58F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +201,7 @@
 		CACC0DA4241CC261006D2E68 /* VoisTests */ = {
 			isa = PBXGroup;
 			children = (
+				24DB020D242756FB00AA15AC /* Controller */,
 				6C7F96E5241E245F009C6E91 /* Model */,
 				CACC0DA5241CC261006D2E68 /* VoisTests.swift */,
 				CACC0DA7241CC261006D2E68 /* Info.plist */,
@@ -288,7 +299,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */;
+			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -437,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7F96DD241D3BCD009C6E91 /* AudioCommentTest.swift in Sources */,
+				24DB020C242756F300AA15AC /* RecordingControllerTests.swift in Sources */,
 				CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */,
 				6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */,
 				6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */,
@@ -670,7 +682,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */ = {
+		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CACC0DA8241CC261006D2E68 /* Debug */,
