@@ -11,10 +11,6 @@ import Foundation
 protocol Comment {
     var timeStamp: Double { get set }
     var author: String { get set }
-    //mutating func setTimeStamp(newTimeStamp: Double)
-    //func getTimeStamp() -> Double
-    //mutating func setAuthor(newAuthor: String)
-    //func getAuthor() -> String
 }
 
 enum CommentType: String {
