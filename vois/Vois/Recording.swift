@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Recording: Equatable {
+class Recording: Equatable, Codable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
     private var filePath: URL
@@ -106,5 +106,21 @@ class Recording: Equatable {
         return lhs.filePath == rhs.filePath
             && lhs.audioComments == rhs.audioComments
             && lhs.textComments == rhs.textComments
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case filePath
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        filePath = try values.decode(URL.self, forKey: .filePath)
+        audioComments = []
+        textComments = []
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(filePath, forKey: .filePath)
     }
 }

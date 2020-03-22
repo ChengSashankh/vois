@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SongSegment: Equatable {
+class SongSegment: Equatable, Codable {
     private var recordings: [Recording]
     var name: String
 

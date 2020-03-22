@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Performances {
+class Performances: Codable {
     private var performances: [Performance]
 
     var hasNoPerformances: Bool {
@@ -21,6 +21,10 @@ class Performances {
 
     init () {
         self.performances = []
+    }
+
+    init (_ performances: [Performance]) {
+        self.performances = performances
     }
 
     func addPerformance(performance: Performance) {
@@ -43,6 +47,10 @@ class Performances {
 
     func getPerformances() -> [Performance] {
         return self.performances
+    }
+
+    func getPerformances(at index: Int) -> Performance {
+        return self.performances[index]
     }
 
     func removeAllPerformances() {

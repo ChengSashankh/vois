@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Performance: Equatable {
+class Performance: Equatable, Codable {
     private var songs: [Song]
     var name: String
     var date: Date?
@@ -63,4 +63,36 @@ class Performance: Equatable {
             && lhs.songs == rhs.songs
             && lhs.date == rhs.date
     }
+
+    enum CodingKeys: String, CodingKey {
+        case songs
+        case name
+        case date
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        songs = try values.decode([Song].self, forKey: .songs)
+        name = try values.decode(String.self, forKey: .name)
+        date = try? values.decode(Date.self, forKey: .date)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(songs, forKey: .songs)
+        try container.encode(name, forKey: .name)
+        try? container.encode(date, forKey: .date)
+    }
+
+    func encodeToJson() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+
+    convenience init?(json: Data) {
+        guard let newValue = try? JSONDecoder().decode(Performance.self, from: json) else {
+            return nil
+        }
+        self.init(name: newValue.name, date: newValue.date)
+        self.songs = newValue.songs
+       }
 }
