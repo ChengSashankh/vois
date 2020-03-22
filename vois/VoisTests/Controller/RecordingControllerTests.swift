@@ -82,7 +82,7 @@ class RecordingControllerTests: XCTestCase, AVAudioRecorderDelegate {
     }
 
     func testStartRecording() {
-        recordingController.startRecording(recorderDelegate: self)
+        XCTAssertTrue(recordingController.startRecording(recorderDelegate: self))
         XCTAssertTrue(recordingController.recordingInProgress)
         XCTAssertTrue(recordingController.audioRecorder.isMeteringEnabled)
     }
@@ -90,6 +90,13 @@ class RecordingControllerTests: XCTestCase, AVAudioRecorderDelegate {
     func testStopRecording() {
         recordingController.stopRecording()
         XCTAssertFalse(recordingController.recordingInProgress)
+    }
+
+    func testRecordingCounterPersistence() {
+        XCTAssertEqual(recordingController.recordingCounter, 0)
+        XCTAssertTrue(recordingController.startRecording(recorderDelegate: self))
+        recordingController.stopRecording()
+        XCTAssertEqual(recordingController.recordingCounter, 1)
     }
 
 }
