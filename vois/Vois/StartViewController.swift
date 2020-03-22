@@ -16,4 +16,9 @@ class StartViewController: UIViewController {
             self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        splitViewController?.presentsWithGesture = false
+    }
 }

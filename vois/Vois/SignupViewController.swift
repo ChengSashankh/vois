@@ -29,18 +29,18 @@ class SignupViewController: UIViewController {
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         } else {
-//            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (_, error) in
-                //if error == nil {
+            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (_, error) in
+                if error == nil {
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
-                /*} else {
+                } else {
                     let alertController = UIAlertController(title: "Errpr",
                                                             message: error?.localizedDescription,
                                                             preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     self.present(alertController, animated: true, completion: nil)
-                }*/
-            //}
+                }
+            }
         }
     }
 }
