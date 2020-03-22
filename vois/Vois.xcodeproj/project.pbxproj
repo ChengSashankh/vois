@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451F3F4241E717900884AEE /* SaveViewController.swift */; };
+		24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36133241DFB8C0047EC46 /* RecordingViewController.swift */; };
+		24C36136241DFC070047EC46 /* RecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36135241DFC070047EC46 /* RecordingController.swift */; };
+		24F6794A241E31570075F344 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F67949241E31570075F344 /* PlaybackController.swift */; };
 		6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E026241E8C6000E60EAB /* LoginViewController.swift */; };
 		6C52E029241E943400E60EAB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E028241E943400E60EAB /* StartViewController.swift */; };
 		6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E02C241E94D600E60EAB /* HomeViewController.swift */; };
 		6C52E0362424FDA900E60EAB /* RecordingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E0352424FDA900E60EAB /* RecordingTest.swift */; };
-		2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451F3F4241E717900884AEE /* SaveViewController.swift */; };
-		24B6CFAD241E408800FDAFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */; };
-		24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36133241DFB8C0047EC46 /* RecordingViewController.swift */; };
-		24C36136241DFC070047EC46 /* RecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C36135241DFC070047EC46 /* RecordingController.swift */; };
-		24F6794A241E31570075F344 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F67949241E31570075F344 /* PlaybackController.swift */; };
 		6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CB241D0854009C6E91 /* Performance.swift */; };
 		6C7F96CE241D0863009C6E91 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CD241D0863009C6E91 /* Song.swift */; };
 		6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CF241D0870009C6E91 /* Recording.swift */; };
@@ -41,7 +40,6 @@
 		CA3D27FF24226C8F006509C5 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */; };
 		CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280024234FF5006509C5 /* PerformanceViewController.swift */; };
 		CA3D280324239EFE006509C5 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280224239EFE006509C5 /* SongCell.swift */; };
-		CA3D280724266C80006509C5 /* PerformanceFileDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280624266C80006509C5 /* PerformanceFileDirectory.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -49,6 +47,7 @@
 		CACC0D98241CC260006D2E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D97241CC260006D2E68 /* Assets.xcassets */; };
 		CACC0D9B241CC260006D2E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */; };
 		CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0DA5241CC261006D2E68 /* VoisTests.swift */; };
+		CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,15 +62,15 @@
 
 /* Begin PBXFileReference section */
 		17C4088B9F5379D923C46281 /* Pods_Vois.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vois.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C52E026241E8C6000E60EAB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		6C52E028241E943400E60EAB /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		6C52E02C241E94D600E60EAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		6C52E0352424FDA900E60EAB /* RecordingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTest.swift; sourceTree = "<group>"; };
 		2451F3F4241E717900884AEE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24C36133241DFB8C0047EC46 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		24C36135241DFC070047EC46 /* RecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingController.swift; sourceTree = "<group>"; };
 		24F67949241E31570075F344 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
+		6C52E026241E8C6000E60EAB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6C52E028241E943400E60EAB /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		6C52E02C241E94D600E60EAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		6C52E0352424FDA900E60EAB /* RecordingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTest.swift; sourceTree = "<group>"; };
 		6C7F96CB241D0854009C6E91 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		6C7F96CD241D0863009C6E91 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		6C7F96CF241D0870009C6E91 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
@@ -98,7 +97,6 @@
 		CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA3D280024234FF5006509C5 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
 		CA3D280224239EFE006509C5 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
-		CA3D280624266C80006509C5 /* PerformanceFileDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PerformanceFileDirectory.swift; path = "/Users/jiangyuxin/Documents/sem2/cs3217/2020-fp-vois/vois/Vois/PerformanceFileDirectory.swift"; sourceTree = "<absolute>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +108,7 @@
 		CACC0DA1241CC261006D2E68 /* VoisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0DA5241CC261006D2E68 /* VoisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoisTests.swift; sourceTree = "<group>"; };
 		CACC0DA7241CC261006D2E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CCF44D3BB05C1FE5DC9DF5CD /* Pods_VoisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25CFFED92AD158707F422E3 /* Pods-Vois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vois.debug.xcconfig"; path = "Target Support Files/Pods-Vois/Pods-Vois.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */,
-				CA3D280624266C80006509C5 /* PerformanceFileDirectory.swift */,
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
@@ -246,6 +244,7 @@
 				6C7F96EB241E5F46009C6E91 /* GoogleService-Info.plist */,
 				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
 				2451F3F4241E717900884AEE /* SaveViewController.swift */,
+				CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -526,7 +525,6 @@
 				CA3D280324239EFE006509C5 /* SongCell.swift in Sources */,
 				6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */,
 				24F6794A241E31570075F344 /* PlaybackController.swift in Sources */,
-				CA3D280724266C80006509C5 /* PerformanceFileDirectory.swift in Sources */,
 				6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */,
 				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
@@ -534,6 +532,7 @@
 				6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */,
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
 				CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */,
+				CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,
 				CA11DE0A241F74820030598D /* PerformancesViewController.swift in Sources */,
 				CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */,
