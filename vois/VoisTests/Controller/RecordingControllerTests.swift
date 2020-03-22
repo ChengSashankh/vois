@@ -92,7 +92,7 @@ class RecordingControllerTests: XCTestCase, AVAudioRecorderDelegate {
         XCTAssertFalse(recordingController.recordingInProgress)
     }
 
-    func testRecordingCounterPersistence() {
+    func testRecordingCounterIncrement() {
         XCTAssertEqual(recordingController.recordingCounter, 0)
         XCTAssertTrue(recordingController.startRecording(recorderDelegate: self))
         recordingController.stopRecording()
