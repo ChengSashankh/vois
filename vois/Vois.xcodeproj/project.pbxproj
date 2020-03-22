@@ -11,6 +11,10 @@
 		6C52E029241E943400E60EAB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E028241E943400E60EAB /* StartViewController.swift */; };
 		6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E02C241E94D600E60EAB /* HomeViewController.swift */; };
 		6C52E0362424FDA900E60EAB /* RecordingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E0352424FDA900E60EAB /* RecordingTest.swift */; };
+		6C52E03C24275B5D00E60EAB /* SongSegmentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E03B24275B5D00E60EAB /* SongSegmentTest.swift */; };
+		6C52E03E24275B7500E60EAB /* SongTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E03D24275B7500E60EAB /* SongTest.swift */; };
+		6C52E04024275B9A00E60EAB /* PerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E03F24275B9A00E60EAB /* PerformanceTest.swift */; };
+		6C52E04224275BB400E60EAB /* PerformancesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E04124275BB400E60EAB /* PerformancesTest.swift */; };
 		6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CB241D0854009C6E91 /* Performance.swift */; };
 		6C7F96CE241D0863009C6E91 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CD241D0863009C6E91 /* Song.swift */; };
 		6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96CF241D0870009C6E91 /* Recording.swift */; };
@@ -51,6 +55,10 @@
 		6C52E028241E943400E60EAB /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6C52E02C241E94D600E60EAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6C52E0352424FDA900E60EAB /* RecordingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTest.swift; sourceTree = "<group>"; };
+		6C52E03B24275B5D00E60EAB /* SongSegmentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSegmentTest.swift; sourceTree = "<group>"; };
+		6C52E03D24275B7500E60EAB /* SongTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTest.swift; sourceTree = "<group>"; };
+		6C52E03F24275B9A00E60EAB /* PerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTest.swift; sourceTree = "<group>"; };
+		6C52E04124275BB400E60EAB /* PerformancesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformancesTest.swift; sourceTree = "<group>"; };
 		6C7F96CB241D0854009C6E91 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		6C7F96CD241D0863009C6E91 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		6C7F96CF241D0870009C6E91 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
@@ -144,6 +152,10 @@
 			children = (
 				6C7F96E6241E2466009C6E91 /* Comment */,
 				6C52E0352424FDA900E60EAB /* RecordingTest.swift */,
+				6C52E03B24275B5D00E60EAB /* SongSegmentTest.swift */,
+				6C52E03D24275B7500E60EAB /* SongTest.swift */,
+				6C52E03F24275B9A00E60EAB /* PerformanceTest.swift */,
+				6C52E04124275BB400E60EAB /* PerformancesTest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -481,11 +493,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C52E03C24275B5D00E60EAB /* SongSegmentTest.swift in Sources */,
 				6C52E0362424FDA900E60EAB /* RecordingTest.swift in Sources */,
+				6C52E04024275B9A00E60EAB /* PerformanceTest.swift in Sources */,
+				6C52E03E24275B7500E60EAB /* SongTest.swift in Sources */,
 				6C7F96DD241D3BCD009C6E91 /* AudioCommentTest.swift in Sources */,
 				CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */,
 				6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */,
 				6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */,
+				6C52E04224275BB400E60EAB /* PerformancesTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

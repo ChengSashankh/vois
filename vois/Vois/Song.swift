@@ -3,7 +3,7 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation

@@ -3,7 +3,7 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
@@ -26,6 +26,11 @@ class Performance: Equatable {
         self.songs = []
         self.date = date
     }
+    
+    init (name: String) {
+        self.name = name
+        self.songs = []
+    }
 
     func addSong(song: Song) {
         self.songs.append(song)
@@ -38,14 +43,14 @@ class Performance: Equatable {
         self.songs[index] = newSong
     }
 
-    func removeSegment(segment: Song) {
-        guard let index = self.songs.firstIndex(of: segment) else {
+    func removeSong(song: Song) {
+        guard let index = self.songs.firstIndex(of: song) else {
             return
         }
         self.songs.remove(at: index)
     }
 
-    func getSegments() -> [Song] {
+    func getSongs() -> [Song] {
         return self.songs
     }
 
