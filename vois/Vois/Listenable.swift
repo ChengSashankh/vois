@@ -57,4 +57,8 @@ extension Listenable {
     var audioLength: Double {
         self.player.duration
     }
+
+    var isPlaying: Bool {
+        self.player.isPlaying
+    }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Charts
 
 class AudioPlaybackController: UIViewController {
 
@@ -15,8 +16,9 @@ class AudioPlaybackController: UIViewController {
     var audioPlayer: AudioPlayer!
     private var displayLink: CADisplayLink!
     @IBOutlet private var uiSlider: UISlider!
+    @IBOutlet private var uiSongLabel: UILabel!
+    @IBOutlet private var playPauseButton: UIButton!
 
-    @IBOutlet var uiSongLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         uiSlider.minimumValue = 0.0
@@ -41,8 +43,13 @@ class AudioPlaybackController: UIViewController {
     }
 
     @IBAction private func play(_ sender: UIButton) {
-        resumeLoop()
-        audioPlayer.playFrom(time: Double(uiSlider!.value))
+        if audioPlayer.isPlaying {
+            audioPlayer.pause()
+        } else {
+            resumeLoop()
+            audioPlayer.playFrom(time: Double(uiSlider!.value))
+        }
+        refreshButtonImage()
     }
 
     func pause() {
@@ -58,10 +65,19 @@ class AudioPlaybackController: UIViewController {
         refresh()
     }
 
+    private func refreshButtonImage() {
+        if audioPlayer.isPlaying {
+            playPauseButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+        } else {
+            playPauseButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+        }
+    }
+
     private func refresh() {
         audioPlayer.updatePlayer()
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSongLabel.text = audioPlayer.audioName()
+        refreshButtonImage()
     }
 
     func resumeLoop() {
@@ -75,6 +91,7 @@ class AudioPlaybackController: UIViewController {
         } else {
             uiSlider.setValue(Float(audioPlayer.currentTime), animated: false)
         }
+        refreshButtonImage()
     }
-    
+
 }

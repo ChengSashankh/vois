@@ -264,6 +264,7 @@
                     <navigationItem key="navigationItem" id="Zw2-JK-9ag"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="playPauseButton" destination="JVN-QB-myH" id="D2S-c2-bKx"/>
                         <outlet property="uiSlider" destination="uKt-Fn-hbE" id="Psk-2o-7pK"/>
                         <outlet property="uiSongLabel" destination="fOO-mA-dvw" id="zE9-5x-Gsw"/>
                     </connections>
