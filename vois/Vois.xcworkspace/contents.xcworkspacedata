@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/jiangyuxin/Documents/sem2/cs3217/2020-fp-vois/vois/Vois/PerformanceFileDirectory.swift">
+   </FileRef>
+   <FileRef
       location = "group:Vois.xcodeproj">
    </FileRef>
    <FileRef

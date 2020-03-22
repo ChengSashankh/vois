@@ -23,6 +23,10 @@ class Performances: Codable {
         self.performances = []
     }
 
+    init (_ performances: [Performance]) {
+        self.performances = performances
+    }
+
     func addPerformance(performance: Performance) {
         self.performances.append(performance)
     }

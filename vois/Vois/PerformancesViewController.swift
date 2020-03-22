@@ -25,9 +25,13 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         searchBar.layer.borderColor = UIColor.white.cgColor
     }
 
+    var performances: Performances!
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
+        performances = PerformanceFilesDirectory.allPerformances
+        performancesView.reloadData()
     }
 
     @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
@@ -42,8 +46,6 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         UIApplication.shared.sendAction(displayAction, to: displayModeBarButton.target, from: nil, for: nil)
         }
     }
-
-    private var performances: Performances = Performances()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return performances.numOfPerformances
@@ -60,8 +62,23 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
         if let performanceDate = performance.date {
             performanceCell.dateTime?.text = performanceDate.toString
+        } else {
+            performanceCell.dateTime?.text = ""
         }
         return performanceCell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowPerformance", sender: indexPath.row)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let performanceVC = segue.destination as? PerformanceViewController,
+            let index = sender as? Int else {
+            return
+        }
+
+        performanceVC.performance = performances.getPerformances(at: index)
     }
 }
 
@@ -70,5 +87,16 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
         return dateFormatter.string(from: self)
+    }
+}
+
+extension PerformanceFilesDirectory {
+    static var allPerformances: Performances {
+        Performances( PerformanceFilesDirectory.fileNames.compactMap { fileName in
+            guard let data = PerformanceFilesDirectory.loadFile(name: fileName) else {
+                return nil
+            }
+            return Performance(json: data)
+        })
     }
 }

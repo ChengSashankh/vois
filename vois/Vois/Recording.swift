@@ -110,6 +110,8 @@ class Recording: Equatable, Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         filePath = try values.decode(URL.self, forKey: .filePath)
+        audioComments = []
+        textComments = []
     }
 
     func encode(to encoder: Encoder) throws {

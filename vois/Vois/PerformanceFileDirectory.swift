@@ -1,14 +1,13 @@
 //
-//  PerformanceFilesDirectory.swift
-//  Vois
+//  PerformanceFileDirectory.swift
+//  
 //
 //  Created by Jiang Yuxin on 21/3/20.
-//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
 
-class LevelFilesDirectory {
+class PerformanceFilesDirectory {
     private static let fileManager = FileManager.default
 
     private static var levelFilesDirectoryURL: URL { fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -73,10 +72,10 @@ class LevelFilesDirectory {
     /// or the file name is empty. Otherwise, an Error occurring during writing to the disk.
     static func saveNewFile(name: String, with data: Data) throws {
         guard !name.isEmpty else {
-            throw LevelFilesDirectoryError.emptyFileName
+            throw PerformanceFilesDirectoryError.emptyFileName
         }
         guard !containsFile(name: name) else {
-            throw LevelFilesDirectoryError.fileExists
+            throw PerformanceFilesDirectoryError.fileExists
         }
 
         guard let fileUrl = try? FileManager.default.url(
@@ -104,7 +103,7 @@ class LevelFilesDirectory {
     }
 }
 
-enum LevelFilesDirectoryError: Error {
+enum PerformanceFilesDirectoryError: Error {
     case emptyFileName
     case fileExists
 }

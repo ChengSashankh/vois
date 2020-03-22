@@ -40,6 +40,11 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         eventName = textField.text
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
     private func getEventNameCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventNameCell", for: indexPath)
 
@@ -110,11 +115,16 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         } else {
             songNameCell.setEditingMode()
             songNameCell.songNameTextField.text = ""
+            songNameCell.shouldEndEditingHandler = { return true }
             songNameCell.endEditingHandler = { songName in
+                guard !songName.isEmpty else {
+                    return
+                }
                 self.songs.append(Song(name: songName))
                 songNameCell.setNonEditingMode()
                 self.tableView.insertRows(at: [IndexPath(row: self.songs.count, section: 2)], with: .none)
                 songNameCell.endEditingHandler = nil
+                songNameCell.shouldEndEditingHandler = nil
            }
         }
 
@@ -151,6 +161,17 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         return indexPath.section == 2 && indexPath.row < songs.count
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let songNameCell = tableView.cellForRow(at: indexPath) as? SongNameCell else {
+            return
+        }
+        songNameCell.setEditingMode()
+        songNameCell.endEditingHandler = { songName in
+            songNameCell.setNonEditingMode()
+            self.songs[indexPath.row].name = songName
+        }
+    }
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return isSongNameCell(indexPath: indexPath)
     }
@@ -161,5 +182,18 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
             songs.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+
+    @IBAction func createPerformance(_ sender: Any) {
+        guard let name = eventName else {
+            return
+        }
+        let performance = Performance(name: name, date: date)
+        for song in songs {
+            performance.addSong(song: song)
+        }
+
+        try? PerformanceFilesDirectory.saveFile(name: name, with: performance.encodeToJson())
+        navigationController?.popViewController(animated: true)
     }
 }

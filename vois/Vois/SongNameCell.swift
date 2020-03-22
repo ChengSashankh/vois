@@ -24,6 +24,7 @@ class SongNameCell: UITableViewCell, UITextFieldDelegate {
     }
 
     var endEditingHandler: ((String) -> Void)?
+    var shouldEndEditingHandler: (() -> Bool)?
 
     func setEditingMode() {
         songNameLabel.isHidden = true
@@ -47,7 +48,10 @@ class SongNameCell: UITableViewCell, UITextFieldDelegate {
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        !isEmptySongName
+        if let handler = shouldEndEditingHandler {
+            return handler()
+        }
+        return !isEmptySongName
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

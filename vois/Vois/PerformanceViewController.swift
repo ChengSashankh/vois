@@ -24,7 +24,14 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
-    var performance: Performance = Performance(name: "Test", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 100)!))
+    var performance: Performance!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        nameLabel.text = performance.name
+        countDownLabel.text = performance.date?.timeIntervalSinceNow.toDayHour
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return performance.numOfSongs
@@ -39,5 +46,15 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
 
         return songCell
     }
+}
 
+extension TimeInterval {
+
+    var toDayHour: String {
+        let secondsPerDay = 24 * 60 * 60
+        let secondsPerHour = 24 * 60
+        let days = Int((self / Double(secondsPerDay)))
+        let hours = Int((self - Double(secondsPerDay * days)) / Double(secondsPerHour))
+        return "\(days) days \(hours) hours"
+    }
 }

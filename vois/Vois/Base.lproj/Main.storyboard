@@ -110,7 +110,6 @@
                                         <connections>
                                             <outlet property="dateTime" destination="oCP-Pw-XZ1" id="cTP-qU-3Wb"/>
                                             <outlet property="title" destination="gGr-Ks-rZe" id="bEG-8A-WvB"/>
-                                            <segue destination="fYd-v9-Nfq" kind="show" trigger="accessoryAction" id="eVl-oe-05z"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -152,6 +151,7 @@
                     <connections>
                         <outlet property="performancesView" destination="3cv-ev-wXH" id="4mf-jg-Oof"/>
                         <outlet property="searchBar" destination="0f1-NH-nto" id="f4T-bf-fNt"/>
+                        <segue destination="fYd-v9-Nfq" kind="show" identifier="ShowPerformance" id="BoS-o0-Syz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1i-tV-s6R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -185,12 +185,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 days to go" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wZ-9w-FhV">
-                                <rect key="frame" x="300.5" y="191" width="93.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ikq-4F-qo5">
                                 <rect key="frame" x="20" y="227" width="374" height="32"/>
                                 <segments>
@@ -207,15 +201,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F7Y-b6-iaQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F7Y-b6-iaQ">
                                 <rect key="frame" x="10" y="268" width="394" height="538"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" rowHeight="100" id="XGR-U7-OoS" customClass="SongCell" customModule="Vois" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="394" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SongCell" rowHeight="120" id="XGR-U7-OoS" customClass="SongCell" customModule="Vois" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="394" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XGR-U7-OoS" id="vCT-K2-du6">
-                                            <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="394" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSf-MD-2Ra">
@@ -260,7 +254,6 @@
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.76491802929999997" green="0.87338811159999996" blue="0.98040288689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstItem="oSf-MD-2Ra" firstAttribute="leading" secondItem="vCT-K2-du6" secondAttribute="leading" constant="20" id="EHm-q2-mXq"/>
                                                 <constraint firstItem="G6A-Rh-smO" firstAttribute="top" secondItem="oSf-MD-2Ra" secondAttribute="bottom" constant="16" id="Skl-sB-Mej"/>
@@ -276,6 +269,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 days to go" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wZ-9w-FhV">
+                                <rect key="frame" x="300.5" y="191" width="93.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -471,7 +470,11 @@
                                 <action selector="cancel:" destination="MuP-tZ-0hh" id="5q2-sR-mhf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="3Ii-9m-Nh7"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="3Ii-9m-Nh7">
+                            <connections>
+                                <action selector="createPerformance:" destination="MuP-tZ-0hh" id="e0W-ER-zyw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryG-md-ff9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
