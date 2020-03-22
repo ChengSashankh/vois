@@ -25,6 +25,7 @@ extension FDWaveformView {
     }
 
     func addComment(audioLength: Double, textComment: TextComment, delegate: UIViewController) {
+
         let xLocation = (textComment.timeStamp / audioLength) * Double(self.bounds.maxX)
         let yLocation = self.bounds.minY
         let frame = CGRect(x: xLocation, y: Double(yLocation), width: 20.0, height: 20.0)
@@ -38,9 +39,22 @@ extension FDWaveformView {
         button.timeStamp = textComment.timeStamp
         button.delegate = delegate
 
+        guard let playbackDelegate = delegate as? FDPlaybackDelegate else {
+            print("oops")
+            return
+        }
+
+        playbackDelegate.textCommentButtons.append(button)
+
         button.addTarget(self, action: #selector(showComment(sender:)), for: .touchUpInside)
 
         self.addSubview(button)
+
+    }
+
+    func removeTextCommentButtons(from playbackDelegate: FDPlaybackDelegate) {
+        playbackDelegate.textCommentButtons.forEach({ $0.removeFromSuperview() })
+        playbackDelegate.textCommentButtons.removeAll()
     }
 
     @objc private func showComment(sender: TextCommentButton) {

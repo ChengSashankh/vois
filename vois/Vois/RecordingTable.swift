@@ -35,4 +35,12 @@ class RecordingTable {
         recordings[nameOfRecording]?.addTextComment(textComment: comment)
         print(recordings[nameOfRecording]?.getTextComments() ?? "")
     }
+
+    static func getTextComments(nameOfRecording: String) -> [TextComment] {
+        guard let recording = recordings[nameOfRecording] else {
+            return []
+        }
+
+        return recording.getTextComments()
+    }
 }

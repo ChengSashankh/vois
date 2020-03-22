@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import FDWaveformView
 
-class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
+class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     var fileURL: URL!
     var audioPlayer: AudioPlayer!
     private var displayLink: CADisplayLink!
+    var textCommentButtons = [TextCommentButton]()
+
     @IBOutlet private var uiSlider: UISlider!
     @IBOutlet private var uiSongLabel: UILabel!
     @IBOutlet private var playPauseButton: UIButton!
@@ -35,6 +37,8 @@ class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         uiWaveformView.progressColor = .cyan
         uiWaveformView.wavesColor = .blue
+
+        refreshView()
     }
 
     func setAudioURL(url: URL, recordingList: [URL]) {
@@ -85,6 +89,7 @@ class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
         uiSongLabel.text = audioPlayer.audioName()
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
+        refreshView()
     }
 
     func resumeLoop() {
@@ -114,5 +119,13 @@ class AudioPlaybackController: UIViewController, FDWaveformViewDelegate {
             self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength, textComment: comment, delegate: self)
         }
         present(controller, animated: true)
+    }
+
+    private func refreshView() {
+        print(textCommentButtons)
+        uiWaveformView.removeTextCommentButtons(from: self)
+        let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
+        textComments.forEach({ self.uiWaveformView.addComment(audioLength: audioPlayer.audioLength, textComment: $0, delegate: self) })
+        print(textCommentButtons)
     }
 }

@@ -35,6 +35,7 @@
 		C8D3F0B3242764D200593F3A /* TextCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D3F0B2242764D200593F3A /* TextCommentController.swift */; };
 		C8D95A6224276EDA002ADE88 /* FDWaveForm+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */; };
 		C8D95A64242776D6002ADE88 /* TextCommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A63242776D6002ADE88 /* TextCommentButton.swift */; };
+		C8D95A6624277EDC002ADE88 /* FDPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -84,6 +85,7 @@
 		C8D3F0B2242764D200593F3A /* TextCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentController.swift; sourceTree = "<group>"; };
 		C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FDWaveForm+Comment.swift"; sourceTree = "<group>"; };
 		C8D95A63242776D6002ADE88 /* TextCommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentButton.swift; sourceTree = "<group>"; };
+		C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaybackDelegate.swift; sourceTree = "<group>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				C8D95A63242776D6002ADE88 /* TextCommentButton.swift */,
+				C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */,
 				C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */,
 			);
 			name = View;
@@ -472,6 +475,7 @@
 				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
 				6C7F96CE241D0863009C6E91 /* Song.swift in Sources */,
+				C8D95A6624277EDC002ADE88 /* FDPlaybackDelegate.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
