@@ -30,7 +30,6 @@
 		6C7F96EF241E6522009C6E91 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F96EE241E6522009C6E91 /* SignupViewController.swift */; };
 		70BF4CA02FB6E914757964F0 /* Pods_VoisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF44D3BB05C1FE5DC9DF5CD /* Pods_VoisTests.framework */; };
 		75A23B790104A5024F3BF7B3 /* Pods_Vois.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C4088B9F5379D923C46281 /* Pods_Vois.framework */; };
-		C852FCD224278D4D00EB660B /* PerformanceFileDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852FCD124278D4D00EB660B /* PerformanceFileDirectory.swift */; };
 		C8D201782426488700409CF4 /* RecordingTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D201772426488700409CF4 /* RecordingTable.swift */; };
 		C8D2017C24264E6A00409CF4 /* RecordingTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2017B24264E6A00409CF4 /* RecordingTableController.swift */; };
 		C8D2017E24265A2800409CF4 /* AudioPlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2017D24265A2800409CF4 /* AudioPlaybackController.swift */; };
@@ -59,6 +58,7 @@
 		CACC0D98241CC260006D2E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D97241CC260006D2E68 /* Assets.xcassets */; };
 		CACC0D9B241CC260006D2E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */; };
 		CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0DA5241CC261006D2E68 /* VoisTests.swift */; };
+		CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +98,6 @@
 		9DB19923A376F7DCC93066C6 /* Pods-Vois.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vois.release.xcconfig"; path = "Target Support Files/Pods-Vois/Pods-Vois.release.xcconfig"; sourceTree = "<group>"; };
 		AAD1949FF65EB08008D3BC96 /* Pods-VoisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoisTests.release.xcconfig"; path = "Target Support Files/Pods-VoisTests/Pods-VoisTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9880456BCD4A15E6CA649AC /* Pods-VoisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoisTests.debug.xcconfig"; path = "Target Support Files/Pods-VoisTests/Pods-VoisTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C852FCD124278D4D00EB660B /* PerformanceFileDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFileDirectory.swift; sourceTree = "<group>"; };
 		C8D201772426488700409CF4 /* RecordingTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTable.swift; sourceTree = "<group>"; };
 		C8D2017B24264E6A00409CF4 /* RecordingTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTableController.swift; sourceTree = "<group>"; };
 		C8D2017D24265A2800409CF4 /* AudioPlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackController.swift; sourceTree = "<group>"; };
@@ -130,6 +129,7 @@
 		CACC0DA1241CC261006D2E68 /* VoisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0DA5241CC261006D2E68 /* VoisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoisTests.swift; sourceTree = "<group>"; };
 		CACC0DA7241CC261006D2E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CCF44D3BB05C1FE5DC9DF5CD /* Pods_VoisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25CFFED92AD158707F422E3 /* Pods-Vois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vois.debug.xcconfig"; path = "Target Support Files/Pods-Vois/Pods-Vois.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -253,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */,
-				C852FCD124278D4D00EB660B /* PerformanceFileDirectory.swift */,
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
@@ -267,6 +266,7 @@
 				6C7F96EB241E5F46009C6E91 /* GoogleService-Info.plist */,
 				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
 				2451F3F4241E717900884AEE /* SaveViewController.swift */,
+				CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -555,7 +555,6 @@
 				6C7F96D0241D0870009C6E91 /* Recording.swift in Sources */,
 				C8D201782426488700409CF4 /* RecordingTable.swift in Sources */,
 				C8D2018224265ED600409CF4 /* Listenable.swift in Sources */,
-				C852FCD224278D4D00EB660B /* PerformanceFileDirectory.swift in Sources */,
 				6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */,
 				6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */,
 				CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */,
@@ -582,6 +581,7 @@
 				6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */,
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
 				CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */,
+				CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,
 				CA11DE0A241F74820030598D /* PerformancesViewController.swift in Sources */,
 				CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */,
