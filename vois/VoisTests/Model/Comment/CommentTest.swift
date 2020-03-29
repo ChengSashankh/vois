@@ -10,19 +10,19 @@ import XCTest
 @testable import Vois
 
 class CommentTest: XCTestCase {
-    let audioComment = AudioComment(timeStamp: 1584204199,
-                                  author: "John Doe",
-                                  filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let textComment = TextComment(timeStamp: 1584204199,
+    let audioComment = AudioComment(timeStamp: 1_584_204_199,
+                                    author: "John Doe",
+                                    filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+    let textComment = TextComment(timeStamp: 1_584_204_199,
                                   author: "John Doe",
                                   text: "Nice pitch!")
 
     func testGetTimeStamp() {
-        XCTAssertEqual(audioComment.timeStamp, 1584204199)
-        XCTAssertNotEqual(audioComment.timeStamp, 1584204190)
+        XCTAssertEqual(audioComment.timeStamp, 1_584_204_199)
+        XCTAssertNotEqual(audioComment.timeStamp, 1_584_204_190)
 
-        XCTAssertEqual(textComment.timeStamp, 1584204199)
-        XCTAssertNotEqual(textComment.timeStamp, 1584204190)
+        XCTAssertEqual(textComment.timeStamp, 1_584_204_199)
+        XCTAssertNotEqual(textComment.timeStamp, 1_584_204_190)
     }
 
     func testGetAuthor() {
@@ -34,13 +34,13 @@ class CommentTest: XCTestCase {
     }
 
     func testSetTimeStamp() {
-        audioComment.timeStamp = 1584204190
-        XCTAssertEqual(audioComment.timeStamp, 1584204190)
-        XCTAssertNotEqual(audioComment.timeStamp, 1584204199)
+        audioComment.timeStamp = 1_584_204_190
+        XCTAssertEqual(audioComment.timeStamp, 1_584_204_190)
+        XCTAssertNotEqual(audioComment.timeStamp, 1_584_204_199)
 
-        textComment.timeStamp = 1584204190
-        XCTAssertEqual(textComment.timeStamp, 1584204190)
-        XCTAssertNotEqual(textComment.timeStamp, 1584204199)
+        textComment.timeStamp = 1_584_204_190
+        XCTAssertEqual(textComment.timeStamp, 1_584_204_190)
+        XCTAssertNotEqual(textComment.timeStamp, 1_584_204_199)
     }
 
     func testSetAuthor() {

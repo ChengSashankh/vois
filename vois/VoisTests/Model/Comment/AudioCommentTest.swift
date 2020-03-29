@@ -10,21 +10,21 @@ import XCTest
 @testable import Vois
 
 class AudioCommentTest: XCTestCase {
-    let comment = AudioComment(timeStamp: 1584204199,
-                                  author: "John Doe",
-                                  filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let equalComment = AudioComment(timeStamp: 1584204199,
-                              author: "John Doe",
-                              filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let unequalCommentOne = AudioComment(timeStamp: 1584204190,
-                              author: "John Doe",
-                              filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let unequalCommentTwo = AudioComment(timeStamp: 1584204199,
-                                        author: "John D.",
-                                        filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let unequalCommentThree = AudioComment(timeStamp: 1584204199,
-                                          author: "John Doe",
-                                          filePath: URL(fileURLWithPath: "/recording/song.mp3"))
+    let comment = AudioComment(timeStamp: 1_584_204_199,
+                               author: "John Doe",
+                               filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+    let equalComment = AudioComment(timeStamp: 1_584_204_199,
+                                    author: "John Doe",
+                                    filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+    let unequalCommentOne = AudioComment(timeStamp: 1_584_204_190,
+                                         author: "John Doe",
+                                filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+    let unequalCommentTwo = AudioComment(timeStamp: 1_584_204_199,
+                                         author: "John D.",
+                                         filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+    let unequalCommentThree = AudioComment(timeStamp: 1_584_204_199,
+                                           author: "John Doe",
+                                           filePath: URL(fileURLWithPath: "/recording/song.mp3"))
 
     func testGetFilePath() {
         XCTAssertEqual(comment.filePath, URL(fileURLWithPath: "/recording/audio.mp3"))

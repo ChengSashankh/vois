@@ -11,16 +11,16 @@ import XCTest
 
 class RecordingTest: XCTestCase {
     let recording = Recording(filePath: URL(fileURLWithPath: "/recording/audio_one.mp3"))
-    let audioCommentOne = AudioComment(timeStamp: 1584204199,
-                                  author: "John Doe",
-                                  filePath: URL(fileURLWithPath: "/recording/audio_two.mp3"))
-    let audioCommentTwo = AudioComment(timeStamp: 1584204190,
+    let audioCommentOne = AudioComment(timeStamp: 1_584_204_199,
+                                       author: "John Doe",
+                                       filePath: URL(fileURLWithPath: "/recording/audio_two.mp3"))
+    let audioCommentTwo = AudioComment(timeStamp: 1_584_204_190,
                                        author: "John Doe",
                                        filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
-    let textCommentOne = TextComment(timeStamp: 1584204199,
-                                  author: "John Doe",
-                                  text: "Nice pitch!")
-    let textCommentTwo = TextComment(timeStamp: 1584204190,
+    let textCommentOne = TextComment(timeStamp: 1_584_204_199,
+                                     author: "John Doe",
+                                     text: "Nice pitch!")
+    let textCommentTwo = TextComment(timeStamp: 1_584_204_190,
                                      author: "John Doe",
                                      text: "Nice volume!")
 

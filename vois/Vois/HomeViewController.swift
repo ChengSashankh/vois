@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    @IBAction func logOutAction(_ sender: Any) {
+    @IBAction private func logOutAction(_ sender: Any) {
         do {
             try Auth.auth().signOut()
         } catch let signOutError as NSError {
@@ -29,6 +29,6 @@ class HomeViewController: UIViewController {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initial = storyboard.instantiateInitialViewController()
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = initial
+        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = initial
     }
 }

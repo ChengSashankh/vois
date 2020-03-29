@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
         password.isSecureTextEntry = true
     }
 
-    @IBAction func logInAction (_ sender: Any) {
+    @IBAction private func logInAction (_ sender: Any) {
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (_, error) in
             if error == nil {
                 self.performSegue(withIdentifier: "loginToHome", sender: self)

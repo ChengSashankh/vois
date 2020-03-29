@@ -96,7 +96,7 @@ class Recording: Equatable, Codable {
     func removeAllTextComments() {
         self.textComments = []
     }
-    
+
     func removeAllComments() {
         removeAllAudioComments()
         removeAllTextComments()
