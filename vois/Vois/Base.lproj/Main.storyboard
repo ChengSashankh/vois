@@ -159,7 +159,7 @@
                         <outlet property="email" destination="yaK-SZ-SD1" id="JkS-iR-PET"/>
                         <outlet property="password" destination="lod-rR-Zfl" id="9AJ-kN-Hyz"/>
                         <segue destination="Mc4-4v-xfX" kind="show" identifier="" id="u0z-lu-C3e"/>
-                        <segue destination="KCA-4i-PUx" kind="show" identifier="loginToHome" id="8QV-dk-K3z"/>
+                        <segue destination="KCA-4i-PUx" kind="show" identifier="loginToHome" animates="NO" id="8QV-dk-K3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qp9-fe-Hxg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -240,15 +240,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1Q-Q7-i7f" userLabel="Sign Up">
-                                <rect key="frame" x="151.66666666666666" y="593" width="110.99999999999997" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-iX-tNc" userLabel="Sign Up">
+                                <rect key="frame" x="152" y="605" width="111" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <state key="normal" title="SIGN UP">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUpAction:" destination="dkx-z0-nzr" eventType="touchUpInside" id="UEl-XB-ceS"/>
-                                    <action selector="signUpAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qxa-Or-7rT"/>
+                                    <action selector="signUpAction:" destination="dkx-z0-nzr" eventType="touchUpInside" id="Uwl-i1-4b3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -258,7 +258,6 @@
                             <constraint firstItem="CTL-Mh-xdB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3t9-4N-bLa"/>
                             <constraint firstItem="TI1-es-2vD" firstAttribute="leading" secondItem="CTL-Mh-xdB" secondAttribute="leading" id="89o-FX-Yca"/>
                             <constraint firstItem="ZQd-yu-Mci" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="B6N-7R-b2i"/>
-                            <constraint firstItem="E1Q-Q7-i7f" firstAttribute="top" secondItem="CTL-Mh-xdB" secondAttribute="bottom" constant="63" id="DHD-IO-JFB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xRK-cb-nDK" secondAttribute="trailing" id="GBs-Cd-B6B"/>
                             <constraint firstItem="TI1-es-2vD" firstAttribute="top" secondItem="ujL-FL-6S3" secondAttribute="bottom" constant="42" id="HcC-pI-2wq"/>
                             <constraint firstItem="OWj-UM-NtX" firstAttribute="leading" secondItem="ujL-FL-6S3" secondAttribute="leading" id="Hru-rm-LrH"/>
@@ -267,7 +266,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZQd-yu-Mci" secondAttribute="trailing" id="RKL-OF-gDg"/>
                             <constraint firstItem="ujL-FL-6S3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X0H-P1-imO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ujL-FL-6S3" secondAttribute="trailing" id="XXd-T4-SzX"/>
-                            <constraint firstItem="E1Q-Q7-i7f" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XaP-e1-IBp"/>
                             <constraint firstItem="CTL-Mh-xdB" firstAttribute="leading" secondItem="ujL-FL-6S3" secondAttribute="leading" id="YZ5-jY-BRP"/>
                             <constraint firstItem="ujL-FL-6S3" firstAttribute="leading" secondItem="xRK-cb-nDK" secondAttribute="leading" id="c2W-H6-brO"/>
                             <constraint firstItem="OWj-UM-NtX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fGR-Jn-nNJ"/>
@@ -284,8 +282,7 @@
                         <outlet property="email" destination="OWj-UM-NtX" id="vhK-DQ-xmq"/>
                         <outlet property="password" destination="ujL-FL-6S3" id="Omq-3R-yat"/>
                         <outlet property="passwordConfirm" destination="CTL-Mh-xdB" id="04I-im-ZxE"/>
-                        <segue destination="Mc4-4v-xfX" kind="show" identifier="" id="6cc-tp-t1W"/>
-                        <segue destination="KCA-4i-PUx" kind="show" identifier="signupToHome" id="sYS-4L-agc"/>
+                        <segue destination="KCA-4i-PUx" kind="show" identifier="signupToHome" animates="NO" id="sYS-4L-agc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -962,7 +959,7 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8b5-fT-SuE"/>
-        <segue reference="9S7-3Y-Uhj"/>
+        <segue reference="sYS-4L-agc"/>
+        <segue reference="u0z-lu-C3e"/>
     </inferredMetricsTieBreakers>
 </document>

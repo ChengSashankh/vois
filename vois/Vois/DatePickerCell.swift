@@ -17,7 +17,7 @@ class DatePickerCell: UITableViewCell {
     }
 
     var dateValueChangedHandler: ((Date) -> Void)?
-    @objc func dateValueChanged(_ sender: UIDatePicker) {
+@objc func dateValueChanged(_ sender: UIDatePicker) {
         dateValueChangedHandler?(sender.date)
     }
 }

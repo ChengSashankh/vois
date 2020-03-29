@@ -20,7 +20,7 @@ class SignupViewController: UIViewController {
         passwordConfirm.isSecureTextEntry = true
     }
 
-    @IBAction func signUpAction (_ sender: Any) {
+    @IBAction private func signUpAction (_ sender: Any) {
         if password.text != passwordConfirm.text {
             let alertController = UIAlertController(title: "Mismatched Password",
                                                     message: "Please re-type password.",
@@ -29,7 +29,7 @@ class SignupViewController: UIViewController {
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         } else {
-            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (_, error) in
+            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { _, error in
                 if error == nil {
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
                 } else {
