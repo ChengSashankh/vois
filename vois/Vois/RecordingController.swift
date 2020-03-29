@@ -86,9 +86,9 @@ class RecordingController {
         return true
     }
 
-    func startRecording(recorderDelegate: AVAudioRecorderDelegate) {
+    func startRecording(recorderDelegate: AVAudioRecorderDelegate) -> Bool {
         if recordingInProgress {
-            return
+            return false
         }
 
         let recordingFileName = getDefaultFileName()
@@ -112,9 +112,10 @@ class RecordingController {
             audioRecorder.record()
             audioRecorder.delegate = recorderDelegate
         } catch {
-            // TODO: Handle error correctly
-            print("Something went wrong here!")
+            return false
         }
+
+        return true
     }
 
     func stopRecording() {
@@ -129,11 +130,11 @@ class RecordingController {
     func getRecordings() -> [URL] {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
-            let fileURLs = try
+            var fileURLs = try
                 FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            fileURLs = fileURLs.filter({ $0.pathExtension == "m4a" })
             return fileURLs
         } catch {
-            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             return [URL]()
         }
     }
