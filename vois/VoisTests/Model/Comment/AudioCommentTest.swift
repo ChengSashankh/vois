@@ -18,7 +18,7 @@ class AudioCommentTest: XCTestCase {
                                     filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
     let unequalCommentOne = AudioComment(timeStamp: 1_584_204_190,
                                          author: "John Doe",
-                                filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+                                         filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
     let unequalCommentTwo = AudioComment(timeStamp: 1_584_204_199,
                                          author: "John D.",
                                          filePath: URL(fileURLWithPath: "/recording/audio.mp3"))

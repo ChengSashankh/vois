@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction private func logInAction (_ sender: Any) {
-        Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (_, error) in
+        Auth.auth().signIn(withEmail: email.text!, password: password.text!) { _, error in
             if error == nil {
                 self.performSegue(withIdentifier: "loginToHome", sender: self)
             } else {
