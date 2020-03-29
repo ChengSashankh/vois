@@ -375,7 +375,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */;
+			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -717,6 +717,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = vois/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -735,6 +736,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = vois/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -794,7 +796,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */ = {
+		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CACC0DA8241CC261006D2E68 /* Debug */,
