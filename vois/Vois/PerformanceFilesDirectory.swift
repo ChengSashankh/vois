@@ -9,13 +9,70 @@
 import Foundation
 
 class PerformanceFilesDirectory {
-    private static let fileManager = FileManager.default
 
-    private static var levelFilesDirectoryURL: URL { fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    private static let performanceMetaDataFileName = "_meta-data"
+
+    private static let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+    private static func getAllFileUrlsInDirectory(url: URL, includeDirectory: Bool, includeFile: Bool = true) -> [URL] {
+        do {
+            var urls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+            if !includeDirectory {
+                urls = urls.filter { url in url.isFileURL }
+            }
+            if !includeFile {
+                urls = urls.filter { url in !url.isFileURL }
+            }
+            return urls
+        } catch {
+            return []
+        }
     }
 
-    private static var fileURLs: [URL]? {
-        try? fileManager.contentsOfDirectory(at: levelFilesDirectoryURL, includingPropertiesForKeys: nil)
+    private static func getUserRootDirectory(for userName: String) -> URL? {
+        let userRootDirectoryURL = PerformanceFilesDirectory.documentDirectoryURL.appendingPathComponent(userName, isDirectory: true)
+
+        guard FileManager.default.fileExists(atPath: userRootDirectoryURL.absoluteString, isDirectory: nil) else {
+            return userRootDirectoryURL
+        }
+        do {
+            try FileManager.default.createDirectory(at: userRootDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+            return userRootDirectoryURL
+        } catch {
+            return nil
+        }
+    }
+
+    static func getAllPerformanceFiles(for userName: String) -> [Data] {
+        guard let userDirectoryURL = PerformanceFilesDirectory.getUserRootDirectory(for: userName) else {
+            return []
+        }
+
+        let urls = getAllFileUrlsInDirectory(url: userDirectoryURL, includeDirectory: false)
+        return urls.compactMap { url in
+            PerformanceFilesDirectory.getPerformanceFile(for: userName, performanceDirectoryURL: url) }
+    }
+
+    private static func getPerformanceDirectoryUrl(for userName: String, performanceName: String) -> URL? {
+        return PerformanceFilesDirectory.getUserRootDirectory(for: userName)?.appendingPathComponent(performanceName, isDirectory: true)
+    }
+
+    private static func getPerformanceFileUrl(for userName: String, performanceName: String) -> URL? {
+        return getPerformanceDirectoryUrl(for: userName, performanceName: performanceName)?.appendingPathComponent(performanceMetaDataFileName)
+    }
+
+    private static func getPerformanceFile(for userName: String, performanceName: String) -> Data? {
+        guard let url = getPerformanceFileUrl(for: userName, performanceName: performanceName) else {
+                return nil
+        }
+
+        return try? Data(contentsOf: url)
+    }
+
+    static func getPerformanceFile(for userName: String, performanceDirectoryURL: URL) -> Data? {
+        let url = performanceDirectoryURL
+            .appendingPathComponent(PerformanceFilesDirectory.performanceMetaDataFileName)
+        return try? Data(contentsOf: url)
     }
 
     /// Returns the file name of the given url.
@@ -26,85 +83,59 @@ class PerformanceFilesDirectory {
         return fileUrl.lastPathComponent
     }
 
-    static var fileCount: Int {
-        fileURLs?.count ?? 0
-    }
-
-    static var fileNames: [String] {
-        fileURLs?.compactMap { url in getFileNameFor(url: url) } ?? []
-    }
-
-    /// Returns true if the given file name exists.
-    static func containsFile(name: String) -> Bool {
-        let fileURL = levelFilesDirectoryURL.appendingPathComponent(name)
-        return fileManager.fileExists(atPath: fileURL.path)
-    }
-
-    /// Saves file of the given name with the given data.
-    /// - Throws: An Error occurs during writing to the disk.
-    static func saveFile(name: String, with data: Data) throws {
-        guard let fileUrl = try? FileManager.default.url(
-            for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: false)
-            .appendingPathComponent(name) else {
+    static func savePerformanceFile(name: String, with data: Data, for userName: String) throws {
+        guard let url = getPerformanceFileUrl(for: userName, performanceName: name) else {
                 return
         }
-        try data.write(to: fileUrl)
+        if FileManager.default.fileExists(atPath: url.absoluteString) {
+            FileManager.default.createFile(atPath: url.absoluteString, contents: data, attributes: nil)
+        } else {
+            try data.write(to: url)
+        }
     }
 
-    /// Returns data of file of the given name.
-    static func loadFile(name: String) -> Data? {
-        guard let url = try? FileManager.default.url(
-            for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: false)
-            .appendingPathComponent(name) else {
-                return nil
+    private static func getSongDirectoryUrl(for userName: String, performanceName: String, songName: String) -> URL? {
+        guard let url = getPerformanceFileUrl(for: userName, performanceName: performanceName)?.appendingPathComponent(songName, isDirectory: true) else {
+            return nil
         }
 
-        return try? Data(contentsOf: url)
+        do {
+            if !FileManager.default.fileExists(atPath: url.absoluteString) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            }
+            return url
+        } catch {
+            return nil
+        }
     }
 
-    /// Saves a new file of the given name with the given data.
-    /// - Throws: An `LevelFilesDirectoryError` if the file name exists
-    /// or the file name is empty. Otherwise, an Error occurring during writing to the disk.
-    static func saveNewFile(name: String, with data: Data) throws {
-        guard !name.isEmpty else {
-            throw PerformanceFilesDirectoryError.emptyFileName
-        }
-        guard !containsFile(name: name) else {
-            throw PerformanceFilesDirectoryError.fileExists
-        }
-
-        guard let fileUrl = try? FileManager.default.url(
-            for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: false)
-            .appendingPathComponent(name) else {
-                return
-        }
-        try data.write(to: fileUrl)
+    private static func getRecordingDirectoryUrl(for userName: String, performanceName: String, songName: String, segmentName: String) -> URL? {
+        return getSongDirectoryUrl(for: userName, performanceName: performanceName, songName: songName)?.appendingPathComponent(segmentName)
     }
 
-    /// Deletes file of the given name.
-    /// - Throws: An Error occurring during deleting.
-    static func deleteFile(name: String) throws {
-        let fileURL = levelFilesDirectoryURL.appendingPathComponent(name)
-        try fileManager.removeItem(at: fileURL)
+    static func getTemporaryRecordingUrl(for userName: String) -> URL? {
+        return getUserRootDirectory(for: userName)?.appendingPathComponent("temp")
     }
 
-    /// Deletes all level files.
-    /// - Throws: An Error occurring during deleting.
-    static func deleteAllFiles() throws {
-        fileURLs?.forEach { fileUrl in try? fileManager.removeItem(at: fileUrl) }
+    static func saveRecording(for userName: String, performanceName: String, songName: String, segmentName: String) throws {
+        guard let url = getRecordingDirectoryUrl(for: userName, performanceName: performanceName, songName: songName, segmentName: segmentName) else {
+            throw PerformanceFilesDirectoryError.unsuccessfullSaving
+        }
+
+        guard let tempUrl = getTemporaryRecordingUrl(for: userName) else {
+            throw PerformanceFilesDirectoryError.unsuccessfullSaving
+        }
+        do {
+            try FileManager.default.moveItem(at: tempUrl, to: url)
+        } catch {
+            throw PerformanceFilesDirectoryError.unsuccessfullSaving
+        }
+
     }
 }
 
 enum PerformanceFilesDirectoryError: Error {
     case emptyFileName
     case fileExists
+    case unsuccessfullSaving
 }

@@ -30,7 +30,7 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
-        performances = PerformanceFilesDirectory.allPerformances
+        performances = UserPerformanceFilesDirectory.allPerformances
         performancesView.reloadData()
     }
 
@@ -90,10 +90,10 @@ extension Date {
     }
 }
 
-extension PerformanceFilesDirectory {
+extension UserPerformanceFilesDirectory {
     static var allPerformances: Performances {
-        Performances( PerformanceFilesDirectory.fileNames.compactMap { fileName in
-            guard let data = PerformanceFilesDirectory.loadFile(name: fileName) else {
+        Performances( UserPerformanceFilesDirectory.fileNames.compactMap { fileName in
+            guard let data = UserPerformanceFilesDirectory.loadFile(name: fileName) else {
                 return nil
             }
             return Performance(json: data)
