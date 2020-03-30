@@ -20,5 +20,6 @@ class StartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         splitViewController?.presentsWithGesture = false
+        PerformanceFilesDirectory.removeAllUsers()
     }
 }
