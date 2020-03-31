@@ -12,7 +12,6 @@ import AVFoundation
 class RecordingController {
     var recordingSession: AVAudioSession
     var audioRecorder: AVAudioRecorder
-    var recordingCounter: Int
 
     var recordingInProgress: Bool {
         audioRecorder.isRecording
@@ -22,25 +21,9 @@ class RecordingController {
         audioRecorder.currentTime
     }
 
-    init(recordingCounter: Int) {
+    init() {
         self.recordingSession = AVAudioSession()
         self.audioRecorder = AVAudioRecorder()
-        self.recordingCounter = recordingCounter
-    }
-
-    convenience init() {
-        self.init(recordingCounter: 0)
-    }
-
-    func getDefaultFileName() -> String {
-        recordingCounter += 1
-        return String("Recording_\(recordingCounter).m4a")
-    }
-
-    func getRecordingDirectoryPath() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectoryPath = paths[0]
-        return documentDirectoryPath
     }
 
     func getTrimmedName(fileName: String) -> String {
@@ -62,28 +45,16 @@ class RecordingController {
         return linearScaleValue
     }
 
-    func discardRecording(atPath: URL) -> Bool {
-        let fileManager = FileManager()
-
+    func discardRecording() -> Bool {
+        guard let userName = UserSession.currentUserName else {
+            return false
+        }
         do {
-            try fileManager.removeItem(at: atPath)
+            try PerformanceFilesDirectory.removeTemporaryRecording(for: userName)
+            return true
         } catch {
             return false
         }
-
-        return true
-    }
-
-    func renameRecording(atPath: URL, toPath: URL) -> Bool {
-        let fileManager = FileManager()
-
-        do {
-            try fileManager.moveItem(at: atPath, to: toPath)
-        } catch {
-            return false
-        }
-
-        return true
     }
 
     func startRecording(recorderDelegate: AVAudioRecorderDelegate) -> Bool {
@@ -91,8 +62,10 @@ class RecordingController {
             return false
         }
 
-        let recordingFileName = getDefaultFileName()
-        let recordingFilePath = getRecordingDirectoryPath().appendingPathComponent(recordingFileName)
+        guard let userName = UserSession.currentUserName,
+            let recordingFilePath = PerformanceFilesDirectory.getTemporaryRecordingUrl(for: userName)else {
+            return false
+        }
 
         let settingsDict = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -123,20 +96,7 @@ class RecordingController {
             return
         }
 
-        UserDefaults.standard.set(recordingCounter, forKey: "recordingCounter")
         audioRecorder.stop()
-    }
-
-    func getRecordings() -> [URL] {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            var fileURLs = try
-                FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            fileURLs = fileURLs.filter({ $0.pathExtension == "m4a" })
-            return fileURLs
-        } catch {
-            return [URL]()
-        }
     }
 
 }

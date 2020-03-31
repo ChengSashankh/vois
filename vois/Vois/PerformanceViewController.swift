@@ -43,8 +43,23 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
         }
         songCell.songNameLabel.text = performance.getSongs()[indexPath.row].name
+        songCell.startRecording = { songName in
+            self.performSegue(withIdentifier: "Recording", sender: songName)
+
+        }
 
         return songCell
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let recordingVC = segue.destination as? RecordingViewController else {
+            return
+        }
+        guard let songName = sender as? String else {
+            return
+        }
+        recordingVC.performanceName = performance.name
+        recordingVC.songName = songName
     }
 }
 

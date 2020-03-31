@@ -516,7 +516,7 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                             <state key="normal" image="mic" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="lZI-zE-QvX" kind="show" id="5Y8-Xh-saI"/>
+                                                                <action selector="startRecording:" destination="XGR-U7-OoS" eventType="touchUpInside" id="vJo-4Q-hSL"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSZ-oL-kO3">
@@ -608,6 +608,7 @@
                         <outlet property="filterControl" destination="Ikq-4F-qo5" id="NSS-tn-LSv"/>
                         <outlet property="nameLabel" destination="iNi-JM-Y7V" id="oqa-Ng-WMz"/>
                         <outlet property="songTableView" destination="F7Y-b6-iaQ" id="vbE-n7-fO6"/>
+                        <segue destination="lZI-zE-QvX" kind="show" identifier="Recording" id="sAp-Q4-ccN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKm-sx-4el" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
