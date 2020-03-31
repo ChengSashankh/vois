@@ -48,18 +48,27 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
 
         }
 
+        songCell.startPlayback = { songName in
+            self.performSegue(withIdentifier: "Playback", sender: songName)
+        }
+
         return songCell
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let recordingVC = segue.destination as? RecordingViewController else {
-            return
+        if let recordingVC = segue.destination as? RecordingViewController {
+            guard let songName = sender as? String else {
+                return
+            }
+            recordingVC.performanceName = performance.name
+            recordingVC.songName = songName
+        } else if let recordingTableVC = segue.destination as? RecordingTableController {
+            guard let songName = sender as? String else {
+                return
+            }
+            recordingTableVC.songName = songName
+            recordingTableVC.performanceName = performance.name
         }
-        guard let songName = sender as? String else {
-            return
-        }
-        recordingVC.performanceName = performance.name
-        recordingVC.songName = songName
     }
 }
 

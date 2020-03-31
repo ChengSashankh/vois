@@ -12,16 +12,10 @@ class RecordingTable {
 
     private static var recordings = [String: Recording]()
 
-    static func fetchRecordings() -> [URL] {
-        let baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            var fileNames = try FileManager.default.contentsOfDirectory(at: baseURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-            fileNames = fileNames.filter({ $0.pathExtension == "m4a" })
-            addRecordingsFromURLs(fileNames)
-            return fileNames
-        } catch {
-            return []
-        }
+    static func fetchRecordings(for userName: String, performanceName: String, songName: String) -> [URL] {
+        return PerformanceFilesDirectory.getRecordingUrls(for: userName,
+                                                          performanceName: performanceName, songName: songName)
+
     }
 
     static func saveRecordingsToStorage() throws {

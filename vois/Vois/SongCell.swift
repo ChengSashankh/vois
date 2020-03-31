@@ -26,10 +26,15 @@ class SongCell: UITableViewCell {
 
     @IBOutlet weak var dateTime: UILabel!
 
-
     var startRecording: ((String)->())?
+    var startPlayback: ((String)->())?
+
     @IBAction func startRecording(_ sender: UIButton) {
         startRecording?(songNameLabel.text!)
+    }
+
+    @IBAction func playback(_ sender: UIButton) {
+        startPlayback?(songNameLabel.text!)
     }
 
     override func draw(_ rect: CGRect) {

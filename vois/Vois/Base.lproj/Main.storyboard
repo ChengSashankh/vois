@@ -536,7 +536,7 @@
                                                             <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                             <state key="normal" image="play.rectangle" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="7Zk-CT-HgK" kind="show" id="FeX-ZR-dnD"/>
+                                                                <action selector="playback:" destination="XGR-U7-OoS" eventType="touchUpInside" id="ibJ-oc-GM3"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-AZ-TKW">
@@ -609,11 +609,12 @@
                         <outlet property="nameLabel" destination="iNi-JM-Y7V" id="oqa-Ng-WMz"/>
                         <outlet property="songTableView" destination="F7Y-b6-iaQ" id="vbE-n7-fO6"/>
                         <segue destination="lZI-zE-QvX" kind="show" identifier="Recording" id="sAp-Q4-ccN"/>
+                        <segue destination="7Zk-CT-HgK" kind="show" identifier="Playback" id="i3l-7a-yDi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKm-sx-4el" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1568.1159420289857" y="2903.5714285714284"/>
+            <point key="canvasLocation" x="1441" y="2929"/>
         </scene>
         <!--New Performance-->
         <scene sceneID="zGy-sI-KCU">
@@ -1172,7 +1173,7 @@
         <image name="text.bubble.fill" catalog="system" width="64" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FeX-ZR-dnD"/>
+        <segue reference="i3l-7a-yDi"/>
         <segue reference="sYS-4L-agc"/>
         <segue reference="6cc-tp-t1W"/>
     </inferredMetricsTieBreakers>
