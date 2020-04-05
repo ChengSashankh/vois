@@ -15,7 +15,9 @@ class RecordingTable {
     static func fetchRecordings() -> [URL] {
         let baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
-            var fileNames = try FileManager.default.contentsOfDirectory(at: baseURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            var fileNames = try FileManager.default.contentsOfDirectory(at: baseURL,
+                                                                        includingPropertiesForKeys: nil,
+                                                                        options: .skipsHiddenFiles)
             fileNames = fileNames.filter({ $0.pathExtension == "m4a" })
             addRecordingsFromURLs(fileNames)
             return fileNames

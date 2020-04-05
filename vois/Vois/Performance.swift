@@ -26,7 +26,7 @@ class Performance: Equatable, Codable {
         self.songs = []
         self.date = date
     }
-    
+
     init (name: String) {
         self.name = name
         self.songs = []

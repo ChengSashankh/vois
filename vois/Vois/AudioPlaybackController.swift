@@ -12,9 +12,9 @@ import FDWaveformView
 
 class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
+    private var displayLink: CADisplayLink!
     var fileURL: URL!
     var audioPlayer: AudioPlayer!
-    private var displayLink: CADisplayLink!
     var textCommentButtons = [TextCommentButton]()
 
     @IBOutlet private var uiSlider: UISlider!
@@ -39,6 +39,15 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         uiWaveformView.wavesColor = .blue
 
         refreshView()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is AudioEditController {
+            guard let audioEditVC = segue.destination as? AudioEditController else {
+                return
+            }
+            audioEditVC.setAudioURL(url: self.fileURL, recordingList: self.audioPlayer.recordings)
+        }
     }
 
     func setAudioURL(url: URL, recordingList: [URL]) {
