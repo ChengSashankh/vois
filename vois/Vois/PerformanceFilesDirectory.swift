@@ -142,7 +142,7 @@ class PerformanceFilesDirectory {
         try? FileManager.default.removeItem(at: url)
     }
 
-    private static func getRecordingUrl(for userName: String, performanceName: String,
+    static func getRecordingUrl(for userName: String, performanceName: String,
                                         songName: String, segmentName: String) -> URL? {
         guard let url = getSongDirectoryUrl(for: userName, performanceName: performanceName, songName: songName)?
             .appendingPathComponent(segmentName) else {
@@ -176,7 +176,7 @@ class PerformanceFilesDirectory {
     static func saveRecording(for userName: String, performanceName: String,
                               songName: String, segmentName: String) throws {
         guard let url = getRecordingUrl(for: userName, performanceName: performanceName,
-                                                 songName: songName, segmentName: segmentName) else {
+                                        songName: songName, segmentName: segmentName) else {
             throw PerformanceFilesDirectoryError.unsuccessfullSaving
         }
 
