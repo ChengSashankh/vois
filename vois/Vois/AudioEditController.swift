@@ -85,11 +85,13 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
             let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
             let typedCharacterSet = CharacterSet(charactersIn: string)
             return allowedCharacterSet.isSuperset(of: typedCharacterSet)
+
         case UITextFieldIdentifier.fileName.rawValue:
             let allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
             let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
             let typedCharacterSet = CharacterSet(charactersIn: string)
             return allowedCharacterSet.isSuperset(of: typedCharacterSet)
+
         default:
             return true
         }
@@ -213,7 +215,7 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
                 return
             }
 
-            // Multiply both value and timescale to cater values after decimal point as CMTimeMake only allows Int64 input.
+            // Multiply values to cater digits after decimal point as CMTimeMake only allows Int64.
             let startTime = CMTimeMake(value: Int64(startTimeValue * 1_000), timescale: 1_000)
             let stopTime = CMTimeMake(value: Int64(endTimeValue * 1_000), timescale: 1_000)
             exporter.timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
@@ -238,12 +240,15 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
         self.promptReplaceAudio(newAudioURL: trimmedAudioURL)
     }
 
+    // Message prompt assumes successful audio trimming because the asset export process
+    // is asynchronous and may not have finished by then.
     private func promptReplaceAudio(newAudioURL: URL) {
         let alert = UIAlertController(title: "Audio Edit",
-                                      message: "Replace with trimmed audio?",
+                                      message: "Replace current audio with trimmed audio if successful?",
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
-            self.fileURL = newAudioURL
+            self.audioPlayer.recordings.append(newAudioURL)
+            self.setAudioURL(url: newAudioURL, recordingList: self.audioPlayer.recordings)
             self.refresh()
         })
         alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
