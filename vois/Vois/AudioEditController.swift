@@ -29,10 +29,12 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(NSHomeDirectory())
         self.minimumValue = 0.0
         self.maximumValue = Float(audioPlayer.audioLength)
 
         // Set delegates for restricting UTTextField input
+        trimAudioName.delegate = self
         trimStartTime.delegate = self
         trimEndTime.delegate = self
 
@@ -66,23 +68,31 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        // Checks for at most one decimal point.
-        var dotCount = 0
-        let typedCharacters = [Character](textField.text ?? "")
-        for char in typedCharacters where char == "." {
-            dotCount += 1
-        }
+        switch textField.tag {
+        case UITextFieldIdentifier.trimTime.rawValue:
+            // Checks for at most one decimal point.
+            var dotCount = 0
+            let typedCharacters = [Character](textField.text ?? "")
+            for char in typedCharacters where char == "." {
+                dotCount += 1
+            }
 
-        print(textField.accessibilityIdentifier)
-
-        // Checks for allowed characters (numerical and decimal) only.
-        var allowedCharacters = ".1234567890"
-        if dotCount > 0 {
-            allowedCharacters = "1234567890"
+            // Checks for allowed characters (numerical and decimal) only.
+            var allowedCharacters = ".1234567890"
+            if dotCount > 0 {
+                allowedCharacters = "1234567890"
+            }
+            let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
+            let typedCharacterSet = CharacterSet(charactersIn: string)
+            return allowedCharacterSet.isSuperset(of: typedCharacterSet)
+        case UITextFieldIdentifier.fileName.rawValue:
+            let allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+            let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
+            let typedCharacterSet = CharacterSet(charactersIn: string)
+            return allowedCharacterSet.isSuperset(of: typedCharacterSet)
+        default:
+            return true
         }
-        let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
-        let typedCharacterSet = CharacterSet(charactersIn: string)
-        return allowedCharacterSet.isSuperset(of: typedCharacterSet)
     }
 
     func setAudioURL(url: URL, recordingList: [URL]) {
@@ -133,7 +143,6 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
         uiSongLabel.text = audioPlayer.audioName()
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
-        //refreshView()
     }
 
     func resumeLoop() {
@@ -204,7 +213,7 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
                 return
             }
 
-            // Multiply both value and timescale to cater to values after the decimal point as CMTimeMake only allows Int64 input.
+            // Multiply both value and timescale to cater values after decimal point as CMTimeMake only allows Int64 input.
             let startTime = CMTimeMake(value: Int64(startTimeValue * 1_000), timescale: 1_000)
             let stopTime = CMTimeMake(value: Int64(endTimeValue * 1_000), timescale: 1_000)
             exporter.timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
@@ -230,13 +239,22 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
     }
 
     private func promptReplaceAudio(newAudioURL: URL) {
-        let alert = UIAlertController(title: "Audio Edit", message: "Replace with trimmed audio?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Audio Edit",
+                                      message: "Replace with trimmed audio?",
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
             self.fileURL = newAudioURL
+            self.refresh()
         })
         alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
             self.dismiss(animated: true, completion: nil)
         })
         self.present(alert, animated: true, completion: nil)
     }
+}
+
+enum UITextFieldIdentifier: Int {
+    case trimTime = 1
+    case fileName = 2
+    case allElse = 0
 }
