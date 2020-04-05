@@ -13,5 +13,5 @@ class TextCommentButton: UIButton {
     var text: String?
     var author: String?
     var timeStamp: Double?
-    var delegate: UIViewController?
+    weak var delegate: UIViewController?
 }
