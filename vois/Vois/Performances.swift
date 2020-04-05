@@ -45,6 +45,10 @@ class Performances: Codable {
         self.performances.remove(at: index)
     }
 
+    func removePerformance(at index: Int) {
+        self.performances.remove(at: index)
+    }
+
     func getPerformances() -> [Performance] {
         return self.performances
     }

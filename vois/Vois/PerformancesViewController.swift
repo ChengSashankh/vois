@@ -12,6 +12,8 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var searchBar: UISearchBar!
 
+    @IBOutlet weak var subtitle: UILabel!
+
     @IBOutlet weak var performancesView: UITableView! {
         didSet {
             performancesView.delegate = self
@@ -27,11 +29,16 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     var performances: Performances!
 
+    private func configureSubtitle() {
+        subtitle.text = "\(performances.numOfPerformances) performances"
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
         performances = PerformanceFilesDirectory.allPerformances
         performancesView.reloadData()
+        configureSubtitle()
     }
 
     @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
@@ -77,6 +84,22 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         performSegue(withIdentifier: "ShowPerformance", sender: indexPath.row)
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            guard let userName = UserSession.currentUserName else {
+                return
+            }
+            PerformanceFilesDirectory.removePerformance(for: userName,
+                                                        performanceName: performances.getPerformances(at: indexPath.row).name)
+            performances.removePerformance(at: indexPath.row)
+            performancesView.deleteRows(at: [indexPath], with: .automatic)
+        default:
+            break
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let performanceVC = segue.destination as? PerformanceViewController,
             let index = sender as? Int else {
@@ -97,11 +120,10 @@ extension Date {
 
 extension PerformanceFilesDirectory {
     static var allPerformances: Performances {
-        Performances( PerformanceFilesDirectory.fileNames.compactMap { fileName in
-            guard let data = PerformanceFilesDirectory.loadFile(name: fileName) else {
-                return nil
-            }
-            return Performance(json: data)
-        })
+        guard let userName = UserSession.currentUserName else {
+            return Performances()
+        }
+        return Performances(PerformanceFilesDirectory
+            .getAllPerformanceFiles(for: userName).compactMap { data in Performance(json: data) })
     }
 }
