@@ -38,7 +38,7 @@ class DatabaseController {
         let documentReference = firestore.collection(inCollection).document(withId)
         var documentData = [String: Any]()
 
-        documentReference.getDocument { (document, error) in
+        documentReference.getDocument { document, _ in
             if let document = document, document.exists {
                 documentData = document.data() ?? [String: Any]()
             } else {
@@ -55,13 +55,13 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, isEqualTo: whereValueIs)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
@@ -72,47 +72,47 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, in: whereValueIn)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueLessThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueLessThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         firestore
             .collection(inCollection)
             .whereField(field, isLessThan: whereValueLessThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueGreaterThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueGreaterThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         firestore
             .collection(inCollection)
             .whereField(field, isGreaterThan: whereValueGreaterThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }

@@ -25,7 +25,8 @@ class RecordingTableController: UITableViewController {
         guard let userName = UserSession.currentUserName else {
             return
         }
-        let recordingPaths = RecordingTable.fetchRecordings(for: userName, performanceName: performanceName, songName: songName)
+        let recordingPaths = RecordingTable.fetchRecordings(for: userName,
+                                                            performanceName: performanceName, songName: songName)
         self.recordingPaths = recordingPaths
     }
 
@@ -48,7 +49,8 @@ class RecordingTableController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "AudioPlaybackController") as? AudioPlaybackController else {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "AudioPlaybackController")
+            as? AudioPlaybackController else {
             return
         }
         let url = recordingPaths[indexPath.row]

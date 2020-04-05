@@ -14,12 +14,12 @@ class NewSongViewController: UIAlertController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let addAction = UIAlertAction(title: "Add", style: .default) { [unowned self] _ in
-            guard let textField = self.textFields?.first,
+        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] _ in
+            guard let textField = self?.textFields?.first,
                 let songName = textField.text else {
                     return
             }
-            self.addSong?(songName)
+            self?.addSong?(songName)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         self.title = "Add new song"

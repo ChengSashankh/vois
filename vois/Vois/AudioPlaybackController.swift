@@ -118,7 +118,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
     }
 
     @IBAction func makeTextComment(_ sender: UIButton) {
-        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TextCommentController") as? TextCommentController else {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TextCommentController")
+            as? TextCommentController else {
             return
         }
 
@@ -127,7 +128,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         controller.addCommentClosure = { text in
             let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
             RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
-            self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength, textComment: comment, delegate: self)
+            self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength,
+                                           textComment: comment, delegate: self)
             self.audioPlayer.playFrom(time: self.audioPlayer.currentTime)
             do {
                 try RecordingTable.saveRecordingsToStorage()
@@ -142,7 +144,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         //print(textCommentButtons)
         uiWaveformView.removeTextCommentButtons(from: self)
         let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
-        textComments.forEach({ self.uiWaveformView.addComment(audioLength: audioPlayer.audioLength, textComment: $0, delegate: self) })
+        textComments.forEach({
+            self.uiWaveformView.addComment(audioLength: audioPlayer.audioLength, textComment: $0, delegate: self) })
         //print(textCommentButtons)
     }
 }

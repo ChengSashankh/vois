@@ -132,7 +132,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
         guard let userName = UserSession.currentUserName else {
             return
         }
-        recordings = PerformanceFilesDirectory.getRecordingUrls(for: userName, performanceName: performanceName, songName: songName)
+        recordings = PerformanceFilesDirectory.getRecordingUrls(for: userName,
+                                                                performanceName: performanceName, songName: songName)
     }
 
     func clearTimerAndWaveform() {
