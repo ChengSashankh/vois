@@ -13,6 +13,7 @@
 		24DB020C242756F300AA15AC /* RecordingControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB020B242756F300AA15AC /* RecordingControllerTests.swift */; };
 		24F6794A241E31570075F344 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F67949241E31570075F344 /* PlaybackController.swift */; };
 		6C49965724304D33004B03F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49965624304D33004B03F5 /* User.swift */; };
+		6C49965924340106004B03F5 /* AudioEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49965824340106004B03F5 /* AudioEditController.swift */; };
 		6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E026241E8C6000E60EAB /* LoginViewController.swift */; };
 		6C52E029241E943400E60EAB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E028241E943400E60EAB /* StartViewController.swift */; };
 		6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C52E02C241E94D600E60EAB /* HomeViewController.swift */; };
@@ -57,14 +58,17 @@
 		CA3D27FF24226C8F006509C5 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */; };
 		CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280024234FF5006509C5 /* PerformanceViewController.swift */; };
 		CA3D280324239EFE006509C5 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280224239EFE006509C5 /* SongCell.swift */; };
+		CA6B07F12434F8DB00C4956E /* NewSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */; };
+		CA91527F2430A60A009DA0DB /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91527E2430A60A009DA0DB /* PerformanceFilesDirectory.swift */; };
+		CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9152802431AFAE009DA0DB /* UserSession.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
 		CACC0D96241CC25C006D2E68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D94241CC25C006D2E68 /* Main.storyboard */; };
 		CACC0D98241CC260006D2E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D97241CC260006D2E68 /* Assets.xcassets */; };
 		CACC0D9B241CC260006D2E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */; };
-		CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0DA5241CC261006D2E68 /* VoisTests.swift */; };
 		CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */; };
+		CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0DA5241CC261006D2E68 /* VoisTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +90,7 @@
 		24DB020B242756F300AA15AC /* RecordingControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingControllerTests.swift; sourceTree = "<group>"; };
 		24F67949241E31570075F344 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		6C49965624304D33004B03F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6C49965824340106004B03F5 /* AudioEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditController.swift; sourceTree = "<group>"; };
 		6C52E026241E8C6000E60EAB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6C52E028241E943400E60EAB /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6C52E02C241E94D600E60EAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +135,9 @@
 		CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CA3D280024234FF5006509C5 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
 		CA3D280224239EFE006509C5 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSongViewController.swift; sourceTree = "<group>"; };
+		CA91527E2430A60A009DA0DB /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
+		CA9152802431AFAE009DA0DB /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,9 +147,7 @@
 		CACC0D9A241CC260006D2E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CACC0D9C241CC260006D2E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CACC0DA1241CC261006D2E68 /* VoisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CACC0DA5241CC261006D2E68 /* VoisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoisTests.swift; sourceTree = "<group>"; };
 		CACC0DA7241CC261006D2E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CCF44D3BB05C1FE5DC9DF5CD /* Pods_VoisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25CFFED92AD158707F422E3 /* Pods-Vois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vois.debug.xcconfig"; path = "Target Support Files/Pods-Vois/Pods-Vois.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,7 +294,6 @@
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
-				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
 				CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */,
 				CACC0D92241CC25C006D2E68 /* ViewController.swift */,
 				CACC0D94241CC25C006D2E68 /* Main.storyboard */,
@@ -296,9 +301,9 @@
 				CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */,
 				CACC0D9C241CC260006D2E68 /* Info.plist */,
 				6C7F96EB241E5F46009C6E91 /* GoogleService-Info.plist */,
-				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
-				2451F3F4241E717900884AEE /* SaveViewController.swift */,
-				CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */,
+				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
+				CA91527E2430A60A009DA0DB /* PerformanceFilesDirectory.swift */,
+				CA9152802431AFAE009DA0DB /* UserSession.swift */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -308,7 +313,6 @@
 			children = (
 				24DB020D242756FB00AA15AC /* Controller */,
 				6C7F96E5241E245F009C6E91 /* Model */,
-				CACC0DA5241CC261006D2E68 /* VoisTests.swift */,
 				CACC0DA7241CC261006D2E68 /* Info.plist */,
 			);
 			path = VoisTests;
@@ -356,6 +360,7 @@
 				6C52E02B241E94BD00E60EAB /* Home */,
 				24C36135241DFC070047EC46 /* RecordingController.swift */,
 				C8D2017D24265A2800409CF4 /* AudioPlaybackController.swift */,
+				6C49965824340106004B03F5 /* AudioEditController.swift */,
 				24F67949241E31570075F344 /* PlaybackController.swift */,
 				C8D2017B24264E6A00409CF4 /* RecordingTableController.swift */,
 				C8D3F0B2242764D200593F3A /* TextCommentController.swift */,
@@ -363,6 +368,9 @@
 				CA11DE0B241FB2850030598D /* ProfileViewController.swift */,
 				CA118DE02420C6270098BF29 /* CreatePerformanceTableViewController.swift */,
 				CA3D280024234FF5006509C5 /* PerformanceViewController.swift */,
+				CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */,
+				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
+				2451F3F4241E717900884AEE /* SaveViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -432,7 +440,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */;
+			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -581,6 +589,7 @@
 				6C7F96EF241E6522009C6E91 /* SignupViewController.swift in Sources */,
 				6C52E029241E943400E60EAB /* StartViewController.swift in Sources */,
 				24C36136241DFC070047EC46 /* RecordingController.swift in Sources */,
+				CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */,
 				C8D2017E24265A2800409CF4 /* AudioPlaybackController.swift in Sources */,
 				C8D3F0B3242764D200593F3A /* TextCommentController.swift in Sources */,
 				2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */,
@@ -603,11 +612,14 @@
 				CA3D27FD242208B4006509C5 /* DateCell.swift in Sources */,
 				CA11DE0E241FC7290030598D /* PerformanceCell.swift in Sources */,
 				6C7F96D4241D08A7009C6E91 /* Comment.swift in Sources */,
+				CA91527F2430A60A009DA0DB /* PerformanceFilesDirectory.swift in Sources */,
 				CA3D280324239EFE006509C5 /* SongCell.swift in Sources */,
 				6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */,
+				CA6B07F12434F8DB00C4956E /* NewSongViewController.swift in Sources */,
 				C8D2018024265E5800409CF4 /* AudioPlayer.swift in Sources */,
 				24F6794A241E31570075F344 /* PlaybackController.swift in Sources */,
 				C8D95A6224276EDA002ADE88 /* FDWaveForm+Comment.swift in Sources */,
+				6C49965924340106004B03F5 /* AudioEditController.swift in Sources */,
 				6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */,
 				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
@@ -616,7 +628,6 @@
 				6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */,
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
 				CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */,
-				CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,
 				CA11DE0A241F74820030598D /* PerformancesViewController.swift in Sources */,
 				CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */,
@@ -633,7 +644,6 @@
 				6C52E03E24275B7500E60EAB /* SongTest.swift in Sources */,
 				6C7F96DD241D3BCD009C6E91 /* AudioCommentTest.swift in Sources */,
 				24DB020C242756F300AA15AC /* RecordingControllerTests.swift in Sources */,
-				CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */,
 				6C7F96DF241D3BDD009C6E91 /* TextCommentTest.swift in Sources */,
 				6C7F96E8241E25D4009C6E91 /* CommentTest.swift in Sources */,
 				6C52E04224275BB400E60EAB /* PerformancesTest.swift in Sources */,
@@ -869,7 +879,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */ = {
+		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CACC0DA8241CC261006D2E68 /* Debug */,
