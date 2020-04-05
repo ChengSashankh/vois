@@ -3,12 +3,12 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
 
-class Song: Equatable {
+class Song: Equatable, Codable {
     private var segments: [SongSegment]
     var name: String
 

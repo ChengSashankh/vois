@@ -3,12 +3,12 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
 
-class SongSegment: Equatable {
+class SongSegment: Equatable, Codable {
     private var recordings: [Recording]
     var name: String
 
@@ -43,7 +43,7 @@ class SongSegment: Equatable {
         self.recordings.remove(at: index)
     }
 
-    func getAudioComments() -> [Recording] {
+    func getRecordings() -> [Recording] {
         return self.recordings
     }
 

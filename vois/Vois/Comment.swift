@@ -3,7 +3,7 @@
 //  Vois
 //
 //  Created by Tan Yong He on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import Foundation
@@ -11,10 +11,6 @@ import Foundation
 protocol Comment {
     var timeStamp: Double { get set }
     var author: String { get set }
-    //mutating func setTimeStamp(newTimeStamp: Double)
-    //func getTimeStamp() -> Double
-    //mutating func setAuthor(newAuthor: String)
-    //func getAuthor() -> String
 }
 
 enum CommentType: String {

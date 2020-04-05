@@ -3,7 +3,7 @@
 //  Vois
 //
 //  Created by Jiang Yuxin on 14/3/20.
-//  Copyright © 2020 vois. All rights reserved.
+//  Copyright © 2020 Vois. All rights reserved.
 //
 
 import UIKit
@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see
         // `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        if scene as? UIWindowScene == nil {
+            return
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

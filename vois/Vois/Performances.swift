@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Performances {
+class Performances: Codable {
     private var performances: [Performance]
 
     var hasNoPerformances: Bool {
@@ -23,6 +23,10 @@ class Performances {
         self.performances = []
     }
 
+    init (_ performances: [Performance]) {
+        self.performances = performances
+    }
+
     func addPerformance(performance: Performance) {
         self.performances.append(performance)
     }
@@ -34,8 +38,8 @@ class Performances {
         self.performances[index] = newPerformance
     }
 
-    func removePerformance(segment: Performance) {
-        guard let index = self.performances.firstIndex(of: segment) else {
+    func removePerformance(performance: Performance) {
+        guard let index = self.performances.firstIndex(of: performance) else {
             return
         }
         self.performances.remove(at: index)
@@ -43,6 +47,10 @@ class Performances {
 
     func getPerformances() -> [Performance] {
         return self.performances
+    }
+
+    func getPerformances(at index: Int) -> Performance {
+        return self.performances[index]
     }
 
     func removeAllPerformances() {
