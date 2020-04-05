@@ -55,6 +55,23 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         return songCell
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            guard let userName = UserSession.currentUserName else {
+                return
+            }
+            let song = performance.getSongs()[indexPath.row]
+            performance.removeSong(song: song)
+            songTableView.deleteRows(at: [indexPath], with: .automatic)
+            PerformanceFilesDirectory.updatePerformance(for: userName, performance: performance)
+            PerformanceFilesDirectory.removeSong(for: userName, performanceName: performance.name, songName: song.name)
+        default:
+            break
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let recordingVC = segue.destination as? RecordingViewController {
             guard let songName = sender as? String else {
@@ -70,6 +87,19 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
             recordingTableVC.performanceName = performance.name
         }
     }
+
+    @IBAction func addNewSong(_ sender: UIButton) {
+        let newSongController = NewSongViewController(title: nil, message: nil, preferredStyle: .alert)
+        newSongController.addSong = { songName in
+            guard let userName = UserSession.currentUserName else {
+                return
+            }
+            self.performance.addSong(song: Song(name: songName))
+            PerformanceFilesDirectory.updatePerformance(for: userName, performance: self.performance)
+            self.songTableView.reloadData()
+        }
+        present(newSongController, animated: true)
+    }
 }
 
 extension TimeInterval {
@@ -80,5 +110,11 @@ extension TimeInterval {
         let days = Int((self / Double(secondsPerDay)))
         let hours = Int((self - Double(secondsPerDay * days)) / Double(secondsPerHour))
         return "\(days) days \(hours) hours"
+    }
+}
+
+extension PerformanceFilesDirectory {
+    static func updatePerformance(for userName: String, performance: Performance) {
+        try? savePerformanceFile(name: performance.name, with: performance.encodeToJson(), for: userName)
     }
 }

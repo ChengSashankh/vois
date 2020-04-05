@@ -12,6 +12,8 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var searchBar: UISearchBar!
 
+    @IBOutlet weak var subtitle: UILabel!
+
     @IBOutlet weak var performancesView: UITableView! {
         didSet {
             performancesView.delegate = self
@@ -27,11 +29,16 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     var performances: Performances!
 
+    private func configureSubtitle() {
+        subtitle.text = "\(performances.numOfPerformances) performances"
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
         performances = PerformanceFilesDirectory.allPerformances
         performancesView.reloadData()
+        configureSubtitle()
     }
 
     @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
@@ -70,6 +77,22 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowPerformance", sender: indexPath.row)
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            guard let userName = UserSession.currentUserName else {
+                return
+            }
+            PerformanceFilesDirectory.removePerformance(for: userName,
+                                                        performanceName: performances.getPerformances(at: indexPath.row).name)
+            performances.removePerformance(at: indexPath.row)
+            performancesView.deleteRows(at: [indexPath], with: .automatic)
+        default:
+            break
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

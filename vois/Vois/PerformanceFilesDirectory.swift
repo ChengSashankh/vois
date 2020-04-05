@@ -60,17 +60,29 @@ class PerformanceFilesDirectory {
     }
 
     private static func getPerformanceDirectoryUrl(for userName: String,
-                                                   performanceName: String) -> URL? {
+                                                   performanceName: String, create: Bool = true) -> URL? {
         guard let url = PerformanceFilesDirectory.getUserRootDirectory(for: userName)?
             .appendingPathComponent(performanceName, isDirectory: true) else {
             return nil
         }
-        return createIfNotExists(url: url, isDirectory: true)
+        if create {
+            return createIfNotExists(url: url, isDirectory: true)
+        } else {
+            return url
+        }
+    }
+
+    static func removePerformance(for userName: String, performanceName: String) {
+        guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName, create: false) else {
+            return
+        }
+
+        try? FileManager.default.removeItem(at: url)
     }
 
     private static func getPerformanceFileUrl(for userName: String,
-                                              performanceName: String) -> URL? {
-        guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName)?
+                                              performanceName: String, create: Bool = true) -> URL? {
+        guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName, create: create)?
             .appendingPathComponent(performanceMetaDataFileName) else {
                                                     return nil
         }
@@ -108,17 +120,30 @@ class PerformanceFilesDirectory {
         try data.write(to: url)
     }
 
-    private static func getSongDirectoryUrl(for userName: String, performanceName: String, songName: String) -> URL? {
+    private static func getSongDirectoryUrl(for userName: String, performanceName: String, songName: String, create: Bool = true) -> URL? {
         guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName)?
             .appendingPathComponent(songName, isDirectory: true) else {
             return nil
         }
 
-        return createIfNotExists(url: url, isDirectory: true)
+        if create {
+            return createIfNotExists(url: url, isDirectory: true)
+        } else {
+            return url
+        }
+    }
+
+    static func removeSong(for userName: String, performanceName: String, songName: String) {
+        guard let url = getSongDirectoryUrl(for: userName,
+                                            performanceName: performanceName, songName: songName, create: false) else {
+            return
+        }
+
+        try? FileManager.default.removeItem(at: url)
     }
 
     private static func getRecordingUrl(for userName: String, performanceName: String,
-                                                 songName: String, segmentName: String) -> URL? {
+                                        songName: String, segmentName: String) -> URL? {
         guard let url = getSongDirectoryUrl(for: userName, performanceName: performanceName, songName: songName)?
             .appendingPathComponent(segmentName) else {
                 return nil
