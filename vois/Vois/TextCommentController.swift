@@ -16,7 +16,9 @@ class TextCommentController: UIViewController, UITextFieldDelegate {
 
     @IBAction func submitComment(_ sender: UIButton) {
         guard let text = uiComment.text, !text.isEmpty else {
-            let alert = UIAlertController(title: "Invalid Comment!", message: "Comments cannot be blank.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Invalid Comment!",
+                                          message: "Comments cannot be blank.",
+                                          preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
             present(alert, animated: true)

@@ -47,10 +47,15 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         if splitViewController?.isCollapsed ?? false {
-            parent?.navigationController?.popViewController(animated: true)
+            if parent?.navigationController != nil {
+                parent?.navigationController?.popViewController(animated: true)
+            } else {
+                navigationController?.popViewController(animated: true)
+            }
 
         } else {
         UIApplication.shared.sendAction(displayAction, to: displayModeBarButton.target, from: nil, for: nil)
+            splitViewController?.preferredDisplayMode = .primaryOverlay
         }
     }
 

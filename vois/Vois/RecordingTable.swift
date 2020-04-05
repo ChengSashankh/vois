@@ -15,7 +15,6 @@ class RecordingTable {
     static func fetchRecordings(for userName: String, performanceName: String, songName: String) -> [URL] {
         return PerformanceFilesDirectory.getRecordingUrls(for: userName,
                                                           performanceName: performanceName, songName: songName)
-
     }
 
     static func saveRecordingsToStorage() throws {
