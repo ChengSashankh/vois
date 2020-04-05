@@ -12,6 +12,9 @@ import UIKit
 class RecordingTableController: UITableViewController {
     var recordingPaths = [URL]()
 
+    var performanceName: String!
+    var songName: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadRecordings()
@@ -19,7 +22,10 @@ class RecordingTableController: UITableViewController {
     }
 
     func loadRecordings() {
-        let recordingPaths = RecordingTable.fetchRecordings()
+        guard let userName = UserSession.currentUserName else {
+            return
+        }
+        let recordingPaths = RecordingTable.fetchRecordings(for: userName, performanceName: performanceName, songName: songName)
         self.recordingPaths = recordingPaths
     }
 

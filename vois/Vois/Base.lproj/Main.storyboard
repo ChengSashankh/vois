@@ -286,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-419" y="957"/>
+            <point key="canvasLocation" x="-1035" y="1055"/>
         </scene>
         <!--Performances View Controller-->
         <scene sceneID="Ige-MX-Lb8">
@@ -398,6 +398,7 @@
                     <connections>
                         <outlet property="performancesView" destination="3cv-ev-wXH" id="4mf-jg-Oof"/>
                         <outlet property="searchBar" destination="0f1-NH-nto" id="f4T-bf-fNt"/>
+                        <outlet property="subtitle" destination="Mxk-9Y-Hjl" id="ScM-Zx-TDU"/>
                         <segue destination="fYd-v9-Nfq" kind="show" identifier="ShowPerformance" id="BoS-o0-Syz"/>
                     </connections>
                 </viewController>
@@ -478,9 +479,12 @@
                                 <rect key="frame" x="15" y="816" width="384" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Practice now">
+                                <state key="normal" title="Add new song">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="addNewSong:" destination="fYd-v9-Nfq" eventType="touchUpInside" id="9DF-61-aEn"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F7Y-b6-iaQ">
                                 <rect key="frame" x="10" y="268" width="394" height="538"/>
@@ -512,7 +516,7 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                             <state key="normal" image="mic" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="lZI-zE-QvX" kind="show" id="5Y8-Xh-saI"/>
+                                                                <action selector="startRecording:" destination="XGR-U7-OoS" eventType="touchUpInside" id="vJo-4Q-hSL"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSZ-oL-kO3">
@@ -532,7 +536,7 @@
                                                             <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                             <state key="normal" image="play.rectangle" catalog="system"/>
                                                             <connections>
-                                                                <segue destination="7Zk-CT-HgK" kind="show" id="FeX-ZR-dnD"/>
+                                                                <action selector="playback:" destination="XGR-U7-OoS" eventType="touchUpInside" id="ibJ-oc-GM3"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-AZ-TKW">
@@ -604,11 +608,13 @@
                         <outlet property="filterControl" destination="Ikq-4F-qo5" id="NSS-tn-LSv"/>
                         <outlet property="nameLabel" destination="iNi-JM-Y7V" id="oqa-Ng-WMz"/>
                         <outlet property="songTableView" destination="F7Y-b6-iaQ" id="vbE-n7-fO6"/>
+                        <segue destination="lZI-zE-QvX" kind="show" identifier="Recording" id="sAp-Q4-ccN"/>
+                        <segue destination="7Zk-CT-HgK" kind="show" identifier="Playback" id="i3l-7a-yDi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKm-sx-4el" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1568.1159420289857" y="2903.5714285714284"/>
+            <point key="canvasLocation" x="1441" y="2929"/>
         </scene>
         <!--New Performance-->
         <scene sceneID="zGy-sI-KCU">
@@ -1343,7 +1349,7 @@
         <image name="text.bubble.fill" catalog="system" width="64" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="szU-aW-QIj"/>
+        <segue reference="i3l-7a-yDi"/>
         <segue reference="8b5-fT-SuE"/>
     </inferredMetricsTieBreakers>
 </document>

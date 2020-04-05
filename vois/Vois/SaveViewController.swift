@@ -10,6 +10,9 @@ import UIKit
 import Foundation
 
 class SaveViewController: UIViewController {
+
+    var performanceName: String!
+    var songName: String!
     weak var delegate: RecordingViewController?
     var recordingController: RecordingController!
     var filePath: URL?
@@ -28,15 +31,14 @@ class SaveViewController: UIViewController {
         present(uiErrorAlert, animated: true, completion: nil)
     }
 
-    func getNewFilePath() -> URL {
-        let newFileName = recordingController!.getTrimmedName(fileName: uiTextField.text!)
-        let newPath = recordingController!.getRecordingDirectoryPath().appendingPathComponent(newFileName + ".m4a")
+    func getNewFileName() -> String {
+        let newFileName = recordingController!.getTrimmedName(fileName: uiTextField.text!) + ".m4a"
 
-        return newPath
+        return newFileName
     }
 
     @IBAction private func onDiscardButtonClick(_ sender: Any) {
-        let discardedRecordingSuccessfully = recordingController!.discardRecording(atPath: filePath!)
+        let discardedRecordingSuccessfully = recordingController!.discardRecording()
 
         if discardedRecordingSuccessfully {
             self.dismiss(animated: true, completion: nil)
@@ -46,14 +48,17 @@ class SaveViewController: UIViewController {
     }
 
     @IBAction private func onSaveButtonClick(_ sender: Any) {
-        let newFilePath = getNewFilePath()
-        let renamedRecordingSuccessfully = recordingController!.renameRecording(atPath: filePath!, toPath: newFilePath)
-
-        if renamedRecordingSuccessfully {
+        guard let userName = UserSession.currentUserName else {
+            return
+        }
+        do {
+            try PerformanceFilesDirectory
+                .saveRecording(for: userName, performanceName: performanceName,
+                               songName: songName, segmentName: getNewFileName())
             self.dismiss(animated: true, completion: nil)
             delegate?.refreshRecordings()
             delegate?.reloadTableData()
-        } else {
+        } catch {
             displayErrorAlert(title: "Oops", message: defaultErrorMessage)
         }
     }
