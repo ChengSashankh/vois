@@ -56,7 +56,7 @@ class RecordingControllerTests: XCTestCase, AVAudioRecorderDelegate {
         do {
             try "Sample text".write(to: oldURL, atomically: true, encoding: .utf8)
         } catch {
-            XCTFail("Could not write file to documents directory")
+            XCTFail("Could not write file to do cuments directory")
         }
         XCTAssertTrue(recordingController.getRecordings().contains(oldURL))
 

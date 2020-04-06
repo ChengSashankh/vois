@@ -12,11 +12,21 @@ class AudioComment: Comment, Equatable {
     var filePath: URL
     var timeStamp: Double
     var author: String
+    var id: String
+
+    var dictionary: [String: Any] {
+        [
+            "timeStamp": timeStamp,
+            "author": author,
+            "id": id
+        ]
+    }
 
     init (timeStamp: Double, author: String, filePath: URL) {
         self.timeStamp = timeStamp
         self.author = author
         self.filePath = filePath
+        self.id = UUID().uuidString
     }
 
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {

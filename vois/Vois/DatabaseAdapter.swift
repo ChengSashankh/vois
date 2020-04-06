@@ -10,17 +10,16 @@ import Foundation
 
 protocol DatabaseAdapter {
     var isConnected: Bool { get }
-    var connection: Any { get }
 
     func setUpConnection() throws
 
-    func writeObject(collection: String, id: String, data: [String: Any])
+    func writeObject(inCollection: String, withId: String, data: [String: Any])
 
-    func writeObject(collection: String, data: [String: Any])
+    func writeObject(inCollection: String, data: [String: Any])
 
-    func readObject(collection: String) -> [String: Any]
+    func readObject(inCollection: String, withId: String) -> [String: Any]
 
-    func updateObject(collection: String, id: String, newData: [String: Any])
+    func updateObject(inCollection: String, withId: String, newData: [String: Any])
 
-    func deleteObject(collection: String, id: String, newData: [String: Any])
+    func deleteObject(inCollection: String, withId: String)
 }
