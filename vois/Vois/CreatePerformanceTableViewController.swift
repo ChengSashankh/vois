@@ -71,7 +71,8 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         return dateCell
     }
 
-    @objc private func toggleDatePicker() {
+    @objc
+    private func toggleDatePicker() {
         if isShowingDatePicker {
             isShowingDatePicker = false
             tableView.deleteRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
@@ -115,7 +116,7 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         } else {
             songNameCell.setEditingMode()
             songNameCell.songNameTextField.text = ""
-            songNameCell.shouldEndEditingHandler = { return true }
+            songNameCell.shouldEndEditingHandler = { true }
             songNameCell.endEditingHandler = { songName in
                 guard !songName.isEmpty else {
                     return
@@ -184,7 +185,7 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         }
     }
 
-    @IBAction func createPerformance(_ sender: Any) {
+    @IBAction private func createPerformance(_ sender: Any) {
         guard let name = eventName else {
             return
         }
@@ -192,8 +193,11 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         for song in songs {
             performance.addSong(song: song)
         }
-
-        try? PerformanceFilesDirectory.saveFile(name: name, with: performance.encodeToJson())
+        guard let userName = UserSession.currentUserName else {
+            return
+        }
+        print("E")
+        try? PerformanceFilesDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
         navigationController?.popViewController(animated: true)
     }
 }

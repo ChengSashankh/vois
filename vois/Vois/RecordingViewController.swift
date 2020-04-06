@@ -13,6 +13,9 @@ import Charts
 class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     UITableViewDelegate, UITableViewDataSource, ChartViewDelegate {
 
+    var performanceName: String!
+    var songName: String!
+
     var recordingController: RecordingController!
     var playbackController: PlaybackController!
     var recordingCount = 0
@@ -29,12 +32,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let storedRecordingCount: Int = UserDefaults.standard.object(forKey: "recordingCount") as? Int {
-            recordingCount = storedRecordingCount
-            recordingController = RecordingController(recordingCounter: recordingCount)
-        } else {
-            recordingController = RecordingController()
-        }
+        recordingController = RecordingController()
 
         refreshRecordings()
         setUpLineChart()
@@ -56,6 +54,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     func showSaveModal() {
         let saveViewController: SaveViewController? =
             storyboard!.instantiateViewController(withIdentifier: "saveViewController") as? SaveViewController
+        saveViewController!.performanceName = performanceName
+        saveViewController!.songName = songName
         saveViewController!.delegate = self
         saveViewController!.filePath = recordingController.audioRecorder.url
         saveViewController!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
@@ -129,7 +129,13 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     }
 
     func refreshRecordings() {
-        recordings = recordingController.getRecordings()
+        guard let userName = UserSession.currentUserName else {
+            return
+        }
+        recordings = PerformanceFilesDirectory.getRecordingUrls(
+            for: userName,
+            performanceName: performanceName,
+            songName: songName)
     }
 
     func clearTimerAndWaveform() {

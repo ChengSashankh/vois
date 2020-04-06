@@ -12,9 +12,9 @@ import FDWaveformView
 
 class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
+    private var displayLink: CADisplayLink!
     var fileURL: URL!
     var audioPlayer: AudioPlayer!
-    private var displayLink: CADisplayLink!
     var textCommentButtons = [TextCommentButton]()
 
     @IBOutlet private var uiSlider: UISlider!
@@ -39,6 +39,15 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         uiWaveformView.wavesColor = .blue
 
         refreshView()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is AudioEditController {
+            guard let audioEditVC = segue.destination as? AudioEditController else {
+                return
+            }
+            audioEditVC.setAudioURL(url: self.fileURL, recordingList: self.audioPlayer.recordings)
+        }
     }
 
     func setAudioURL(url: URL, recordingList: [URL]) {
@@ -96,7 +105,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         displayLink.isPaused = false
     }
 
-    @objc func step() {
+    @objc
+    func step() {
         if uiSlider.isHighlighted {
             displayLink?.isPaused = true
             audioPlayer.pause()
@@ -118,7 +128,10 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         controller.addCommentClosure = { text in
             let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
             RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
-            self.uiWaveformView.addComment(audioLength: self.audioPlayer.audioLength, textComment: comment, delegate: self)
+            self.uiWaveformView.addComment(
+                audioLength: self.audioPlayer.audioLength,
+                textComment: comment,
+                delegate: self)
             self.audioPlayer.playFrom(time: self.audioPlayer.currentTime)
             do {
                 try RecordingTable.saveRecordingsToStorage()
@@ -133,7 +146,10 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         //print(textCommentButtons)
         uiWaveformView.removeTextCommentButtons(from: self)
         let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
-        textComments.forEach({ self.uiWaveformView.addComment(audioLength: audioPlayer.audioLength, textComment: $0, delegate: self) })
+        textComments.forEach({ self.uiWaveformView.addComment(
+            audioLength: audioPlayer.audioLength,
+            textComment: $0,
+            delegate: self) })
         //print(textCommentButtons)
     }
 }

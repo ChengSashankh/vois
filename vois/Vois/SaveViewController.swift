@@ -10,6 +10,9 @@ import UIKit
 import Foundation
 
 class SaveViewController: UIViewController {
+
+    var performanceName: String!
+    var songName: String!
     weak var delegate: RecordingViewController?
     var recordingController: RecordingController!
     var filePath: URL?
@@ -28,15 +31,14 @@ class SaveViewController: UIViewController {
         present(uiErrorAlert, animated: true, completion: nil)
     }
 
-    func getNewFilePath() -> URL {
-        let newFileName = recordingController!.getTrimmedName(fileName: uiTextField.text!)
-        let newPath = recordingController!.getRecordingDirectoryPath().appendingPathComponent(newFileName + ".m4a")
+    func getNewFileName() -> String {
+        let newFileName = recordingController!.getTrimmedName(fileName: uiTextField.text!) + ".m4a"
 
-        return newPath
+        return newFileName
     }
 
     @IBAction private func onDiscardButtonClick(_ sender: Any) {
-        let discardedRecordingSuccessfully = recordingController!.discardRecording(atPath: filePath!)
+        let discardedRecordingSuccessfully = recordingController!.discardRecording()
 
         if discardedRecordingSuccessfully {
             self.dismiss(animated: true, completion: nil)
@@ -50,13 +52,24 @@ class SaveViewController: UIViewController {
         let renamedRecordingSuccessfully = recordingController!.renameRecording(atPath: filePath!, toPath: newFilePath)
         let firebaseStorageAdapter = FirebaseStorageAdapter()
 
-        if renamedRecordingSuccessfully {
-            let cloudFileName = UUID().uuidString + "_" + uiTextField.text!
+        guard let userName = UserSession.currentUserName else {
+            return
+        }
+
+        if !renamedRecordingSuccessfully {
+            return
+        }
+
+        do {
+            let cloudFileName = userName + "_" + uiTextField.text!
             firebaseStorageAdapter.uploadFile(from: newFilePath, to: "recordings/" + cloudFileName)
+            try PerformanceFilesDirectory
+                .saveRecording(for: userName, performanceName: performanceName,
+                               songName: songName, segmentName: getNewFileName())
             self.dismiss(animated: true, completion: nil)
             delegate?.refreshRecordings()
             delegate?.reloadTableData()
-        } else {
+        } catch {
             displayErrorAlert(title: "Oops", message: defaultErrorMessage)
         }
     }

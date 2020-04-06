@@ -10,7 +10,7 @@ import XCTest
 @testable import Vois
 
 class PerformanceTest: XCTestCase {
-    let performance = Performance(name: "Performance", date: Date(timeIntervalSince1970: 123456789))
+    let performance = Performance(name: "Performance", date: Date(timeIntervalSince1970: 123_456_789))
     let practice = Performance(name: "Practice")
     let songOne = Song(name: "SongOne")
     let songTwo = Song(name: "SongTwo")
@@ -47,19 +47,19 @@ class PerformanceTest: XCTestCase {
     }
 
     func testGetDate() {
-        XCTAssertEqual(performance.date, Date(timeIntervalSince1970: 123456789))
-        XCTAssertNotEqual(performance.date, Date(timeIntervalSince1970: 432156789))
+        XCTAssertEqual(performance.date, Date(timeIntervalSince1970: 123_456_789))
+        XCTAssertNotEqual(performance.date, Date(timeIntervalSince1970: 432_156_789))
 
         XCTAssertNil(practice.date)
     }
 
     func testSetDate() {
-        performance.date = Date(timeIntervalSince1970: 432156789)
-        XCTAssertEqual(performance.date, Date(timeIntervalSince1970: 432156789))
-        XCTAssertNotEqual(performance.date, Date(timeIntervalSince1970: 123456789))
+        performance.date = Date(timeIntervalSince1970: 432_156_789)
+        XCTAssertEqual(performance.date, Date(timeIntervalSince1970: 432_156_789))
+        XCTAssertNotEqual(performance.date, Date(timeIntervalSince1970: 123_456_789))
 
-        practice.date = Date(timeIntervalSince1970: 543216789)
-        XCTAssertEqual(practice.date, Date(timeIntervalSince1970: 543216789))
+        practice.date = Date(timeIntervalSince1970: 543_216_789)
+        XCTAssertEqual(practice.date, Date(timeIntervalSince1970: 543_216_789))
         XCTAssertNotNil(practice.date)
     }
 

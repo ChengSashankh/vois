@@ -110,7 +110,7 @@ class Recording: Equatable, Codable, Serializable {
     func removeAllTextComments() {
         self.textComments = []
     }
-    
+
     func removeAllComments() {
         removeAllAudioComments()
         removeAllTextComments()

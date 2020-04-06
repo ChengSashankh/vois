@@ -11,8 +11,8 @@ import XCTest
 
 class PerformancesTest: XCTestCase {
     let performances = Performances()
-    let performanceOne = Performance(name: "PerformanceOne", date: Date(timeIntervalSince1970: 123456789))
-    let performanceTwo = Performance(name: "PerformanceTwo", date: Date(timeIntervalSince1970: 123456789))
+    let performanceOne = Performance(name: "PerformanceOne", date: Date(timeIntervalSince1970: 123_456_789))
+    let performanceTwo = Performance(name: "PerformanceTwo", date: Date(timeIntervalSince1970: 123_456_789))
 
     func testNoSegments() {
         XCTAssertTrue(performances.hasNoPerformances)

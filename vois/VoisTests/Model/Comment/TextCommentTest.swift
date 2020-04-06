@@ -10,19 +10,19 @@ import XCTest
 @testable import Vois
 
 class TextCommentTest: XCTestCase {
-    let comment = TextComment(timeStamp: 1584204199,
+    let comment = TextComment(timeStamp: 1_584_204_199,
                               author: "John Doe",
                               text: "Nice pitch!")
-    let equalComment = TextComment(timeStamp: 1584204199,
-                              author: "John Doe",
-                              text: "Nice pitch!")
-    let unequalCommentOne = TextComment(timeStamp: 1584204190,
-                              author: "John Doe",
-                              text: "Nice pitch!")
-    let unequalCommentTwo = TextComment(timeStamp: 1584204199,
+    let equalComment = TextComment(timeStamp: 1_584_204_199,
+                                   author: "John Doe",
+                                   text: "Nice pitch!")
+    let unequalCommentOne = TextComment(timeStamp: 1_584_204_190,
+                                        author: "John Doe",
+                                        text: "Nice pitch!")
+    let unequalCommentTwo = TextComment(timeStamp: 1_584_204_199,
                                         author: "John D.",
                                         text: "Nice pitch!")
-    let unequalCommentThree = TextComment(timeStamp: 1584204199,
+    let unequalCommentThree = TextComment(timeStamp: 1_584_204_199,
                                           author: "John Doe",
                                           text: "Nice vocals!")
 

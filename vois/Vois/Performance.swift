@@ -37,7 +37,7 @@ class Performance: Equatable, Codable, Serializable {
         self.date = date
         id = UUID().uuidString
     }
-    
+
     init (name: String) {
         self.name = name
         self.songs = []
