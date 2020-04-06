@@ -10,6 +10,7 @@
 		2442BA75243B30E4006380FA /* FirebaseRealtimeDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2442BA74243B30E4006380FA /* FirebaseRealtimeDatabaseTests.swift */; };
 		2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451F3F4241E717900884AEE /* SaveViewController.swift */; };
 		2457614724399937000BD648 /* FirebaseAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457614624399937000BD648 /* FirebaseAdapterTests.swift */; };
+		2462DD44243B5EF200C4C94A /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462DD43243B5EF200C4C94A /* Serializable.swift */; };
 		247466E4243AE3C100ED6DBA /* FirebaseStorageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247466E3243AE3C100ED6DBA /* FirebaseStorageAdapter.swift */; };
 		247466E6243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247466E5243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift */; };
 		24C1DC272434CA1100D961B7 /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C1DC262434CA1100D961B7 /* DatabaseAdapter.swift */; };
@@ -87,6 +88,7 @@
 		2442BA74243B30E4006380FA /* FirebaseRealtimeDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRealtimeDatabaseTests.swift; sourceTree = "<group>"; };
 		2451F3F4241E717900884AEE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		2457614624399937000BD648 /* FirebaseAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdapterTests.swift; sourceTree = "<group>"; };
+		2462DD43243B5EF200C4C94A /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		247466E3243AE3C100ED6DBA /* FirebaseStorageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapter.swift; sourceTree = "<group>"; };
 		247466E5243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapterTests.swift; sourceTree = "<group>"; };
 		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -351,6 +353,7 @@
 				6C7F96D1241D0883009C6E91 /* SongSegment.swift */,
 				6C7F96CF241D0870009C6E91 /* Recording.swift */,
 				C8D201772426488700409CF4 /* RecordingTable.swift */,
+				2462DD43243B5EF200C4C94A /* Serializable.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				C8D95A64242776D6002ADE88 /* TextCommentButton.swift in Sources */,
 				CA118DE72420C6D40098BF29 /* SongNameCell.swift in Sources */,
 				CA3D27FF24226C8F006509C5 /* DatePickerCell.swift in Sources */,
+				2462DD44243B5EF200C4C94A /* Serializable.swift in Sources */,
 				CA3D27FD242208B4006509C5 /* DateCell.swift in Sources */,
 				247466E4243AE3C100ED6DBA /* FirebaseStorageAdapter.swift in Sources */,
 				CA11DE0E241FC7290030598D /* PerformanceCell.swift in Sources */,

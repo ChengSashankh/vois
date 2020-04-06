@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AudioComment: Comment, Equatable {
+class AudioComment: Comment, Equatable, Serializable {
     var filePath: URL
     var timeStamp: Double
     var author: String
@@ -27,6 +27,13 @@ class AudioComment: Comment, Equatable {
         self.author = author
         self.filePath = filePath
         self.id = UUID().uuidString
+    }
+
+    init (timeStamp: Double, author: String, filePath: URL, id: String) {
+        self.timeStamp = timeStamp
+        self.author = author
+        self.filePath = filePath
+        self.id = id
     }
 
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {

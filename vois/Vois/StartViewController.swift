@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
 
 class StartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let firestoreAdapter = FirestoreAdapter()
+//        let firestoreAdapter = FirestoreAdapter()
 
 //        firestoreAdapter.writeObject(inCollection: "test", data: [
 //            "a": "b"
@@ -36,7 +36,7 @@ class StartViewController: UIViewController {
 //            print("Error failed")
 //        }
 
-        let storageAdapter = FirebaseStorageAdapter()
+//        let storageAdapter = FirebaseStorageAdapter()
 
 //        let oldURL = storageAdapter.getDocumentsDirectoryPath().appendingPathComponent("testfile.txt")
 //        do {
@@ -45,15 +45,16 @@ class StartViewController: UIViewController {
 //        } catch {
 //            print("Could not write file to documents directory")
 //        }
-        let oldURL = storageAdapter.getDocumentsDirectoryPath().appendingPathComponent("downloaded.txt")
-        storageAdapter.downloadFile(from: "recordings/sample_text.txt", localFilePath: oldURL)
 
         //reading
-        do {
-            let text2 = try String(contentsOf: oldURL, encoding: .utf8)
-            print("Contents are: \(text2)")
-        }
-        catch {/* error handling here */}
+//        let oldURL = storageAdapter.getDocumentsDirectoryPath().appendingPathComponent("downloaded.txt")
+//         storageAdapter.downloadFile(from: "recordings/sample_text.txt", localFilePath: oldURL)
+//
+//        do {
+//            let text2 = try String(contentsOf: oldURL, encoding: .utf8)
+//            print("Contents are: \(text2)")
+//        }
+//        catch {/* error handling here */}
 
         if Auth.auth().currentUser != nil {
             self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
