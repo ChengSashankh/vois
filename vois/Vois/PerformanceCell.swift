@@ -12,7 +12,6 @@ class PerformanceCell: UITableViewCell {
 
     private static let cornerRadiusToWidth: CGFloat = 0.03
     private static let verticalSpacingToHeight: CGFloat = 0.1
-    private static let backgroundColour = #colorLiteral(red: 0.5546258092, green: 0.7963129878, blue: 1, alpha: 0.5)
 
     private var verticalSpacing: CGFloat {
         bounds.height * PerformanceCell.verticalSpacingToHeight
@@ -32,7 +31,7 @@ class PerformanceCell: UITableViewCell {
             roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: verticalSpacing, right: 0)),
             cornerRadius: cornerRadius)
 
-        PerformanceCell.backgroundColour.setFill()
+        #colorLiteral(red: 0.5546258092, green: 0.7963129878, blue: 1, alpha: 0.5).setFill()
         roundedRect.fill()
     }
 }

@@ -151,7 +151,7 @@ class PerformanceFilesDirectory {
     }
 
     static func getRecordingUrl(for userName: String, performanceName: String,
-                                        songName: String, segmentName: String) -> URL? {
+                                songName: String, segmentName: String) -> URL? {
         guard let url = getSongDirectoryUrl(for: userName, performanceName: performanceName, songName: songName)?
             .appendingPathComponent(segmentName) else {
                 return nil

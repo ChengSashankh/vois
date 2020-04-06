@@ -61,7 +61,7 @@ class DatabaseController {
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
@@ -78,12 +78,12 @@ class DatabaseController {
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueLessThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueLessThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         firestore
@@ -95,12 +95,12 @@ class DatabaseController {
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueGreaterThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueGreaterThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         firestore
@@ -112,7 +112,7 @@ class DatabaseController {
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }

@@ -119,7 +119,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
     }
 
     @IBAction func makeTextComment(_ sender: UIButton) {
-        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TextCommentController") as? TextCommentController else {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TextCommentController")
+            as? TextCommentController else {
             return
         }
 
