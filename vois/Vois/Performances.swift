@@ -8,8 +8,16 @@
 
 import Foundation
 
-class Performances: Codable {
+class Performances: Codable, Serializable {
     private var performances: [Performance]
+    var id: String
+
+    var dictionary: [String: Any] {
+        return [
+            "performances": performances,
+            "id": id
+        ]
+    }
 
     var hasNoPerformances: Bool {
         return performances.isEmpty
@@ -21,10 +29,12 @@ class Performances: Codable {
 
     init () {
         self.performances = []
+        id = UUID().uuidString
     }
 
     init (_ performances: [Performance]) {
         self.performances = performances
+        self.id = UUID().uuidString
     }
 
     func addPerformance(performance: Performance) {

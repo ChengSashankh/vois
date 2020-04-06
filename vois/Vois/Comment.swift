@@ -11,6 +11,7 @@ import Foundation
 protocol Comment {
     var timeStamp: Double { get set }
     var author: String { get set }
+    var id: String { get set }
 }
 
 enum CommentType: String {

@@ -10,7 +10,11 @@ target 'Vois' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'Firebase/Core', '~> 6.19.0'
+  pod 'Firebase/Storage' 
   pod 'Charts'
+  pod 'FirebaseFirestore'
+  pod 'FDWaveformView'
+  pod 'Firebase/Database'
 
   target 'VoisTests' do
     inherit! :search_paths

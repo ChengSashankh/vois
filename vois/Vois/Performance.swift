@@ -8,10 +8,11 @@
 
 import Foundation
 
-class Performance: Equatable, Codable {
+class Performance: Equatable, Codable, Serializable {
     private var songs: [Song]
     var name: String
     var date: Date?
+    var id: String
 
     var hasNoSongs: Bool {
         return songs.isEmpty
@@ -21,15 +22,26 @@ class Performance: Equatable, Codable {
         return songs.count
     }
 
+    var dictionary: [String: Any] {
+        return [
+            "songs": songs,
+            "name": name,
+            "date": date,
+            "id": id
+        ]
+    }
+
     init (name: String, date: Date?) {
         self.name = name
         self.songs = []
         self.date = date
+        id = UUID().uuidString
     }
 
     init (name: String) {
         self.name = name
         self.songs = []
+        id = UUID().uuidString
     }
 
     func addSong(song: Song) {
@@ -75,6 +87,7 @@ class Performance: Equatable, Codable {
         songs = try values.decode([Song].self, forKey: .songs)
         name = try values.decode(String.self, forKey: .name)
         date = try? values.decode(Date.self, forKey: .date)
+        self.id = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {

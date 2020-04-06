@@ -9,7 +9,6 @@
 import Foundation
 
 class RecordingTable {
-
     private static var recordings = [String: Recording]()
 
     static func fetchRecordings(for userName: String, performanceName: String, songName: String) -> [URL] {

@@ -8,9 +8,10 @@
 
 import Foundation
 
-class SongSegment: Equatable, Codable {
+class SongSegment: Equatable, Codable, Serializable {
     private var recordings: [Recording]
     var name: String
+    var id: String
 
     var hasNoRecordings: Bool {
         return recordings.isEmpty
@@ -20,9 +21,18 @@ class SongSegment: Equatable, Codable {
         return recordings.count
     }
 
+    var dictionary: [String: Any] {
+        return [
+            "recordings": recordings,
+            "name": name,
+            "id": id
+        ]
+    }
+
     init (name: String) {
         self.name = name
         self.recordings = []
+        id = UUID().uuidString
     }
 
     func addRecording(recording: Recording) {

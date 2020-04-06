@@ -8,10 +8,12 @@
 
 import Foundation
 
-class Recording: Equatable, Codable {
+class Recording: Equatable, Codable, Serializable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
     private var filePath: URL
+    internal var id: String
+    var cloudReference: String?
 
     var hasNoAudioComments: Bool {
         return audioComments.isEmpty
@@ -37,10 +39,22 @@ class Recording: Equatable, Codable {
         return self.numOfAudioComments + self.numOfTextComments
     }
 
+    var dictionary: [String: Any] {
+        return [
+            "filePath": filePath,
+            "audioComments": audioComments,
+            "textComments": textComments,
+            "id": id,
+            "cloudReference": cloudReference ?? ""
+        ]
+    }
+
     init (filePath: URL) {
         self.filePath = filePath
         self.audioComments = []
         self.textComments = []
+        self.cloudReference = ""
+        id = UUID().uuidString
     }
 
     /* AudioComment API */
@@ -117,6 +131,7 @@ class Recording: Equatable, Codable {
         filePath = try values.decode(URL.self, forKey: .filePath)
         audioComments = []
         textComments = []
+        id = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {

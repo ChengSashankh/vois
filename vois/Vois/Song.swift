@@ -8,9 +8,10 @@
 
 import Foundation
 
-class Song: Equatable, Codable {
+class Song: Equatable, Codable, Serializable {
     private var segments: [SongSegment]
     var name: String
+    var id: String
 
     var hasNoSegments: Bool {
         return segments.isEmpty
@@ -20,9 +21,18 @@ class Song: Equatable, Codable {
         return segments.count
     }
 
+    var dictionary: [String: Any] {
+        return [
+            "segments": segments,
+            "name": name,
+            "id": id
+        ]
+    }
+
     init (name: String) {
         self.name = name
         self.segments = []
+        id = UUID().uuidString
     }
 
     func addSegment(segment: SongSegment) {

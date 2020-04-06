@@ -8,15 +8,32 @@
 
 import Foundation
 
-class AudioComment: Comment, Equatable {
+class AudioComment: Comment, Equatable, Serializable {
     var filePath: URL
     var timeStamp: Double
     var author: String
+    var id: String
+
+    var dictionary: [String: Any] {
+        [
+            "timeStamp": timeStamp,
+            "author": author,
+            "id": id
+        ]
+    }
 
     init (timeStamp: Double, author: String, filePath: URL) {
         self.timeStamp = timeStamp
         self.author = author
         self.filePath = filePath
+        self.id = UUID().uuidString
+    }
+
+    init (timeStamp: Double, author: String, filePath: URL, id: String) {
+        self.timeStamp = timeStamp
+        self.author = author
+        self.filePath = filePath
+        self.id = id
     }
 
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {

@@ -55,6 +55,7 @@ class SaveViewController: UIViewController {
             try PerformanceFilesDirectory
                 .saveRecording(for: userName, performanceName: performanceName,
                                songName: songName, segmentName: getNewFileName())
+
             self.dismiss(animated: true, completion: nil)
             delegate?.refreshRecordings()
             delegate?.reloadTableData()
@@ -62,4 +63,5 @@ class SaveViewController: UIViewController {
             displayErrorAlert(title: "Oops", message: defaultErrorMessage)
         }
     }
+
 }
