@@ -528,6 +528,9 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                             <state key="normal" image="square.and.arrow.up" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="onUploadButtonClick:" destination="fYd-v9-Nfq" eventType="touchUpInside" id="nA1-gQ-njO"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwA-xd-VQJ">
                                                             <rect key="frame" x="168" y="0.0" width="31.666666666666657" height="30"/>
@@ -1173,6 +1176,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="FeX-ZR-dnD"/>
         <segue reference="8QV-dk-K3z"/>
-        <segue reference="u0z-lu-C3e"/>
+        <segue reference="9S7-3Y-Uhj"/>
     </inferredMetricsTieBreakers>
 </document>
