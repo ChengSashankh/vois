@@ -10,11 +10,11 @@ import Foundation
 import Firebase
 
 class StorageController {
-    func uploadFile(at: URL) {
+    func uploadFile(at url: URL) {
 
     }
 
-    func downloadFile(at: URL) {
+    func downloadFile(at url: URL) {
 
     }
 }

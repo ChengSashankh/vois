@@ -56,7 +56,8 @@ class PerformanceFilesDirectory {
 
         let urls = getAllFileUrlsInDirectory(url: userDirectoryURL, includeDirectory: false)
         return urls.compactMap { url in
-            PerformanceFilesDirectory.getPerformanceFile(for: userName, performanceDirectoryURL: url) }
+            PerformanceFilesDirectory.getPerformanceFile(for: userName, performanceDirectoryURL: url)
+        }
     }
 
     private static func getPerformanceDirectoryUrl(for userName: String,
@@ -73,7 +74,9 @@ class PerformanceFilesDirectory {
     }
 
     static func removePerformance(for userName: String, performanceName: String) {
-        guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName, create: false) else {
+        guard let url = getPerformanceDirectoryUrl(for: userName,
+                                                   performanceName: performanceName,
+                                                   create: false) else {
             return
         }
 
@@ -120,7 +123,10 @@ class PerformanceFilesDirectory {
         try data.write(to: url)
     }
 
-    private static func getSongDirectoryUrl(for userName: String, performanceName: String, songName: String, create: Bool = true) -> URL? {
+    private static func getSongDirectoryUrl(for userName: String,
+                                            performanceName: String,
+                                            songName: String,
+                                            create: Bool = true) -> URL? {
         guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName)?
             .appendingPathComponent(songName, isDirectory: true) else {
             return nil
@@ -135,7 +141,9 @@ class PerformanceFilesDirectory {
 
     static func removeSong(for userName: String, performanceName: String, songName: String) {
         guard let url = getSongDirectoryUrl(for: userName,
-                                            performanceName: performanceName, songName: songName, create: false) else {
+                                            performanceName: performanceName,
+                                            songName: songName,
+                                            create: false) else {
             return
         }
 
