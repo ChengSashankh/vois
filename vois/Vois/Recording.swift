@@ -13,6 +13,7 @@ class Recording: Equatable, Codable, Serializable {
     private var textComments: [TextComment]
     private var filePath: URL
     internal var id: String
+    var cloudReference: String?
 
     var hasNoAudioComments: Bool {
         return audioComments.isEmpty
@@ -43,7 +44,8 @@ class Recording: Equatable, Codable, Serializable {
             "filePath": filePath,
             "audioComments": audioComments,
             "textComments": textComments,
-            "id": id
+            "id": id,
+            "cloudReference": cloudReference ?? ""
         ]
     }
 
@@ -51,6 +53,7 @@ class Recording: Equatable, Codable, Serializable {
         self.filePath = filePath
         self.audioComments = []
         self.textComments = []
+        self.cloudReference = ""
         id = UUID().uuidString
     }
 

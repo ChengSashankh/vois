@@ -48,8 +48,11 @@ class SaveViewController: UIViewController {
     @IBAction private func onSaveButtonClick(_ sender: Any) {
         let newFilePath = getNewFilePath()
         let renamedRecordingSuccessfully = recordingController!.renameRecording(atPath: filePath!, toPath: newFilePath)
+        let firebaseStorageAdapter = FirebaseStorageAdapter()
 
         if renamedRecordingSuccessfully {
+            let cloudFileName = UUID().uuidString + "_" + uiTextField.text!
+            firebaseStorageAdapter.uploadFile(from: newFilePath, to: "recordings/" + cloudFileName)
             self.dismiss(animated: true, completion: nil)
             delegate?.refreshRecordings()
             delegate?.reloadTableData()
@@ -57,4 +60,5 @@ class SaveViewController: UIViewController {
             displayErrorAlert(title: "Oops", message: defaultErrorMessage)
         }
     }
+
 }

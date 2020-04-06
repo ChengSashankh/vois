@@ -26,10 +26,6 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
 
     var performance: Performance!
 
-    @IBAction func onUploadButtonClick(_ sender: Any) {
-        let firebaseStorageAdapter = FirebaseStorageAdapter()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
