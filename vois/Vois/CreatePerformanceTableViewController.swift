@@ -71,7 +71,8 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         return dateCell
     }
 
-    @objc private func toggleDatePicker() {
+    @objc
+    private func toggleDatePicker() {
         if isShowingDatePicker {
             isShowingDatePicker = false
             tableView.deleteRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
@@ -192,10 +193,10 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         for song in songs {
             performance.addSong(song: song)
         }
-
         guard let userName = UserSession.currentUserName else {
             return
         }
+        print("E")
         try? PerformanceFilesDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
         navigationController?.popViewController(animated: true)
     }

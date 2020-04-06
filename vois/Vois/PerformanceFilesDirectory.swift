@@ -75,7 +75,8 @@ class PerformanceFilesDirectory {
 
     static func removePerformance(for userName: String, performanceName: String) {
         guard let url = getPerformanceDirectoryUrl(for: userName,
-                                                   performanceName: performanceName, create: false) else {
+                                                   performanceName: performanceName,
+                                                   create: false) else {
             return
         }
 
@@ -123,7 +124,9 @@ class PerformanceFilesDirectory {
     }
 
     private static func getSongDirectoryUrl(for userName: String,
-                                            performanceName: String, songName: String, create: Bool = true) -> URL? {
+                                            performanceName: String,
+                                            songName: String,
+                                            create: Bool = true) -> URL? {
         guard let url = getPerformanceDirectoryUrl(for: userName, performanceName: performanceName)?
             .appendingPathComponent(songName, isDirectory: true) else {
             return nil
@@ -138,7 +141,9 @@ class PerformanceFilesDirectory {
 
     static func removeSong(for userName: String, performanceName: String, songName: String) {
         guard let url = getSongDirectoryUrl(for: userName,
-                                            performanceName: performanceName, songName: songName, create: false) else {
+                                            performanceName: performanceName,
+                                            songName: songName,
+                                            create: false) else {
             return
         }
 

@@ -62,8 +62,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 return nil
         }
         //Should download recording from filestore
-        return PerformanceFilesDirectory.getRecordingUrl(for: user, performanceName: performance,
-                                                         songName: song, segmentName: recording)
+        return PerformanceFilesDirectory.getRecordingUrl(
+            for: user,
+            performanceName: performance,
+            songName: song,
+            segmentName: recording)
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

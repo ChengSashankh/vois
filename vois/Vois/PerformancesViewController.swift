@@ -91,8 +91,10 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
             guard let userName = UserSession.currentUserName else {
                 return
             }
-            PerformanceFilesDirectory.removePerformance(for: userName, performanceName:
-                performances.getPerformances(at: indexPath.row).name)
+            PerformanceFilesDirectory.removePerformance(
+                for: userName,
+                performanceName: performances.getPerformances(
+                    at: indexPath.row).name)
             performances.removePerformance(at: indexPath.row)
             performancesView.deleteRows(at: [indexPath], with: .automatic)
         default:

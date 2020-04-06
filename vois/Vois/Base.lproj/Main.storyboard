@@ -165,36 +165,6 @@
             </objects>
             <point key="canvasLocation" x="-1494" y="1792"/>
         </scene>
-        <!--Home View Controller-->
-        <scene sceneID="kiQ-I2-CvS">
-            <objects>
-                <viewController id="Mc4-4v-xfX" userLabel="Home View Controller" customClass="HomeViewController" customModule="Vois" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VkT-p2-VWE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zZh-NO-rRM" userLabel="Log Out">
-                                <rect key="frame" x="155" y="475" width="105" height="104"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="LOG OUT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="logOutAction:" destination="Rpf-wS-968" eventType="touchUpInside" id="Svx-pk-CGO"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="H5w-iT-kwj"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Usg-vs-oXV"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rpf-wS-968" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1860.8695652173915" y="868.52678571428567"/>
-        </scene>
         <!--Signup View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -421,8 +391,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zZh-NO-rRM" userLabel="Log Out">
+                                <rect key="frame" x="155" y="506" width="105" height="104"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="LOG OUT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOutAction:" destination="0rG-TC-mAR" eventType="touchUpInside" id="s3t-1N-JvX"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="8sO-k0-fHs"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZDC-d6-afC">
@@ -1352,7 +1333,7 @@
         <image name="text.bubble.fill" catalog="system" width="64" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i3l-7a-yDi"/>
+        <segue reference="szU-aW-QIj"/>
         <segue reference="8b5-fT-SuE"/>
     </inferredMetricsTieBreakers>
 </document>
