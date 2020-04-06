@@ -193,6 +193,13 @@ class PerformanceFilesDirectory {
         }
         do {
             try FileManager.default.moveItem(at: tempUrl, to: url)
+            let cloudFileName = UUID().uuidString + "_" + segmentName
+            let firebaseStorageAdapter = FirebaseStorageAdapter()
+
+            firebaseStorageAdapter.uploadFile(
+                from: url,
+                to: "recordings/" + cloudFileName
+            )
         } catch {
             throw PerformanceFilesDirectoryError.unsuccessfullSaving
         }

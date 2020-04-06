@@ -48,24 +48,14 @@ class SaveViewController: UIViewController {
     }
 
     @IBAction private func onSaveButtonClick(_ sender: Any) {
-        let newFilePath = getNewFilePath()
-        let renamedRecordingSuccessfully = recordingController!.renameRecording(atPath: filePath!, toPath: newFilePath)
-        let firebaseStorageAdapter = FirebaseStorageAdapter()
-
         guard let userName = UserSession.currentUserName else {
             return
         }
-
-        if !renamedRecordingSuccessfully {
-            return
-        }
-
         do {
-            let cloudFileName = userName + "_" + uiTextField.text!
-            firebaseStorageAdapter.uploadFile(from: newFilePath, to: "recordings/" + cloudFileName)
             try PerformanceFilesDirectory
                 .saveRecording(for: userName, performanceName: performanceName,
                                songName: songName, segmentName: getNewFileName())
+
             self.dismiss(animated: true, completion: nil)
             delegate?.refreshRecordings()
             delegate?.reloadTableData()

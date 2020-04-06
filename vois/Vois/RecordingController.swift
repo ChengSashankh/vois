@@ -63,7 +63,7 @@ class RecordingController {
         }
 
         guard let userName = UserSession.currentUserName,
-            let recordingFilePath = PerformanceFilesDirectory.getTemporaryRecordingUrl(for: userName)else {
+            let recordingFilePath = PerformanceFilesDirectory.getTemporaryRecordingUrl(for: userName) else {
             return false
         }
 

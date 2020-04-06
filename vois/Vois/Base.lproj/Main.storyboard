@@ -1330,9 +1330,6 @@
         <image name="text.bubble.fill" catalog="system" width="64" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FeX-ZR-dnD"/>
-        <segue reference="8QV-dk-K3z"/>
-        <segue reference="9S7-3Y-Uhj"/>
         <segue reference="szU-aW-QIj"/>
         <segue reference="8b5-fT-SuE"/>
     </inferredMetricsTieBreakers>
