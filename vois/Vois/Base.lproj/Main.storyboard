@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ON2-Lo-Rkh" userLabel="Sign Up">
-                                <rect key="frame" x="159" y="498.66666666666674" width="96" height="41"/>
+                                <rect key="frame" x="159" y="690.66666666666663" width="96" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <state key="normal" title="SIGN UP">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -48,13 +48,13 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vois" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-uP-oT3">
-                                <rect key="frame" x="47.666666666666657" y="192" width="319" height="192"/>
+                                <rect key="frame" x="-112" y="192" width="638" height="384"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mTb-uP-oT3" secondAttribute="height" multiplier="319:192" id="Lb3-ii-0zE"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hp-WE-Uyr" userLabel="Sign Up">
-                                <rect key="frame" x="170" y="427.66666666666669" width="74" height="41"/>
+                                <rect key="frame" x="170" y="619.66666666666663" width="74" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <state key="normal" title="LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -528,6 +528,9 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                             <state key="normal" image="square.and.arrow.up" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="share:" destination="XGR-U7-OoS" eventType="touchUpInside" id="jKg-yV-6Ap"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwA-xd-VQJ">
                                                             <rect key="frame" x="168" y="0.0" width="31.666666666666657" height="30"/>
