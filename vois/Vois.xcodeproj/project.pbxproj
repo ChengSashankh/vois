@@ -67,8 +67,6 @@
 		CACC0D96241CC25C006D2E68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D94241CC25C006D2E68 /* Main.storyboard */; };
 		CACC0D98241CC260006D2E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D97241CC260006D2E68 /* Assets.xcassets */; };
 		CACC0D9B241CC260006D2E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */; };
-		CAFCF30A24279CAB003EDD1B /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF30924279CAB003EDD1B /* PerformanceFilesDirectory.swift */; };
-		CACC0DA6241CC261006D2E68 /* VoisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0DA5241CC261006D2E68 /* VoisTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -440,7 +438,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */;
+			buildConfigurationList = CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -879,7 +877,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "vois" */ = {
+		CACC0D86241CC25C006D2E68 /* Build configuration list for PBXProject "Vois" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CACC0DA8241CC261006D2E68 /* Debug */,

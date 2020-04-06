@@ -29,7 +29,7 @@ class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(NSHomeDirectory())
+        //print(NSHomeDirectory())
         self.minimumValue = 0.0
         self.maximumValue = Float(audioPlayer.audioLength)
 
