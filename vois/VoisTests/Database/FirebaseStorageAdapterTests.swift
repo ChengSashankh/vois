@@ -7,20 +7,48 @@
 //
 
 import XCTest
+import FirebaseStorage
+@testable import Vois
 
 class FirebaseStorageAdapterTests: XCTestCase {
+    var firebaseStorageAdapter = FirebaseStorageAdapter(bucketName: "gs://vois-239b7.appspot.com")
+    var testFilePath = "recordings/vois audio background.png"
+    var localFileName = "downloaded.png"
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testDownloadFile() {
+        let targetURL = firebaseStorageAdapter.getDocumentsDirectoryPath().appendingPathComponent(localFileName)
+        let cloudFileReference = firebaseStorageAdapter.getReference(toPath: testFilePath)
+        let downloadTask = cloudFileReference.write(toFile: targetURL)
+        downloadTask.observe(.success) { snapshot in
+            print("Success")
+            print(snapshot)
+        }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        downloadTask.observe(.failure) { snapshot in
+            guard let errorCode = (snapshot.error as NSError?)?.code else {
+              return
+            }
+            guard let error = StorageErrorCode(rawValue: errorCode) else {
+              return
+            }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+            print("Error encountered: \(error)")
+            XCTFail()
+        }
+//        let downloadTask = cloudFileReference.write(toFile: targetURL) { url, error in
+//          if let error = error {
+//            print("Error occured \(error)")
+//          } else {
+//            print("Download successful")
+//
+//            do {
+//                let attr = try FileManager.default.attributesOfItem(atPath: targetURL.absoluteString)
+//                print("Attributes are: \(attr)")
+//            } catch {
+//                print("Could not get attributes")
+//            }
+//          }
+//        }
     }
 
     func testPerformanceExample() {
