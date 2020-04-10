@@ -11,7 +11,7 @@ import Foundation
 class Recording: Equatable, Codable, Serializable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
-    private var filePath: URL
+    var filePath: URL
     internal var id: String
     var cloudReference: String?
 

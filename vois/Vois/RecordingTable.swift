@@ -12,7 +12,7 @@ class RecordingTable {
     private static var recordings = [String: Recording]()
 
     static func fetchRecordings(for userName: String, performanceName: String, songName: String) -> [URL] {
-        return PerformanceFilesDirectory.getRecordingUrls(for: userName,
+        return UserDirectory.getRecordingUrls(for: userName,
                                                           performanceName: performanceName, songName: songName)
     }
 

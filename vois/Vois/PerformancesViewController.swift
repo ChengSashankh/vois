@@ -36,7 +36,7 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
-        performances = PerformanceFilesDirectory.allPerformances
+        performances = UserDirectory.allPerformances
         performancesView.reloadData()
         configureSubtitle()
     }
@@ -91,7 +91,7 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
             guard let userName = UserSession.currentUserName else {
                 return
             }
-            PerformanceFilesDirectory.removePerformance(
+            UserDirectory.removePerformance(
                 for: userName,
                 performanceName: performances.getPerformances(
                     at: indexPath.row).name)
@@ -120,12 +120,12 @@ extension Date {
     }
 }
 
-extension PerformanceFilesDirectory {
+extension UserDirectory {
     static var allPerformances: Performances {
         guard let userName = UserSession.currentUserName else {
             return Performances()
         }
-        return Performances(PerformanceFilesDirectory
+        return Performances(UserDirectory
             .getAllPerformanceFiles(for: userName).compactMap { data in Performance(json: data) })
     }
 }

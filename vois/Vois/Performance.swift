@@ -96,16 +96,4 @@ class Performance: Equatable, Codable, Serializable {
         try container.encode(name, forKey: .name)
         try? container.encode(date, forKey: .date)
     }
-
-    func encodeToJson() throws -> Data {
-        return try JSONEncoder().encode(self)
-    }
-
-    convenience init?(json: Data) {
-        guard let newValue = try? JSONDecoder().decode(Performance.self, from: json) else {
-            return nil
-        }
-        self.init(name: newValue.name, date: newValue.date)
-        self.songs = newValue.songs
-       }
 }

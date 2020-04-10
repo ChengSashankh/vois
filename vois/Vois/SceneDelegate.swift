@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 return nil
         }
         //Should download recording from filestore
-        return PerformanceFilesDirectory.getRecordingUrl(
+        return UserDirectory.getRecordingUrl(
             for: user,
             performanceName: performance,
             songName: song,

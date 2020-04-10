@@ -50,7 +50,7 @@ class RecordingController {
             return false
         }
         do {
-            try PerformanceFilesDirectory.removeTemporaryRecording(for: userName)
+            try UserDirectory.removeTemporaryRecording(for: userName)
             return true
         } catch {
             return false
@@ -63,7 +63,7 @@ class RecordingController {
         }
 
         guard let userName = UserSession.currentUserName,
-            let recordingFilePath = PerformanceFilesDirectory.getTemporaryRecordingUrl(for: userName) else {
+            let recordingFilePath = UserDirectory.getTemporaryRecordingUrl(for: userName) else {
             return false
         }
 

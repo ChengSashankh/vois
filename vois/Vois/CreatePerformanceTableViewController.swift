@@ -197,7 +197,7 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
             return
         }
         print("E")
-        try? PerformanceFilesDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
+        try? UserDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
         navigationController?.popViewController(animated: true)
     }
 }

@@ -132,7 +132,7 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
         guard let userName = UserSession.currentUserName else {
             return
         }
-        recordings = PerformanceFilesDirectory.getRecordingUrls(
+        recordings = UserDirectory.getRecordingUrls(
             for: userName,
             performanceName: performanceName,
             songName: songName)

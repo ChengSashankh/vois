@@ -70,4 +70,15 @@ class Performances: Codable, Serializable {
     func removeAllPerformances() {
         self.performances = []
     }
+
+    func encodeToJson() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+
+    convenience init?(json: Data) {
+        guard let newValue = try? JSONDecoder().decode(Performances.self, from: json) else {
+            return nil
+        }
+        self.init(newValue.performances)
+    }
 }

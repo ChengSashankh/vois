@@ -52,7 +52,7 @@ class SaveViewController: UIViewController {
             return
         }
         do {
-            try PerformanceFilesDirectory
+            try UserDirectory
                 .saveRecording(for: userName, performanceName: performanceName,
                                songName: songName, segmentName: getNewFileName())
 

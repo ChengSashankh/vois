@@ -84,8 +84,8 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
             let song = performance.getSongs()[indexPath.row]
             performance.removeSong(song: song)
             songTableView.deleteRows(at: [indexPath], with: .automatic)
-            PerformanceFilesDirectory.updatePerformance(for: userName, performance: performance)
-            PerformanceFilesDirectory.removeSong(for: userName, performanceName: performance.name, songName: song.name)
+            UserDirectory.updatePerformance(for: userName, performance: performance)
+            UserDirectory.removeSong(for: userName, performanceName: performance.name, songName: song.name)
         default:
             break
         }
@@ -114,7 +114,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
                 return
             }
             self.performance.addSong(song: Song(name: songName))
-            PerformanceFilesDirectory.updatePerformance(for: userName, performance: self.performance)
+            UserDirectory.updatePerformance(for: userName, performance: self.performance)
             self.songTableView.reloadData()
         }
         present(newSongController, animated: true)
@@ -132,7 +132,7 @@ extension TimeInterval {
     }
 }
 
-extension PerformanceFilesDirectory {
+extension UserDirectory {
     static func updatePerformance(for userName: String, performance: Performance) {
         try? savePerformanceFile(name: performance.name, with: performance.encodeToJson(), for: userName)
     }
