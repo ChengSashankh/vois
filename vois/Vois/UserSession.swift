@@ -9,15 +9,21 @@
 import Foundation
 
 class UserSession {
-    static func login(userName: String) {
-        UserDefaults.standard.set(userName, forKey: "current-user")
+    static func login(user: User) {
+        UserDefaults.standard.set(user.username, forKey: "current-username")
+        UserDefaults.standard.set(user.email, forKey: "current-user-email")
     }
 
     static func logout() {
-        UserDefaults.standard.removeObject(forKey: "current-user")
+        UserDefaults.standard.removeObject(forKey: "current-username")
+        UserDefaults.standard.removeObject(forKey: "current-user-email")
     }
 
-    static var currentUserName: String? {
-        UserDefaults.standard.value(forKey: "current-user") as? String
+    static var currentUsername: String? {
+        UserDefaults.standard.value(forKey: "current-username") as? String
+    }
+
+    static var currentUserEmail: String? {
+        UserDefaults.standard.value(forKey: "current-user-email") as? String
     }
 }

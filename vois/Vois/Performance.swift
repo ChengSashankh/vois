@@ -14,6 +14,13 @@ class Performance: Equatable, Codable, Serializable {
     var date: Date?
     var id: String
 
+    var storageObserverDelegate: StorageObserverDelegate? {
+        didSet {
+            for song in songs {
+                song.storageObserverDelegate = storageObserverDelegate
+            }
+        }
+    }
     var hasNoSongs: Bool {
         return songs.isEmpty
     }
@@ -46,6 +53,8 @@ class Performance: Equatable, Codable, Serializable {
 
     func addSong(song: Song) {
         self.songs.append(song)
+        song.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(updateRecordings: false)
     }
 
     func updateSong(oldSong: Song, newSong: Song) {
@@ -53,6 +62,8 @@ class Performance: Equatable, Codable, Serializable {
             return
         }
         self.songs[index] = newSong
+        newSong.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func removeSong(song: Song) {
@@ -60,6 +71,7 @@ class Performance: Equatable, Codable, Serializable {
             return
         }
         self.songs.remove(at: index)
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func getSongs() -> [Song] {
@@ -68,6 +80,7 @@ class Performance: Equatable, Codable, Serializable {
 
     func removeAllSongs() {
         self.songs = []
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     static func == (lhs: Performance, rhs: Performance) -> Bool {

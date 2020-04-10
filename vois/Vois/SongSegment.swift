@@ -13,6 +13,12 @@ class SongSegment: Equatable, Codable, Serializable {
     var name: String
     var id: String
 
+    var storageObserverDelegate: StorageObserverDelegate?
+    
+    private enum CodingKeys: String, CodingKey {
+        case recordings, name, id
+    }
+
     var hasNoRecordings: Bool {
         return recordings.isEmpty
     }
@@ -37,6 +43,7 @@ class SongSegment: Equatable, Codable, Serializable {
 
     func addRecording(recording: Recording) {
         self.recordings.append(recording)
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func updateRecording(oldRecording: Recording, newRecording: Recording) {
@@ -44,6 +51,7 @@ class SongSegment: Equatable, Codable, Serializable {
             return
         }
         self.recordings[index] = newRecording
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func removeRecording(recording: Recording) {
@@ -51,6 +59,7 @@ class SongSegment: Equatable, Codable, Serializable {
             return
         }
         self.recordings.remove(at: index)
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func getRecordings() -> [Recording] {
@@ -59,10 +68,19 @@ class SongSegment: Equatable, Codable, Serializable {
 
     func removeAllRecordings() {
         self.recordings = []
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     static func == (lhs: SongSegment, rhs: SongSegment) -> Bool {
         return lhs.name == rhs.name
             && lhs.recordings == rhs.recordings
+    }
+
+    func generateRecordingUrl() -> URL? {
+        storageObserverDelegate?.generateNewRecordingFilePath()
+    }
+
+    func removeRecording(at url: URL) -> Bool {
+        storageObserverDelegate?.removeRecording(at: url) ?? false
     }
 }

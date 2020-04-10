@@ -12,6 +12,7 @@ import AVFoundation
 class RecordingController {
     var recordingSession: AVAudioSession
     var audioRecorder: AVAudioRecorder
+    var recordingFilePath: URL
 
     var recordingInProgress: Bool {
         audioRecorder.isRecording
@@ -21,16 +22,10 @@ class RecordingController {
         audioRecorder.currentTime
     }
 
-    init() {
+    init(recordingFilePath: URL) {
         self.recordingSession = AVAudioSession()
         self.audioRecorder = AVAudioRecorder()
-    }
-
-    func getTrimmedName(fileName: String) -> String {
-        let trimmedString = fileName
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .trimmingCharacters(in: .punctuationCharacters)
-        return trimmedString
+        self.recordingFilePath = recordingFilePath
     }
 
     func convertLogScalePowerToLinear(logScaleValue: Float) -> Float {
@@ -45,25 +40,8 @@ class RecordingController {
         return linearScaleValue
     }
 
-    func discardRecording() -> Bool {
-        guard let userName = UserSession.currentUserName else {
-            return false
-        }
-        do {
-            try UserDirectory.removeTemporaryRecording(for: userName)
-            return true
-        } catch {
-            return false
-        }
-    }
-
     func startRecording(recorderDelegate: AVAudioRecorderDelegate) -> Bool {
         if recordingInProgress {
-            return false
-        }
-
-        guard let userName = UserSession.currentUserName,
-            let recordingFilePath = UserDirectory.getTemporaryRecordingUrl(for: userName) else {
             return false
         }
 
@@ -95,8 +73,6 @@ class RecordingController {
         if !recordingInProgress {
             return
         }
-
         audioRecorder.stop()
     }
-
 }

@@ -36,7 +36,11 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
-        performances = UserDirectory.allPerformances
+        guard let username = UserSession.currentUsername, let userEmail = UserSession.currentUserEmail else {
+            return
+        }
+        let user = User(username: username, email: userEmail)
+        performances = user.performances ?? Performances()
         performancesView.reloadData()
         configureSubtitle()
     }
@@ -88,13 +92,6 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
                    forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            guard let userName = UserSession.currentUserName else {
-                return
-            }
-            UserDirectory.removePerformance(
-                for: userName,
-                performanceName: performances.getPerformances(
-                    at: indexPath.row).name)
             performances.removePerformance(at: indexPath.row)
             performancesView.deleteRows(at: [indexPath], with: .automatic)
         default:
@@ -103,12 +100,16 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let performanceVC = segue.destination as? PerformanceViewController,
-            let index = sender as? Int else {
-            return
+        if let performanceVC = segue.destination as? PerformanceViewController,
+            let index = sender as? Int {
+            performanceVC.performance = performances.getPerformances(at: index)
         }
 
-        performanceVC.performance = performances.getPerformances(at: index)
+        if let createPerformanceVC = segue.destination as? CreatePerformanceTableViewController {
+            createPerformanceVC.performances = performances
+        }
+
+
     }
 }
 
@@ -117,15 +118,5 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
         return dateFormatter.string(from: self)
-    }
-}
-
-extension UserDirectory {
-    static var allPerformances: Performances {
-        guard let userName = UserSession.currentUserName else {
-            return Performances()
-        }
-        return Performances(UserDirectory
-            .getAllPerformanceFiles(for: userName).compactMap { data in Performance(json: data) })
     }
 }

@@ -1,5 +1,5 @@
 //
-//  LocalStorage.swift
+//  LocalStorageObserver.swift
 //  Vois
 //
 //  Created by Jiang Yuxin on 10/4/20.
@@ -8,22 +8,20 @@
 
 import Foundation
 
-class LocalStorage {
+class LocalStorageObserver: StorageObserver {
     let localStorage: PerformanceFilesDirectory
+    let recordingStorage: RecordingStorage
     let userName: String
 
     init(userName: String) {
         self.userName = userName
         self.localStorage = PerformanceFilesDirectory(userName: userName)
+        self.recordingStorage = RecordingStorage(userName: userName)
     }
 
     private func updateRecordingFiles(_ performances: Performances) {
         let performancesRecordings = performances.allRecordings.map { recording in recording.filePath }
-        for recordingUrl in localStorage.getAllRecordingUrls() {
-            if !performancesRecordings.contains(recordingUrl) {
-                localStorage.removeRecording(at: recordingUrl)
-            }
-        }
+        recordingStorage.cleanUpRecordingsAccordingTo(data: performancesRecordings)
     }
 
     func update(performances: Performances, updateRecordings: Bool = false) throws {
@@ -31,6 +29,21 @@ class LocalStorage {
         if updateRecordings {
             updateRecordingFiles(performances)
         }
+    }
+
+    func generateRecordingUrl() -> URL? {
+        recordingStorage.getNewRecordingFilePath()
+    }
+
+    func removeRecording(at url: URL) throws {
+        try recordingStorage.removeRecording(at: url)
+    }
+
+    func initializeModel() -> Performances {
+        guard let data = localStorage.getPerformancesFile() else {
+            return Performances()
+        }
+        return Performances(json: data) ?? Performances()
     }
 
 }

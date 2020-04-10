@@ -12,6 +12,8 @@ class PerformanceFilesDirectory {
 
     private static let performanceMetaDataFileName = "_meta-data"
 
+    private static let recordingFileExtension = ".m4a"
+
     private static let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
     private let userName: String
@@ -75,8 +77,8 @@ class PerformanceFilesDirectory {
         return data
     }
 
-    func removeRecording(at url: URL) {
-        try? FileManager.default.removeItem(at: url)
+    func removeRecording(at url: URL) throws {
+        try FileManager.default.removeItem(at: url)
     }
 
     private func getRecordingsDirectoryUrl() -> URL? {
@@ -87,7 +89,7 @@ class PerformanceFilesDirectory {
     }
 
     func generateNewRecordingUrl() -> URL? {
-        return getRecordingsDirectoryUrl()?.appendingPathComponent(UUID().uuidString)
+        return getRecordingsDirectoryUrl()?.appendingPathComponent(UUID().uuidString + PerformanceFilesDirectory.recordingFileExtension)
     }
 
     func getAllRecordingUrls() -> [URL] {

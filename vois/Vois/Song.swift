@@ -13,6 +13,18 @@ class Song: Equatable, Codable, Serializable {
     var name: String
     var id: String
 
+    var storageObserverDelegate: StorageObserverDelegate? {
+        didSet {
+            for segment in segments {
+                segment.storageObserverDelegate = storageObserverDelegate
+            }
+        }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case segments, name, id
+    }
+
     var hasNoSegments: Bool {
         return segments.isEmpty
     }
@@ -37,6 +49,8 @@ class Song: Equatable, Codable, Serializable {
 
     func addSegment(segment: SongSegment) {
         self.segments.append(segment)
+        segment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(updateRecordings: false)
     }
 
     func updateSegment(oldSegment: SongSegment, newSegment: SongSegment) {
@@ -44,6 +58,8 @@ class Song: Equatable, Codable, Serializable {
             return
         }
         self.segments[index] = newSegment
+        newSegment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func removeSegment(segment: SongSegment) {
@@ -51,6 +67,7 @@ class Song: Equatable, Codable, Serializable {
             return
         }
         self.segments.remove(at: index)
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func getSegments() -> [SongSegment] {
@@ -59,6 +76,7 @@ class Song: Equatable, Codable, Serializable {
 
     func removeAllSegments() {
         self.segments = []
+        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     static func == (lhs: Song, rhs: Song) -> Bool {

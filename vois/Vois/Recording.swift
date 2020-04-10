@@ -12,6 +12,7 @@ class Recording: Equatable, Codable, Serializable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
     var filePath: URL
+    var name: String
     internal var id: String
     var cloudReference: String?
 
@@ -49,11 +50,12 @@ class Recording: Equatable, Codable, Serializable {
         ]
     }
 
-    init (filePath: URL) {
+    init (name: String, filePath: URL) {
         self.filePath = filePath
         self.audioComments = []
         self.textComments = []
         self.cloudReference = ""
+        self.name = name
         id = UUID().uuidString
     }
 
@@ -124,11 +126,13 @@ class Recording: Equatable, Codable, Serializable {
 
     enum CodingKeys: String, CodingKey {
         case filePath
+        case name
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         filePath = try values.decode(URL.self, forKey: .filePath)
+        name = try values.decode(String.self, forKey: .name)
         audioComments = []
         textComments = []
         id = UUID().uuidString
@@ -137,5 +141,6 @@ class Recording: Equatable, Codable, Serializable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(filePath, forKey: .filePath)
+        try container.encode(name, forKey: .name)
     }
 }

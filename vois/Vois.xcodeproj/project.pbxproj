@@ -68,8 +68,15 @@
 		CA6B07F12434F8DB00C4956E /* NewSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */; };
 		CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9152802431AFAE009DA0DB /* UserSession.swift */; };
 		CAB700FE243B56E8009CFADA /* ShareRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */; };
-		CAB7010024402979009CFADA /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB700FF24402979009CFADA /* LocalStorage.swift */; };
 		CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */; };
+		CAB7010724403C37009CFADA /* LocalStorageObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010624403C37009CFADA /* LocalStorageObserver.swift */; };
+		CAB7010924403CD4009CFADA /* StorageObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010824403CD4009CFADA /* StorageObserver.swift */; };
+		CAB7010D24407472009CFADA /* SegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010C24407472009CFADA /* SegmentCell.swift */; };
+		CAB7010F244074DD009CFADA /* SongSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010E244074DD009CFADA /* SongSegmentController.swift */; };
+		CAB70111244075AF009CFADA /* NewSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70110244075AF009CFADA /* NewSegmentController.swift */; };
+		CAB7011324407D9B009CFADA /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7011224407D9B009CFADA /* RecordingCell.swift */; };
+		CAB701152440B007009CFADA /* RecordingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB701142440B007009CFADA /* RecordingStorage.swift */; };
+		CAB701172440B871009CFADA /* StorageObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB701162440B871009CFADA /* StorageObserverDelegate.swift */; };
 		CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */; };
 		CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */; };
 		CACC0D93241CC25C006D2E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC0D92241CC25C006D2E68 /* ViewController.swift */; };
@@ -152,8 +159,15 @@
 		CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSongViewController.swift; sourceTree = "<group>"; };
 		CA9152802431AFAE009DA0DB /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRecordingController.swift; sourceTree = "<group>"; };
-		CAB700FF24402979009CFADA /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
+		CAB7010624403C37009CFADA /* LocalStorageObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageObserver.swift; sourceTree = "<group>"; };
+		CAB7010824403CD4009CFADA /* StorageObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageObserver.swift; sourceTree = "<group>"; };
+		CAB7010C24407472009CFADA /* SegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentCell.swift; sourceTree = "<group>"; };
+		CAB7010E244074DD009CFADA /* SongSegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSegmentController.swift; sourceTree = "<group>"; };
+		CAB70110244075AF009CFADA /* NewSegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSegmentController.swift; sourceTree = "<group>"; };
+		CAB7011224407D9B009CFADA /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
+		CAB701142440B007009CFADA /* RecordingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStorage.swift; sourceTree = "<group>"; };
+		CAB701162440B871009CFADA /* StorageObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageObserverDelegate.swift; sourceTree = "<group>"; };
 		CACC0D8B241CC25C006D2E68 /* Vois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vois.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CACC0D90241CC25C006D2E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -307,8 +321,11 @@
 		CAB70101244030A8009CFADA /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				CAB700FF24402979009CFADA /* LocalStorage.swift */,
+				CAB7010624403C37009CFADA /* LocalStorageObserver.swift */,
+				CAB7010824403CD4009CFADA /* StorageObserver.swift */,
+				CAB701162440B871009CFADA /* StorageObserverDelegate.swift */,
 				CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */,
+				CAB701142440B007009CFADA /* RecordingStorage.swift */,
 			);
 			name = Storage;
 			sourceTree = "<group>";
@@ -396,6 +413,7 @@
 				CA3D27FC242208B4006509C5 /* DateCell.swift */,
 				CA118DE62420C6D40098BF29 /* SongNameCell.swift */,
 				CA3D280224239EFE006509C5 /* SongCell.swift */,
+				CAB7010C24407472009CFADA /* SegmentCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -420,6 +438,9 @@
 				24C36133241DFB8C0047EC46 /* RecordingViewController.swift */,
 				2451F3F4241E717900884AEE /* SaveViewController.swift */,
 				CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */,
+				CAB70110244075AF009CFADA /* NewSegmentController.swift */,
+				CAB7011224407D9B009CFADA /* RecordingCell.swift */,
+				CAB7010E244074DD009CFADA /* SongSegmentController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -649,10 +670,13 @@
 				C8D201782426488700409CF4 /* RecordingTable.swift in Sources */,
 				C8D2018224265ED600409CF4 /* Listenable.swift in Sources */,
 				6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */,
+				CAB7010F244074DD009CFADA /* SongSegmentController.swift in Sources */,
 				6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */,
 				CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */,
 				24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */,
 				CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */,
+				CAB701152440B007009CFADA /* RecordingStorage.swift in Sources */,
+				CAB7011324407D9B009CFADA /* RecordingCell.swift in Sources */,
 				C8D20184242672AD00409CF4 /* RecordingList.swift in Sources */,
 				C8D2017C24264E6A00409CF4 /* RecordingTableController.swift in Sources */,
 				6C7F96D4241D08A7009C6E91 /* Comment.swift in Sources */,
@@ -663,10 +687,15 @@
 				CA3D27FD242208B4006509C5 /* DateCell.swift in Sources */,
 				247466E4243AE3C100ED6DBA /* FirebaseStorageAdapter.swift in Sources */,
 				CA11DE0E241FC7290030598D /* PerformanceCell.swift in Sources */,
+				CAB70111244075AF009CFADA /* NewSegmentController.swift in Sources */,
+				CAB701172440B871009CFADA /* StorageObserverDelegate.swift in Sources */,
 				6C7F96D4241D08A7009C6E91 /* Comment.swift in Sources */,
+				CAB7010924403CD4009CFADA /* StorageObserver.swift in Sources */,
 				CA3D280324239EFE006509C5 /* SongCell.swift in Sources */,
 				6C7F96D6241D0D2E009C6E91 /* AudioComment.swift in Sources */,
 				CA6B07F12434F8DB00C4956E /* NewSongViewController.swift in Sources */,
+				CAB7010D24407472009CFADA /* SegmentCell.swift in Sources */,
+				CAB7010724403C37009CFADA /* LocalStorageObserver.swift in Sources */,
 				C8D2018024265E5800409CF4 /* AudioPlayer.swift in Sources */,
 				24F6794A241E31570075F344 /* PlaybackController.swift in Sources */,
 				C8D95A6224276EDA002ADE88 /* FDWaveForm+Comment.swift in Sources */,
@@ -680,7 +709,6 @@
 				24C1DC272434CA1100D961B7 /* DatabaseAdapter.swift in Sources */,
 				6C52E027241E8C6000E60EAB /* LoginViewController.swift in Sources */,
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
-				CAB7010024402979009CFADA /* LocalStorage.swift in Sources */,
 				CAB700FE243B56E8009CFADA /* ShareRecordingController.swift in Sources */,
 				CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,

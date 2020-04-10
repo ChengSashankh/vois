@@ -43,78 +43,38 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
         }
         songCell.songNameLabel.text = performance.getSongs()[indexPath.row].name
-        songCell.startRecording = { songName in
-            self.performSegue(withIdentifier: "Recording", sender: songName)
-        }
-
-        songCell.startPlayback = { songName in
-            self.performSegue(withIdentifier: "Playback", sender: songName)
-        }
-
-        songCell.shareRecording = { songName in
-            self.presentShareRecordingController(for: songName)
-        }
 
         return songCell
-    }
-
-    private func presentShareRecordingController(for songName: String) {
-        guard let link = getShareRecordingLink(for: songName) else {
-            return
-        }
-        let shareController = ShareRecordingController(title: nil, message: link, preferredStyle: .alert)
-        shareController.copyHandler = { self.dismiss(animated: false) }
-        present(shareController, animated: true)
-    }
-
-    private func getShareRecordingLink(for songName: String) -> String? {
-        guard let userName = UserSession.currentUserName else {
-            return nil
-        }
-        return "vois://feedback?user=\(userName)&performance=\(performance.name)&song=\(songName)"
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            guard let userName = UserSession.currentUserName else {
-                return
-            }
             let song = performance.getSongs()[indexPath.row]
             performance.removeSong(song: song)
             songTableView.deleteRows(at: [indexPath], with: .automatic)
-            UserDirectory.updatePerformance(for: userName, performance: performance)
-            UserDirectory.removeSong(for: userName, performanceName: performance.name, songName: song.name)
         default:
             break
         }
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowSongSegments", sender: indexPath.row)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let recordingVC = segue.destination as? RecordingViewController {
-            guard let songName = sender as? String else {
-                return
-            }
-            recordingVC.performanceName = performance.name
-            recordingVC.songName = songName
-        } else if let recordingTableVC = segue.destination as? RecordingTableController {
-            guard let songName = sender as? String else {
-                return
-            }
-            recordingTableVC.songName = songName
-            recordingTableVC.performanceName = performance.name
+        guard let songVC = segue.destination as? SongController, let index = sender as? Int else {
+            return
         }
+        songVC.song = performance.getSongs()[index]
+
     }
 
     @IBAction func addNewSong(_ sender: UIButton) {
         let newSongController = NewSongViewController(title: nil, message: nil, preferredStyle: .alert)
         newSongController.addSong = { songName in
-            guard let userName = UserSession.currentUserName else {
-                return
-            }
             self.performance.addSong(song: Song(name: songName))
-            UserDirectory.updatePerformance(for: userName, performance: self.performance)
             self.songTableView.reloadData()
         }
         present(newSongController, animated: true)
@@ -132,8 +92,3 @@ extension TimeInterval {
     }
 }
 
-extension UserDirectory {
-    static func updatePerformance(for userName: String, performance: Performance) {
-        try? savePerformanceFile(name: performance.name, with: performance.encodeToJson(), for: userName)
-    }
-}

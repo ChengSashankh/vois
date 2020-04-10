@@ -11,11 +11,10 @@ import Foundation
 
 class SaveViewController: UIViewController {
 
-    var performanceName: String!
-    var songName: String!
+    var segment: SongSegment!
+    var filePath: URL!
     weak var delegate: RecordingViewController?
     var recordingController: RecordingController!
-    var filePath: URL?
     let defaultErrorMessage = "Something went wrong. Please try again"
 
     @IBOutlet private var uiTextField: UITextField!
@@ -31,14 +30,15 @@ class SaveViewController: UIViewController {
         present(uiErrorAlert, animated: true, completion: nil)
     }
 
-    func getNewFileName() -> String {
-        let newFileName = recordingController!.getTrimmedName(fileName: uiTextField.text!) + ".m4a"
-
-        return newFileName
+    private func getTrimmedName() -> String {
+        let trimmedString = uiTextField.text!
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: .punctuationCharacters)
+        return trimmedString
     }
 
     @IBAction private func onDiscardButtonClick(_ sender: Any) {
-        let discardedRecordingSuccessfully = recordingController!.discardRecording()
+        let discardedRecordingSuccessfully = segment.removeRecording(at: filePath)
 
         if discardedRecordingSuccessfully {
             self.dismiss(animated: true, completion: nil)
@@ -48,20 +48,9 @@ class SaveViewController: UIViewController {
     }
 
     @IBAction private func onSaveButtonClick(_ sender: Any) {
-        guard let userName = UserSession.currentUserName else {
-            return
-        }
-        do {
-            try UserDirectory
-                .saveRecording(for: userName, performanceName: performanceName,
-                               songName: songName, segmentName: getNewFileName())
-
+            segment.addRecording(recording: Recording(name: getTrimmedName(), filePath: filePath))
             self.dismiss(animated: true, completion: nil)
-            delegate?.refreshRecordings()
-            delegate?.reloadTableData()
-        } catch {
-            displayErrorAlert(title: "Oops", message: defaultErrorMessage)
-        }
+        delegate?.navigationController?.popViewController(animated: false)
     }
 
 }

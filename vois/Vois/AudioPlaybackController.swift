@@ -13,7 +13,8 @@ import FDWaveformView
 class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     private var displayLink: CADisplayLink!
-    var fileURL: URL!
+    var recording: Recording!
+    var recordingList: [Recording]!
     var audioPlayer: AudioPlayer!
     var textCommentButtons = [TextCommentButton]()
 
@@ -25,6 +26,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath, recordingList: recordingList.map { $0.filePath })
+
         uiSlider.minimumValue = 0.0
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSlider.setValue(0.0, animated: false)
@@ -46,15 +49,9 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             guard let audioEditVC = segue.destination as? AudioEditController else {
                 return
             }
-            audioEditVC.setAudioURL(url: self.fileURL, recordingList: self.audioPlayer.recordings)
+            audioEditVC.setAudioURL(url: recording.filePath, recordingList: self.audioPlayer.recordings)
         }
     }
-
-    func setAudioURL(url: URL, recordingList: [URL]) {
-        self.fileURL = url
-        self.audioPlayer = AudioPlayer(audioFileURL: fileURL, recordingList: recordingList)
-    }
-
     @IBAction private func forwardEnd(_ sender: UIButton) {
         audioPlayer.forwardEnd()
         audioPlayer.next()
@@ -137,20 +134,17 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             do {
                 try RecordingTable.saveRecordingsToStorage()
             } catch {
-                //print("RIP")
             }
         }
         present(controller, animated: true)
     }
 
     private func refreshView() {
-        //print(textCommentButtons)
         uiWaveformView.removeTextCommentButtons(from: self)
         let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
         textComments.forEach({ self.uiWaveformView.addComment(
             audioLength: audioPlayer.audioLength,
             textComment: $0,
             delegate: self) })
-        //print(textCommentButtons)
     }
 }

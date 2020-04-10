@@ -61,12 +61,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let song = parameters["song"], let recording = parameters["recording"] else {
                 return nil
         }
+        return nil
+        //TODO
         //Should download recording from filestore
-        return UserDirectory.getRecordingUrl(
+        /*return UserDirectory.getRecordingUrl(
             for: user,
             performanceName: performance,
             songName: song,
-            segmentName: recording)
+            segmentName: recording)*/
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -85,7 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .instantiateViewController(identifier: "AudioPlaybackController") as? AudioPlaybackController else {
             return
         }
-        audioPlaybackVC.setAudioURL(url: recordingUrl, recordingList: [recordingUrl])
+
         guard let splitVC = window?.rootViewController as? UISplitViewController else {
             return
         }
