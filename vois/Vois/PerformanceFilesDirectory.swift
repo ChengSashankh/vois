@@ -89,7 +89,8 @@ class PerformanceFilesDirectory {
     }
 
     func generateNewRecordingUrl() -> URL? {
-        return getRecordingsDirectoryUrl()?.appendingPathComponent(UUID().uuidString + PerformanceFilesDirectory.recordingFileExtension)
+        return getRecordingsDirectoryUrl()?.appendingPathComponent(UUID().uuidString +
+            PerformanceFilesDirectory.recordingFileExtension)
     }
 
     func getAllRecordingUrls() -> [URL] {

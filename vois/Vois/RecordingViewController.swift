@@ -177,5 +177,3 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, ChartV
         present(uiErrorAlert, animated: true, completion: nil)
     }
 }
-
-

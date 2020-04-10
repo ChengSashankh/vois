@@ -39,7 +39,7 @@ class TextComment: Comment, Equatable, Serializable {
         )
     }
 
-    convenience init?(dictionary: [String : Any]) {
+    convenience init?(dictionary: [String: Any]) {
         guard let timeStamp = dictionary["timeStamp"] as? Double,
             let author = dictionary["author"] as? String,
             let text = dictionary["text"] as? String,

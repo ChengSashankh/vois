@@ -74,7 +74,7 @@ class FirebaseStorageAdapter {
     func deleteFile(at: String) {
         let storageReference = getReference(toPath: at)
 
-        storageReference.delete() { error in
+        storageReference.delete { error in
             if let error = error {
                 print("Failed due to error: \(error)")
             } else {
@@ -87,7 +87,7 @@ class FirebaseStorageAdapter {
         let storageReference = getReference(toPath: "recordings")
 
         var items = [String]()
-        storageReference.listAll { (result, error) in
+        storageReference.listAll { result, error in
             if let error = error {
                 print("Failed due to error: \(error)")
             } else {

@@ -109,7 +109,6 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
             createPerformanceVC.performances = performances
         }
 
-
     }
 }
 

@@ -14,7 +14,7 @@ class SongSegment: Equatable, Codable, Serializable {
     var id: String
 
     var storageObserverDelegate: StorageObserverDelegate?
-    
+
     private enum CodingKeys: String, CodingKey {
         case recordings, name, id
     }

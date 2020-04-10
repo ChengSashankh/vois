@@ -26,7 +26,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath, recordingList: recordingList.map { $0.filePath })
+        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
+                                       recordingList: recordingList.map { $0.filePath })
 
         uiSlider.minimumValue = 0.0
         uiSlider.maximumValue = Float(audioPlayer.audioLength)

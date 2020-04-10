@@ -15,8 +15,7 @@ class FirestoreAdapter {
 
     private var documents: [DocumentSnapshot] = []
     public var textComments: [[String: Any]] = [[String: Any]]()
-    private var listener : ListenerRegistration!
-
+    private var listener: ListenerRegistration!
 
     fileprivate func baseQuery() -> Query {
         return connection.collection("comments")
@@ -41,7 +40,7 @@ class FirestoreAdapter {
     }
 
     func setUpConnection() throws {
-        self.listener = query?.addSnapshotListener {(documents, error) in
+        self.listener = query?.addSnapshotListener {documents, error in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return
@@ -89,7 +88,7 @@ class FirestoreAdapter {
         let documentReference = connection.collection(inCollection).document(withId)
         var documentData = [String: Any]()
 
-        documentReference.getDocument { document, error in
+        documentReference.getDocument { document, _ in
             if let document = document, document.exists {
                 documentData = document.data() ?? [String: Any]()
             } else {
@@ -116,7 +115,7 @@ class FirestoreAdapter {
         connection
             .collection(inCollection)
             .whereField(field, isEqualTo: whereValueIs)
-            .getDocuments() { querySnapshot, error in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     print("Failed due to error: \(error)")
                 } else {
@@ -133,47 +132,47 @@ class FirestoreAdapter {
         connection
             .collection(inCollection)
             .whereField(field, in: whereValueIn)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueLessThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueLessThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         connection
             .collection(inCollection)
             .whereField(field, isLessThan: whereValueLessThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }
 
-    func query(inCollection: String, field: String, whereValueGreaterThan: Any)  -> [[String: Any]]  {
+    func query(inCollection: String, field: String, whereValueGreaterThan: Any) -> [[String: Any]] {
         var queryResults = [[String: Any]]()
 
         connection
             .collection(inCollection)
             .whereField(field, isGreaterThan: whereValueGreaterThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
                 }
-        }
+            }
 
         return queryResults
     }

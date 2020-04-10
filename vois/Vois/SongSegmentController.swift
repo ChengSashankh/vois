@@ -47,8 +47,8 @@ class SongController: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegue(withIdentifier: "ShowRecordings", sender: indexPath.row)
     }
 
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit
+        editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let segment = song.getSegments()[indexPath.row]
             song.removeSegment(segment: segment)
@@ -69,7 +69,6 @@ class SongController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.title = song.name
         configureSummary()
     }
-
 
     private func configureSummary() {
         self.summary.text = "\(song.getSegments().count) segments"

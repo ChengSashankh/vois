@@ -13,7 +13,7 @@ class StartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let currentUser =  Auth.auth().currentUser , let email = currentUser.email {
+        if let currentUser = Auth.auth().currentUser, let email = currentUser.email {
             let user = User(email: email)
             UserSession.login(user: user)
             self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
