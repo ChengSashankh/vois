@@ -11,17 +11,19 @@ import Foundation
 class User {
     var username: String
     var email: String
+    var uid: String
     var performances: Performances
     var invitedPerfs: Performances
 
-    init(username: String, email: String) {
+    init(username: String, email: String, uid: String) {
         self.username = username
         self.email = email
+        self.uid = uid
         self.performances = Performances()
         self.invitedPerfs = Performances()
     }
 
-    convenience init(email: String) {
-        self.init(username: email, email: email)
+    convenience init(email: String, uid: String) {
+        self.init(username: email, email: email, uid: uid)
     }
 }

@@ -10,12 +10,12 @@ import Foundation
 
 class Performances: Codable, Serializable {
     private var performances: [Performance]
-    var id: String
+    var uid: String
 
     var dictionary: [String: Any] {
         return [
             "performances": performances,
-            "id": id
+            "uid": uid
         ]
     }
 
@@ -29,12 +29,12 @@ class Performances: Codable, Serializable {
 
     init () {
         self.performances = []
-        id = UUID().uuidString
+        uid = UUID().uuidString
     }
 
     init (_ performances: [Performance]) {
         self.performances = performances
-        self.id = UUID().uuidString
+        self.uid = UUID().uuidString
     }
 
     func addPerformance(performance: Performance) {

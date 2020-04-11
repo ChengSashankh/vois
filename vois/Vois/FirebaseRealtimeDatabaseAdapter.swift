@@ -24,7 +24,7 @@ class FirebaseRealtimeDatabaseAdapter {
     func getData(at: String) -> String {
         var ans = "Something went wrong"
 
-        self.ref.child(at).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.ref.child(at).observeSingleEvent(of: .value, with: {snapshot in
             let value = snapshot.value as? NSDictionary
             let res = value?["testNode"] as? String ?? ""
             ans = res

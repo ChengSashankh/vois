@@ -12,7 +12,7 @@ class Recording: Equatable, Codable, Serializable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
     private var filePath: URL
-    internal var id: String
+    internal var uid: String
     var cloudReference: String?
 
     var hasNoAudioComments: Bool {
@@ -44,7 +44,7 @@ class Recording: Equatable, Codable, Serializable {
             "filePath": filePath,
             "audioComments": audioComments,
             "textComments": textComments,
-            "id": id,
+            "uid": uid,
             "cloudReference": cloudReference ?? ""
         ]
     }
@@ -54,7 +54,7 @@ class Recording: Equatable, Codable, Serializable {
         self.audioComments = []
         self.textComments = []
         self.cloudReference = ""
-        id = UUID().uuidString
+        uid = UUID().uuidString
     }
 
     /* AudioComment API */
@@ -131,7 +131,7 @@ class Recording: Equatable, Codable, Serializable {
         filePath = try values.decode(URL.self, forKey: .filePath)
         audioComments = []
         textComments = []
-        id = UUID().uuidString
+        uid = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {

@@ -11,7 +11,7 @@ import Foundation
 class Song: Equatable, Codable, Serializable {
     private var segments: [SongSegment]
     var name: String
-    var id: String
+    var uid: String
 
     var hasNoSegments: Bool {
         return segments.isEmpty
@@ -25,14 +25,14 @@ class Song: Equatable, Codable, Serializable {
         return [
             "segments": segments,
             "name": name,
-            "id": id
+            "uid": uid
         ]
     }
 
     init (name: String) {
         self.name = name
         self.segments = []
-        id = UUID().uuidString
+        self.uid = UUID().uuidString
     }
 
     func addSegment(segment: SongSegment) {

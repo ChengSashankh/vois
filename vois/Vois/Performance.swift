@@ -12,8 +12,10 @@ class Performance: Equatable, Codable, Serializable {
     private var songs: [Song]
     var name: String
     var date: Date?
-    var id: String
-
+    var uid: String
+    var ownerUID: String
+    var editorUIDs: [String]
+    
     var hasNoSongs: Bool {
         return songs.isEmpty
     }
@@ -27,21 +29,24 @@ class Performance: Equatable, Codable, Serializable {
             "songs": songs,
             "name": name,
             "date": date,
-            "id": id
+            "uid": uid,
+            "ownerUID": ownerUID,
+            "editorUIDs": editorUIDs
         ]
     }
 
-    init (name: String, date: Date?) {
-        self.name = name
-        self.songs = []
+    convenience init (name: String, ownerUID: String, date: Date?) {
+        self.init(name: name, ownerUID: ownerUID)
         self.date = date
-        id = UUID().uuidString
     }
 
-    init (name: String) {
+    init (name: String, ownerUID: String) {
         self.name = name
         self.songs = []
-        id = UUID().uuidString
+        self.uid = UUID().uuidString
+        self.ownerUID = ownerUID
+        self.editorUIDs = [ownerUID]
+        self.uid = UUID().uuidString
     }
 
     func addSong(song: Song) {
@@ -80,14 +85,18 @@ class Performance: Equatable, Codable, Serializable {
         case songs
         case name
         case date
+        case ownerUID
+        case editorUIDs
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        songs = try values.decode([Song].self, forKey: .songs)
-        name = try values.decode(String.self, forKey: .name)
-        date = try? values.decode(Date.self, forKey: .date)
-        self.id = UUID().uuidString
+        self.songs = try values.decode([Song].self, forKey: .songs)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.date = try? values.decode(Date.self, forKey: .date)
+        self.ownerUID = try values.decode(String.self, forKey: .ownerUID)
+        self.editorUIDs = try values.decode([String].self, forKey: .editorUIDs)
+        self.uid = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {
@@ -95,6 +104,8 @@ class Performance: Equatable, Codable, Serializable {
         try container.encode(songs, forKey: .songs)
         try container.encode(name, forKey: .name)
         try? container.encode(date, forKey: .date)
+        try container.encode(ownerUID, forKey: .ownerUID)
+        try container.encode(editorUIDs, forKey: .editorUIDs)
     }
 
     func encodeToJson() throws -> Data {
@@ -105,7 +116,7 @@ class Performance: Equatable, Codable, Serializable {
         guard let newValue = try? JSONDecoder().decode(Performance.self, from: json) else {
             return nil
         }
-        self.init(name: newValue.name, date: newValue.date)
+        self.init(name: newValue.name, ownerUID: newValue.ownerUID, date: newValue.date)
         self.songs = newValue.songs
        }
 }

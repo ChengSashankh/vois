@@ -12,22 +12,22 @@ class TextComment: Comment, Equatable, Serializable {
     var text: String
     var timeStamp: Double
     var author: String
-    var id: String
+    var uid: String
 
     var dictionary: [String: Any] {
         [
             "timeStamp": timeStamp,
             "author": author,
-            "id": id,
+            "uid": uid,
             "text": text
         ]
     }
 
-    init (timeStamp: Double, author: String, text: String, id: String) {
+    init (timeStamp: Double, author: String, text: String, uid: String) {
         self.timeStamp = timeStamp
         self.author = author
         self.text = text
-        self.id = id
+        self.uid = uid
     }
 
     convenience init(timeStamp: Double, author: String, text: String) {
@@ -35,7 +35,7 @@ class TextComment: Comment, Equatable, Serializable {
             timeStamp: timeStamp,
             author: author,
             text: text,
-            id: UUID().uuidString
+            uid: UUID().uuidString
         )
     }
 
@@ -43,10 +43,10 @@ class TextComment: Comment, Equatable, Serializable {
         guard let timeStamp = dictionary["timeStamp"] as? Double,
             let author = dictionary["author"] as? String,
             let text = dictionary["text"] as? String,
-            let id = dictionary["id"] as? String
+            let uid = dictionary["uid"] as? String
             else { return nil }
 
-        self.init(timeStamp: timeStamp, author: author, text: text, id: id)
+        self.init(timeStamp: timeStamp, author: author, text: text, uid: uid)
     }
 
     static func == (lhs: TextComment, rhs: TextComment) -> Bool {

@@ -186,17 +186,16 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
     }
 
     @IBAction private func createPerformance(_ sender: Any) {
-        guard let name = eventName else {
+        guard let name = eventName, let ownerUID = UserSession.currentUID else {
             return
         }
-        let performance = Performance(name: name, date: date)
+        let performance = Performance(name: name, ownerUID: ownerUID, date: date)
         for song in songs {
             performance.addSong(song: song)
         }
         guard let userName = UserSession.currentUserName else {
             return
         }
-        print("E")
         try? PerformanceFilesDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
         navigationController?.popViewController(animated: true)
     }
