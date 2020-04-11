@@ -1002,35 +1002,33 @@
                                 <rect key="frame" x="90" y="378.33333333333331" width="234" height="31"/>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOO-mA-dvw">
-                                <rect key="frame" x="162.66666666666666" y="87" width="89" height="20.333333333333329"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="156.33333333333334" y="87" width="101.66666666666666" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuD-cI-zCT" customClass="FDWaveformView" customModule="FDWaveformView">
-                                <rect key="frame" x="87" y="178" width="240" height="128.33333333333337"/>
+                                <rect key="frame" x="87" y="181.66666666666666" width="240" height="124.66666666666666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-OF-gyP" userLabel="Comment Stack">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-OF-gyP" userLabel="Comment Stack">
                                 <rect key="frame" x="193.33333333333334" y="495" width="27.666666666666657" height="24"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNh-dD-8W0" userLabel="Text Comment Button">
-                                        <rect key="frame" x="0.0" y="0.0" width="27.666666666666668" height="24"/>
-                                        <state key="normal" image="text.bubble.fill" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="makeTextComment:" destination="5q4-Y8-U1g" eventType="touchUpInside" id="9BO-fh-kOh"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FZ-R6-0VD">
-                                <rect key="frame" x="172" y="579" width="70" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FZ-R6-0VD">
+                                <rect key="frame" x="324" y="87" width="70" height="30"/>
                                 <state key="normal" title="Edit Audio"/>
                                 <connections>
                                     <segue destination="gkJ-3K-n6D" kind="show" id="wg9-wZ-nHh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNh-dD-8W0" userLabel="Text Comment Button">
+                                <rect key="frame" x="194" y="527" width="27.666666666666668" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="text.bubble.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="makeTextComment:" destination="5q4-Y8-U1g" eventType="touchUpInside" id="9BO-fh-kOh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1046,9 +1044,11 @@
                             <constraint firstItem="tPE-OF-gyP" firstAttribute="top" secondItem="tCn-oq-K48" secondAttribute="bottom" constant="35" id="W6J-3g-g0A"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="Xgd-S5-MRQ"/>
                             <constraint firstItem="tPE-OF-gyP" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="YyW-Py-nqS"/>
+                            <constraint firstItem="fOO-mA-dvw" firstAttribute="top" secondItem="1FZ-R6-0VD" secondAttribute="top" id="Zns-ke-U4e"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerY" secondItem="yy9-eX-J6c" secondAttribute="centerY" id="f6n-sC-eSv"/>
                             <constraint firstItem="GuD-cI-zCT" firstAttribute="top" secondItem="fOO-mA-dvw" secondAttribute="bottom" constant="70.5" id="hZn-dP-Kch"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="top" secondItem="uKt-Fn-hbE" secondAttribute="bottom" constant="28" id="i7c-Hk-3ks"/>
+                            <constraint firstItem="cRZ-xX-oKY" firstAttribute="trailing" secondItem="1FZ-R6-0VD" secondAttribute="trailing" constant="20" id="puh-WJ-Fvp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cRZ-xX-oKY"/>
                     </view>
@@ -1112,7 +1112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFD-ev-mID" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3417" y="2494"/>
+            <point key="canvasLocation" x="1683" y="1813"/>
         </scene>
         <!--SaveViewController-->
         <scene sceneID="BC5-zG-7G1">
@@ -1232,8 +1232,8 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9S-fc-P49">
-                                <rect key="frame" x="162.66666666666666" y="87" width="89" height="20.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="156.33333333333334" y="87" width="101.66666666666666" height="20.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

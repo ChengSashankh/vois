@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TextComment: Comment, Equatable, Serializable {
+class TextComment: Comment, Equatable, Serializable, Codable {
     var text: String
     var timeStamp: Double
     var author: String

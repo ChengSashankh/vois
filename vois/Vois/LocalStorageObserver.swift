@@ -46,6 +46,14 @@ class LocalStorageObserver: StorageObserver {
         return Performances(json: data) ?? Performances()
     }
 
+    func convertToRelativeUrl(url: URL) -> URL {
+        recordingStorage.convertToRelativeUrl(url: url)
+    }
+
+    func convertToAbsoluteUrl(url: URL) -> URL {
+        recordingStorage.convertToAbsoluteUrl(url: url)
+    }
+
 }
 
 extension Performances {

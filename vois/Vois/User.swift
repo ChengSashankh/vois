@@ -9,6 +9,7 @@
 import Foundation
 
 class User: StorageObserverDelegate {
+
     var username: String
     var email: String
     var performances: Performances
@@ -45,5 +46,13 @@ class User: StorageObserverDelegate {
         } catch {
             return false
         }
+    }
+
+    func convertToAbsoluteUrl(url: URL) -> URL {
+        localStorageObserver.convertToAbsoluteUrl(url: url)
+    }
+
+    func convertToRelativeUrl(url: URL) -> URL {
+        localStorageObserver.convertToRelativeUrl(url: url)
     }
 }

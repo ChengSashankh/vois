@@ -25,9 +25,18 @@ class RecordingStorage {
         try localStorage.removeRecording(at: url)
     }
 
+    func convertToRelativeUrl(url: URL) -> URL {
+        localStorage.getRelativeUrl(of: url)
+    }
+
+    func convertToAbsoluteUrl(url: URL) -> URL {
+        localStorage.getAbsoluteUrl(of: url)
+    }
+
     func cleanUpRecordingsAccordingTo(data: [URL]) {
+        let urlPaths = data.map { $0.path }
         for recordingUrl in localStorage.getAllRecordingUrls() {
-            if !data.contains(recordingUrl) {
+            if !urlPaths.contains(recordingUrl.path) {
                 try? localStorage.removeRecording(at: recordingUrl)
             }
         }

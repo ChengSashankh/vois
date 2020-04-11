@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AudioComment: Comment, Equatable, Serializable {
+class AudioComment: Comment, Equatable, Serializable, Codable {
     var filePath: URL
     var timeStamp: Double
     var author: String

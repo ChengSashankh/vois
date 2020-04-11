@@ -8,15 +8,8 @@
 
 import Foundation
 
-class RecordingTable {
+class RecordingTable {/*
     private static var recordings = [String: Recording]()
-
-    static func fetchRecordings(for userName: String, performanceName: String, songName: String) -> [URL] {
-        //TODO:refactor
-        return []
-        /*return UserDirectory.getRecordingUrls(for: userName,
-                                                          performanceName: performanceName, songName: songName)*/
-    }
 
     static func saveRecordingsToStorage() throws {
         let baseDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -57,5 +50,5 @@ class RecordingTable {
         }
 
         return recording.getTextComments()
-    }
+    }*/
 }

@@ -13,7 +13,13 @@ class SongSegment: Equatable, Codable, Serializable {
     var name: String
     var id: String
 
-    var storageObserverDelegate: StorageObserverDelegate?
+    var storageObserverDelegate: StorageObserverDelegate? {
+        didSet {
+            for recording in recordings {
+                recording.storageObserverDelegate = storageObserverDelegate
+            }
+        }
+    }
 
     private enum CodingKeys: String, CodingKey {
         case recordings, name, id
@@ -43,6 +49,7 @@ class SongSegment: Equatable, Codable, Serializable {
 
     func addRecording(recording: Recording) {
         self.recordings.append(recording)
+        recording.storageObserverDelegate = storageObserverDelegate
         storageObserverDelegate?.update(updateRecordings: true)
     }
 
@@ -51,6 +58,8 @@ class SongSegment: Equatable, Codable, Serializable {
             return
         }
         self.recordings[index] = newRecording
+        newRecording.storageObserverDelegate = storageObserverDelegate
+        oldRecording.storageObserverDelegate = nil
         storageObserverDelegate?.update(updateRecordings: true)
     }
 
@@ -58,6 +67,7 @@ class SongSegment: Equatable, Codable, Serializable {
         guard let index = self.recordings.firstIndex(of: recording) else {
             return
         }
+        recording.storageObserverDelegate = nil
         self.recordings.remove(at: index)
         storageObserverDelegate?.update(updateRecordings: true)
     }

@@ -93,6 +93,14 @@ class PerformanceFilesDirectory {
             PerformanceFilesDirectory.recordingFileExtension)
     }
 
+    func getRelativeUrl(of url: URL) -> URL {
+        URL(fileURLWithPath: url.lastPathComponent)
+    }
+
+    func getAbsoluteUrl(of relativeUrl: URL) -> URL {
+        URL(fileURLWithPath: relativeUrl.relativePath, relativeTo: getRecordingsDirectoryUrl())
+    }
+
     func getAllRecordingUrls() -> [URL] {
         guard let url = getRecordingsDirectoryUrl() else {
             return []

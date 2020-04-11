@@ -33,7 +33,7 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSlider.setValue(0.0, animated: false)
 
-        uiSongLabel.text = audioPlayer.audioName()
+        uiSongLabel.text = recording.name
 
         displayLink = CADisplayLink(target: self, selector: #selector(step))
         displayLink.add(to: .current, forMode: .default)
@@ -93,7 +93,7 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
     private func refresh() {
         audioPlayer.updatePlayer()
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
-        uiSongLabel.text = audioPlayer.audioName()
+        uiSongLabel.text = recording.name
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         refreshView()
@@ -126,23 +126,19 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
         controller.addCommentClosure = { text in
             let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
-            RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
+            self.recording.addTextComment(textComment: comment)
             self.uiWaveformView.addComment(
                 audioLength: self.audioPlayer.audioLength,
                 textComment: comment,
                 delegate: self)
             self.audioPlayer.playFrom(time: self.audioPlayer.currentTime)
-            do {
-                try RecordingTable.saveRecordingsToStorage()
-            } catch {
-            }
         }
         present(controller, animated: true)
     }
 
     private func refreshView() {
         uiWaveformView.removeTextCommentButtons(from: self)
-        let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
+        let textComments = recording.getTextComments()
         textComments.forEach({ self.uiWaveformView.addComment(
             audioLength: audioPlayer.audioLength,
             textComment: $0,

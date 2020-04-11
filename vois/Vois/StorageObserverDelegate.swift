@@ -12,4 +12,6 @@ protocol StorageObserverDelegate {
     func update(updateRecordings: Bool)
     func generateNewRecordingFilePath() -> URL?
     func removeRecording(at url: URL) -> Bool
+    func convertToAbsoluteUrl(url: URL) -> URL
+    func convertToRelativeUrl(url: URL) -> URL
 }
