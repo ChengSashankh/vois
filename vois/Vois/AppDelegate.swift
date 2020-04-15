@@ -8,15 +8,39 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    let notifications = NotificationsDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
+        self.setUpNotifications()
+
         return true
+    }
+
+    private func setUpNotifications() {
+        self.notifications.notificationCenter.delegate = notifications
+        self.notifications.requestPermissions()
+        self.notifications.removeNotification(identifier: "App Unused for 1 Week")
+
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification,
+                                               object: nil,
+                                               queue: nil) { _ in
+            // Notification repeats every 3 days to remind user to practice regularly.
+            self.notifications.scheduleNotification(title: "We missed you!",
+                                                    identifier: "App Unused for 1 Week",
+                                                    timeInterval: 3 * 24 * 60 * 60)
+        }
+
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification,
+                                               object: nil,
+                                               queue: nil) { _ in
+            self.notifications.removeNotification(identifier: "App Unused for 1 Week")
+        }
     }
 
     // MARK: UISceneSession Lifecycle

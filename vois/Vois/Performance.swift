@@ -13,8 +13,8 @@ class Performance: Equatable, Codable, Serializable {
     var name: String
     var date: Date?
     var uid: String
-    var ownerUID: String
-    var editorUIDs: [String]
+    private var ownerUID: String
+    private var editorUIDs: [String]
     
     var hasNoSongs: Bool {
         return songs.isEmpty
@@ -73,6 +73,17 @@ class Performance: Equatable, Codable, Serializable {
 
     func removeAllSongs() {
         self.songs = []
+    }
+    
+    func addEditor(uid: String) {
+        self.editorUIDs.append(uid)
+    }
+    
+    func removeEditor(uid: String) {
+        guard let index = self.editorUIDs.firstIndex(of: uid) else {
+            return
+        }
+        self.editorUIDs.remove(at: index)
     }
 
     static func == (lhs: Performance, rhs: Performance) -> Bool {
