@@ -21,12 +21,12 @@ class NotificationsDelegate: NSObject, UNUserNotificationCenterDelegate {
         }
     }
 
-    func scheduleNotification(title: String, identifier: String, timeInterval: TimeInterval) {
+    func scheduleNotification(title: String, body: String, identifier: String, timeInterval: TimeInterval) {
         let content = UNMutableNotificationContent()
         let userActions = "User Actions"
 
         content.title = title
-        content.body = "Remember to practice regularly :)"
+        content.body = body
         content.sound = UNNotificationSound.default
         content.badge = 1
         content.categoryIdentifier = userActions
@@ -55,7 +55,8 @@ class NotificationsDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                withCompletionHandler completionHandler:
+                                    @escaping (UNNotificationPresentationOptions) -> Void) {
 
         completionHandler([.alert, .sound])
     }
@@ -63,10 +64,6 @@ class NotificationsDelegate: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-
-        if response.notification.request.identifier == "Local Notification" {
-            print("Handling notifications with the Local Notification Identifier")
-        }
 
         switch response.actionIdentifier {
         case UNNotificationDismissActionIdentifier:
@@ -78,7 +75,7 @@ class NotificationsDelegate: NSObject, UNUserNotificationCenterDelegate {
         case "Delete":
             print("Delete")
         default:
-            print("Unknown action")
+            print("Unknown Action")
         }
         completionHandler()
     }

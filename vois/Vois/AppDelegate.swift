@@ -12,7 +12,8 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let notifications = NotificationsDelegate()
+    let notificationsCenter = NotificationCenter.default
+    let notificationsController = NotificationsDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,23 +24,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setUpNotifications() {
-        self.notifications.notificationCenter.delegate = notifications
-        self.notifications.requestPermissions()
-        self.notifications.removeNotification(identifier: "App Unused for 1 Week")
+        self.notificationsController.notificationCenter.delegate = notificationsController
+        self.notificationsController.requestPermissions()
+        self.notificationsController.removeNotification(identifier: "App Unused for 1 Week")
 
-        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification,
-                                               object: nil,
-                                               queue: nil) { _ in
+        notificationsCenter.addObserver(forName: UIApplication.didEnterBackgroundNotification,
+                                        object: nil,
+                                        queue: nil) { _ in
             // Notification repeats every 3 days to remind user to practice regularly.
-            self.notifications.scheduleNotification(title: "We missed you!",
-                                                    identifier: "App Unused for 1 Week",
-                                                    timeInterval: 3 * 24 * 60 * 60)
+            self.notificationsController.scheduleNotification(title: "We missed you!",
+                                                              body:
+                "It's been a while since you've last practiced.\nLet's start now! :)",
+                                                              identifier: "App Unused for 1 Week",
+                                                              timeInterval: 3 * 24 * 60 * 60)
         }
 
-        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification,
-                                               object: nil,
-                                               queue: nil) { _ in
-            self.notifications.removeNotification(identifier: "App Unused for 1 Week")
+        notificationsCenter.addObserver(forName: UIApplication.willEnterForegroundNotification,
+                                        object: nil,
+                                        queue: nil) { _ in
+            self.notificationsController.removeNotification(identifier: "App Unused for 1 Week")
         }
     }
 

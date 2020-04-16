@@ -96,7 +96,6 @@
 		2462DD43243B5EF200C4C94A /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		247466E3243AE3C100ED6DBA /* FirebaseStorageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapter.swift; sourceTree = "<group>"; };
 		247466E5243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapterTests.swift; sourceTree = "<group>"; };
-		24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24C1DC262434CA1100D961B7 /* DatabaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		24C1DC282434CCC000D961B7 /* FirestoreAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreAdapter.swift; sourceTree = "<group>"; };
 		24C36133241DFB8C0047EC46 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
@@ -326,8 +325,8 @@
 		CACC0D8D241CC25C006D2E68 /* Vois */ = {
 			isa = PBXGroup;
 			children = (
+				6C7F96EB241E5F46009C6E91 /* GoogleService-Info.plist */,
 				24C1DC252434CA0000D961B7 /* Database */,
-				24B6CFAC241E408800FDAFBE /* GoogleService-Info.plist */,
 				CACC0DB3241CC343006D2E68 /* Controller */,
 				CACC0DB2241CC33C006D2E68 /* View */,
 				CACC0DB0241CC322006D2E68 /* Model */,
@@ -337,7 +336,6 @@
 				CACC0D97241CC260006D2E68 /* Assets.xcassets */,
 				CACC0D99241CC260006D2E68 /* LaunchScreen.storyboard */,
 				CACC0D9C241CC260006D2E68 /* Info.plist */,
-				6C7F96EB241E5F46009C6E91 /* GoogleService-Info.plist */,
 				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
 				6CC66A632442E37B0065CA16 /* NotificationsDelegate.swift */,
 				CA91527E2430A60A009DA0DB /* PerformanceFilesDirectory.swift */,

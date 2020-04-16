@@ -15,8 +15,7 @@ class FirestoreAdapter {
 
     private var documents: [DocumentSnapshot] = []
     public var textComments: [[String: Any]] = [[String: Any]]()
-    private var listener : ListenerRegistration!
-
+    private var listener: ListenerRegistration!
 
     fileprivate func baseQuery() -> Query {
         return connection.collection("comments")
@@ -133,7 +132,7 @@ class FirestoreAdapter {
         connection
             .collection(inCollection)
             .whereField(field, in: whereValueIn)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments() { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
@@ -150,7 +149,7 @@ class FirestoreAdapter {
         connection
             .collection(inCollection)
             .whereField(field, isLessThan: whereValueLessThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments() { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
@@ -167,7 +166,7 @@ class FirestoreAdapter {
         connection
             .collection(inCollection)
             .whereField(field, isGreaterThan: whereValueGreaterThan)
-            .getDocuments() { (querySnapshot, error) in
+            .getDocuments() { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
