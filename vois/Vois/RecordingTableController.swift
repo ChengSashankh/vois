@@ -70,7 +70,7 @@ class RecordingTableController: UITableViewController {
 
     private func getShareRecordingLink(for recording: Recording) -> String {
         //TODO: upload
-        return "vois://feedback?recording=\(recording.cloudReference ?? "")"
+        return "vois://feedback?recording=\(recording.id ?? "")"
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

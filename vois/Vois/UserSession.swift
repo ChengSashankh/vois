@@ -9,21 +9,24 @@
 import Foundation
 
 class UserSession {
-    static func login(user: User) {
-        UserDefaults.standard.set(user.username, forKey: "current-username")
-        UserDefaults.standard.set(user.email, forKey: "current-user-email")
+    static var user: User?
+    static func login(username: String, email: String, _ completionHandler: (() -> Void)?) {
+        let cloudStorage = CloudStorage()
+        cloudStorage.setup(for: username, email: email) { user in
+            self.user = user
+            completionHandler?()
+        }
     }
 
     static func logout() {
-        UserDefaults.standard.removeObject(forKey: "current-username")
-        UserDefaults.standard.removeObject(forKey: "current-user-email")
+        self.user = nil
     }
 
     static var currentUsername: String? {
-        UserDefaults.standard.value(forKey: "current-username") as? String
+        user?.username
     }
 
     static var currentUserEmail: String? {
-        UserDefaults.standard.value(forKey: "current-user-email") as? String
+        user?.email
     }
 }

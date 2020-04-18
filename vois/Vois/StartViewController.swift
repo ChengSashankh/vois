@@ -14,9 +14,9 @@ class StartViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if let currentUser = Auth.auth().currentUser, let email = currentUser.email {
-            let user = User(email: email)
-            UserSession.login(user: user)
-            self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
+            UserSession.login(username: email, email: email) {
+                self.performSegue(withIdentifier: "alreadyLoggedIn", sender: nil)
+            }
         }
     }
 

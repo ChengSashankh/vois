@@ -8,9 +8,8 @@
 
 import Foundation
 
-class Performances: Codable, Serializable {
+class Performances: Codable, StorageObservable {
     private var performances: [Performance]
-    var id: String
 
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
@@ -22,14 +21,6 @@ class Performances: Codable, Serializable {
 
     enum CodingKeys: String, CodingKey {
         case performances
-        case id
-    }
-
-    var dictionary: [String: Any] {
-        return [
-            "performances": performances,
-            "id": id
-        ]
     }
 
     var hasNoPerformances: Bool {
@@ -42,12 +33,10 @@ class Performances: Codable, Serializable {
 
     init () {
         self.performances = []
-        id = UUID().uuidString
     }
 
     init (_ performances: [Performance]) {
         self.performances = performances
-        self.id = UUID().uuidString
 
         for performance in performances {
             performance.storageObserverDelegate = storageObserverDelegate
@@ -57,7 +46,7 @@ class Performances: Codable, Serializable {
     func addPerformance(performance: Performance) {
         self.performances.append(performance)
         performance.storageObserverDelegate = storageObserverDelegate
-        storageObserverDelegate?.update(updateRecordings: false)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func updatePerformance(oldPerformance: Performance, newPerformance: Performance) {
@@ -66,7 +55,8 @@ class Performances: Codable, Serializable {
         }
         self.performances[index] = newPerformance
         newPerformance.storageObserverDelegate = storageObserverDelegate
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .update, object: self)
+        storageObserverDelegate?.update(operation: .delete, object: oldPerformance)
     }
 
     func removePerformance(performance: Performance) {
@@ -74,12 +64,12 @@ class Performances: Codable, Serializable {
             return
         }
         self.performances.remove(at: index)
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .delete, object: performance)
     }
 
     func removePerformance(at index: Int) {
-        self.performances.remove(at: index)
-        storageObserverDelegate?.update(updateRecordings: true)
+        let performance = self.performances.remove(at: index)
+        storageObserverDelegate?.update(operation: .delete, object: performance)
     }
 
     func getPerformances() -> [Performance] {
@@ -91,8 +81,10 @@ class Performances: Codable, Serializable {
     }
 
     func removeAllPerformances() {
+        self.performances.forEach {
+            storageObserverDelegate?.update(operation: .delete, object: $0)
+        }
         self.performances = []
-        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     func encodeToJson() throws -> Data {

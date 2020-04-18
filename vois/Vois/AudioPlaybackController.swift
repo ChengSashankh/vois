@@ -24,24 +24,24 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     @IBOutlet private var uiWaveformView: FDWaveformView!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        uiSongLabel.text = recording.name
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
-                                       recordingList: recordingList.map { $0.filePath })
-
-        uiSlider.minimumValue = 0.0
-        uiSlider.maximumValue = Float(audioPlayer.audioLength)
-        uiSlider.setValue(0.0, animated: false)
-
-        uiSongLabel.text = recording.name
 
         displayLink = CADisplayLink(target: self, selector: #selector(step))
         displayLink.add(to: .current, forMode: .default)
-
+        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
+        recordingList: recordingList.map { $0.filePath })
+        uiSlider.minimumValue = 0.0
+        uiSlider.maximumValue = Float(audioPlayer.audioLength)
+        uiSlider.setValue(0.0, animated: false)
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         uiWaveformView.progressColor = .cyan
         uiWaveformView.wavesColor = .blue
-
         refreshView()
     }
 
@@ -90,10 +90,14 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         }
     }
 
+    private func getCurrentRecording() -> Recording? {
+        recordingList.first { $0.filePath == audioPlayer.getAudioURL() }
+    }
+
     private func refresh() {
         audioPlayer.updatePlayer()
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
-        uiSongLabel.text = recording.name
+        uiSongLabel.text = getCurrentRecording()?.name ?? audioPlayer.audioName()
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         refreshView()

@@ -36,11 +36,8 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureSearchBar()
-        guard let username = UserSession.currentUsername, let userEmail = UserSession.currentUserEmail else {
-            return
-        }
-        let user = User(username: username, email: userEmail)
-        performances = user.performances ?? Performances()
+        let user = UserSession.user
+        performances = user?.performances ?? Performances()
         performancesView.reloadData()
         configureSubtitle()
     }

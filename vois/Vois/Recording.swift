@@ -8,23 +8,26 @@
 
 import Foundation
 
-class Recording: Equatable, Codable, Serializable {
+class Recording: Equatable, Codable, Shareable, StorageObservable {
+
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
 
     private var uniqueFilePath: URL
 
+    var id: String?
+
     var filePath: URL {
         storageObserverDelegate?.convertToAbsoluteUrl(url: uniqueFilePath) ?? uniqueFilePath
     }
     var name: String
-    internal var id: String
-    var cloudReference: String?
 
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
             uniqueFilePath = storageObserverDelegate?.convertToRelativeUrl(url: uniqueFilePath) ?? uniqueFilePath
-            storageObserverDelegate?.update(updateRecordings: false)
+            audioComments.forEach {$0.storageObserverDelegate = storageObserverDelegate}
+            textComments.forEach {$0.storageObserverDelegate = storageObserverDelegate}
+            _ = upload()
         }
     }
 
@@ -54,27 +57,47 @@ class Recording: Equatable, Codable, Serializable {
 
     var dictionary: [String: Any] {
         return [
-            "filePath": filePath,
-            "audioComments": audioComments,
-            "textComments": textComments,
-            "id": id,
-            "cloudReference": cloudReference ?? ""
+            "name": name,
+            "filePath": filePath.path,
+            "audioComments": audioComments.compactMap { $0.upload()},
+            "textComments": textComments.compactMap {$0.upload()}
         ]
     }
+    private let audioCommentsReference = "audioComments"
+    private let textCommentsReference = "textComments"
 
     init (name: String, filePath: URL) {
         self.uniqueFilePath = storageObserverDelegate?.convertToRelativeUrl(url: filePath) ?? filePath
         self.audioComments = []
         self.textComments = []
-        self.cloudReference = ""
         self.name = name
-        id = UUID().uuidString
+    }
+
+    convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+        guard let name = dictionary["name"] as? String,
+            let filePath = dictionary["filePath"] as? String,
+            let audioCommentsReferences = dictionary["textComments"] as? [String],
+            let textCommentsReferences = dictionary["audioComments"] as? [String] else {
+                return nil
+        }
+        self.init(name: name, filePath: URL(fileURLWithPath: filePath))
+        self.id = id
+        self.audioComments = audioCommentsReferences.compactMap { AudioComment(reference: $0, storageObserverDelegate: storageObserverDelegate) }
+        self.textComments = textCommentsReferences.compactMap {
+            TextComment(reference: $0, storageObserverDelegate: storageObserverDelegate)
+        }
+    }
+
+    required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
+        let data = storageObserverDelegate.initializationRead(reference: reference)
+        self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
     }
 
     /* AudioComment API */
     func addAudioComment(audioComment: AudioComment) {
         self.audioComments.append(audioComment)
-        storageObserverDelegate?.update(updateRecordings: false)
+        audioComment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func updateAudioComment(oldAudioComment: AudioComment, newAudioComment: AudioComment) {
@@ -82,7 +105,9 @@ class Recording: Equatable, Codable, Serializable {
             return
         }
         self.audioComments[index] = newAudioComment
-        storageObserverDelegate?.update(updateRecordings: true)
+        newAudioComment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .delete, object: oldAudioComment)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func removeAudioComment(audioComment: AudioComment) {
@@ -90,7 +115,8 @@ class Recording: Equatable, Codable, Serializable {
             return
         }
         self.audioComments.remove(at: index)
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .delete, object: audioComment)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func getAudioComments() -> [AudioComment] {
@@ -98,14 +124,16 @@ class Recording: Equatable, Codable, Serializable {
     }
 
     func removeAllAudioComments() {
+        self.audioComments.forEach { storageObserverDelegate?.update(operation: .delete, object: $0) }
         self.audioComments = []
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     /* TextComment API */
     func addTextComment(textComment: TextComment) {
         self.textComments.append(textComment)
-        storageObserverDelegate?.update(updateRecordings: false)
+        textComment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func updateTextComment(oldTextComment: TextComment, newTextComment: TextComment) {
@@ -113,7 +141,9 @@ class Recording: Equatable, Codable, Serializable {
             return
         }
         textComments[index] = newTextComment
-        storageObserverDelegate?.update(updateRecordings: false)
+        newTextComment.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .delete, object: oldTextComment)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func removeTextComment(textComment: TextComment) {
@@ -121,7 +151,7 @@ class Recording: Equatable, Codable, Serializable {
             return
         }
         textComments.remove(at: index)
-        storageObserverDelegate?.update(updateRecordings: false)
+        storageObserverDelegate?.update(operation: .delete, object: textComment)
     }
 
     func getTextComments() -> [TextComment] {
@@ -129,14 +159,15 @@ class Recording: Equatable, Codable, Serializable {
     }
 
     func removeAllTextComments() {
+        self.textComments.forEach {
+            storageObserverDelegate?.update(operation: .delete, object: $0) }
         self.textComments = []
-        storageObserverDelegate?.update(updateRecordings: false)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func removeAllComments() {
         removeAllAudioComments()
         removeAllTextComments()
-        storageObserverDelegate?.update(updateRecordings: true)
     }
 
     static func == (lhs: Recording, rhs: Recording) -> Bool {
@@ -158,7 +189,6 @@ class Recording: Equatable, Codable, Serializable {
         name = try values.decode(String.self, forKey: .name)
         textComments = try values.decode([TextComment].self, forKey: .textComments)
         audioComments = try values.decode([AudioComment].self, forKey: .audioComments)
-        id = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {
@@ -167,5 +197,17 @@ class Recording: Equatable, Codable, Serializable {
         try container.encode(name, forKey: .name)
         try container.encode(textComments, forKey: .textComments)
         try container.encode(audioComments, forKey: .audioComments)
+    }
+
+    func upload() -> String? {
+        for textComment in textComments {
+            _ = textComment.upload()
+        }
+
+        for audioComment in audioComments {
+            _ = audioComment.upload()
+        }
+        id = storageObserverDelegate?.upload(object: self) ?? id
+        return id
     }
 }

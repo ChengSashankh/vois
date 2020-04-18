@@ -1,5 +1,5 @@
 //
-//  LocalStorageObserver.swift
+//  LocalStorage.swift
 //  Vois
 //
 //  Created by Jiang Yuxin on 10/4/20.
@@ -8,10 +8,11 @@
 
 import Foundation
 
-class LocalStorageObserver: StorageObserver {
+class LocalStorage: LocalStorageObserver {
     let localStorage: PerformanceFilesDirectory
     let recordingStorage: RecordingStorage
     let userName: String
+    let database = FirestoreAdapter()
 
     init(userName: String) {
         self.userName = userName
@@ -43,7 +44,8 @@ class LocalStorageObserver: StorageObserver {
         guard let data = localStorage.getPerformancesFile() else {
             return Performances()
         }
-        return Performances(json: data) ?? Performances()
+        let performances = Performances(json: data) ?? Performances()
+        return performances
     }
 
     func convertToRelativeUrl(url: URL) -> URL {
@@ -53,7 +55,6 @@ class LocalStorageObserver: StorageObserver {
     func convertToAbsoluteUrl(url: URL) -> URL {
         recordingStorage.convertToAbsoluteUrl(url: url)
     }
-
 }
 
 extension Performances {

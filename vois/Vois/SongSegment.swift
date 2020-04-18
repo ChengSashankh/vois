@@ -8,21 +8,21 @@
 
 import Foundation
 
-class SongSegment: Equatable, Codable, Serializable {
+class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservable {
+    var id: String?
     private var recordings: [Recording]
     var name: String
-    var id: String
-
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
             for recording in recordings {
                 recording.storageObserverDelegate = storageObserverDelegate
             }
+            _ = upload()
         }
     }
 
     private enum CodingKeys: String, CodingKey {
-        case recordings, name, id
+        case recordings, name
     }
 
     var hasNoRecordings: Bool {
@@ -35,22 +35,48 @@ class SongSegment: Equatable, Codable, Serializable {
 
     var dictionary: [String: Any] {
         return [
-            "recordings": recordings,
+            "recordings": recordings.compactMap { $0.upload() },
             "name": name,
-            "id": id
         ]
     }
+
+    private var recordingsReference = "recordings"
+
+    func upload() -> String? {
+        for recording in recordings {
+            _ = recording.upload()
+        }
+        id = storageObserverDelegate?.upload(object: self) ?? id
+        return id
+    }
+
 
     init (name: String) {
         self.name = name
         self.recordings = []
-        id = UUID().uuidString
+    }
+
+    convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+        guard let name = dictionary["name"] as? String,
+            let recordingReferences = dictionary["recordings"] as? [String] else {
+                return nil
+        }
+        self.init(name: name)
+        self.id = id
+        self.recordings = recordingReferences.compactMap {
+            Recording(reference: $0, storageObserverDelegate: storageObserverDelegate)
+        }
+    }
+
+    required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
+        let data = storageObserverDelegate.initializationRead(reference: reference)
+        self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
     }
 
     func addRecording(recording: Recording) {
         self.recordings.append(recording)
         recording.storageObserverDelegate = storageObserverDelegate
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func updateRecording(oldRecording: Recording, newRecording: Recording) {
@@ -59,8 +85,9 @@ class SongSegment: Equatable, Codable, Serializable {
         }
         self.recordings[index] = newRecording
         newRecording.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .delete, object: oldRecording)
         oldRecording.storageObserverDelegate = nil
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func removeRecording(recording: Recording) {
@@ -69,7 +96,8 @@ class SongSegment: Equatable, Codable, Serializable {
         }
         recording.storageObserverDelegate = nil
         self.recordings.remove(at: index)
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .delete, object: recording)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func getRecordings() -> [Recording] {
@@ -77,8 +105,11 @@ class SongSegment: Equatable, Codable, Serializable {
     }
 
     func removeAllRecordings() {
+        self.recordings.forEach {
+            storageObserverDelegate?.update(operation: .delete, object: $0)
+        }
         self.recordings = []
-        storageObserverDelegate?.update(updateRecordings: true)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     static func == (lhs: SongSegment, rhs: SongSegment) -> Bool {
@@ -93,4 +124,5 @@ class SongSegment: Equatable, Codable, Serializable {
     func removeRecording(at url: URL) -> Bool {
         storageObserverDelegate?.removeRecording(at: url) ?? false
     }
+
 }

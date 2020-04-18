@@ -1,5 +1,5 @@
 //
-//  StorageObserver.swift
+//  LocalStorageObserver.swift
 //  Vois
 //
 //  Created by Jiang Yuxin on 10/4/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol StorageObserver {
+protocol LocalStorageObserver {
     func update(performances: Performances, updateRecordings: Bool) throws
 }
