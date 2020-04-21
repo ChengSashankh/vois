@@ -17,6 +17,4 @@ protocol StorageObserverDelegate {
 
     func upload(object: Shareable) -> String
     func read(reference: String, _ completionHandler: (([String: Any]) -> Void)?)
-
-    var finishSetUp: Bool {set get}
 }

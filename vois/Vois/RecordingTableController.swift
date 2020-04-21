@@ -35,7 +35,7 @@ class RecordingTableController: UITableViewController {
 
         let recording = segment.getRecordings()[indexPath.row]
         recordingCell.recordingNameLabel.text = recording.name
-        recordingCell.playbackDelegate = { self.playback(recordingAt: indexPath.row) }
+        recordingCell.playbackDelegate = { self.playback(recording: recording) }
         recordingCell.shareDelegate = {
             self.presentShareRecordingController(for: recording)
         }
@@ -49,13 +49,12 @@ class RecordingTableController: UITableViewController {
         }
     }
 
-    private func playback(recordingAt index: Int) {
+    private func playback(recording: Recording) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: "AudioPlaybackController") as? AudioPlaybackController else {
             return
         }
 
-        let recording = segment.getRecordings()[index]
         viewController.recording = recording
         viewController.recordingList = segment.getRecordings()
         self.navigationController?.pushViewController(viewController, animated: true)

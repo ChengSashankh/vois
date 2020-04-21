@@ -10,6 +10,7 @@ import Foundation
 
 class Database {
     let database = FirestoreAdapter()
+    var recordingStorageDelegate: RecordingCloudStorageDelegate?
 
     var isConnected: Bool {
         database.isConnected
@@ -17,7 +18,12 @@ class Database {
 
     func createObject(object: Shareable) -> String {
         let collectionName = getCollectionName(for: object)
-        return database.writeObject(inCollection: collectionName, data: object.dictionary)
+        let id = database.writeObject(inCollection: collectionName, data: object.dictionary)
+        if let recording = object as? Recording {
+            recording.id = id
+            recordingStorageDelegate?.upload(recording: recording)
+        }
+        return id
     }
 
     func updateObject(object: Shareable) -> String {
@@ -87,7 +93,8 @@ class Database {
                     _ = self.remove(object: objects[index])
                 }
             }
-            _ = self.database.updateObject(inCollection: collectionName, withId: id, newData: [referenceName: references])
+            _ = self.database.updateObject(inCollection: collectionName, withId: id,
+                                           newData: [referenceName: references])
         }
         return id
     }
@@ -113,12 +120,36 @@ class Database {
         }
     }
 
-    func remove(object: Shareable) -> String {
+    private func removeObject(with id: String) {
+        database.readObject(with: id) { data in
+            for (_,val) in data {
+                guard let references = val as? [String] else {
+                    continue
+                }
+                for reference in references {
+                    self.removeObject(with: reference)
+                }
+            }
+            self.database.deleteObject(with: id)
+        }
+        if getCollectionName(for: id) == "recordings" {
+            recordingStorageDelegate?.remove(recording: id)
+        }
+    }
+
+    func remove(object: Shareable, removeReferences: Bool = true) -> String {
         guard let id = object.id else {
             return ""
         }
         removeAllReferences(to: object)
-        database.deleteObject(with: id)
+        if removeReferences {
+            removeObject(with: id)
+        } else {
+            database.deleteObject(with: id)
+            if let recording = object as? Recording {
+                recordingStorageDelegate?.remove(recording: recording)
+            }
+        }
         return id
     }
 
@@ -178,5 +209,13 @@ class Database {
         default:
             return ""
         }
+    }
+
+    private func getCollectionName(for reference: String) -> String {
+        guard let index = reference.firstIndex(of: "/") else {
+            return ""
+        }
+
+        return String(reference[..<index])
     }
 }

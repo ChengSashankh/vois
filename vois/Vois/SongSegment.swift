@@ -36,7 +36,7 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
     var dictionary: [String: Any] {
         return [
             "recordings": recordings.compactMap { $0.upload() },
-            "name": name,
+            "name": name
         ]
     }
 

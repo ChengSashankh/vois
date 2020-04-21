@@ -25,8 +25,8 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
             uniqueFilePath = storageObserverDelegate?.convertToRelativeUrl(url: uniqueFilePath) ?? uniqueFilePath
-            audioComments.forEach {$0.storageObserverDelegate = storageObserverDelegate}
-            textComments.forEach {$0.storageObserverDelegate = storageObserverDelegate}
+            audioComments.forEach { $0.storageObserverDelegate = storageObserverDelegate }
+            textComments.forEach { $0.storageObserverDelegate = storageObserverDelegate }
             _ = upload()
         }
     }

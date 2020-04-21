@@ -33,34 +33,29 @@ class FirebaseStorageAdapter {
         return storage.reference().child(fullPath)
     }
 
-    func downloadFile(from: String, localFilePath: URL) {
+    func downloadFile(from: String, localFilePath: URL, successHandler: (()->Void)? = nil, failureHandler: (()->Void)? = nil) {
         let cloudFileReference = getReference(toPath: from)
         let downloadTask = cloudFileReference.write(toFile: localFilePath)
 
         downloadTask.observe(.success) { snapshot in
-            print("Success")
-            print(snapshot)
+            successHandler?()
         }
 
         downloadTask.observe(.failure) { snapshot in
-            guard let errorCode = (snapshot.error as NSError?)?.code else {
-              return
-            }
-            guard let error = StorageErrorCode(rawValue: errorCode) else {
-              return
-            }
-
-            print("Failed due to error: \(error)")
+            failureHandler?()
         }
     }
 
     func uploadFile(from: URL, to: String) {
         let storageReference = getReference(toPath: to)
 
+        //let storageReference = getReference(toPath: "test.m4a")
         let uploadTask = storageReference.putFile(from: from, metadata: nil)
 
         uploadTask.observe(.failure) { snapshot in
             if let error = snapshot.error {
+                print(from)
+                print(to)
                 print("Failed due to error: \(error)")
             }
         }

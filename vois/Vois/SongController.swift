@@ -1,5 +1,5 @@
 //
-//  SongSegmentController.swift
+//  SongController.swift
 //  Vois
 //
 //  Created by Jiang Yuxin on 10/4/20.
@@ -18,13 +18,7 @@ class SongController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
-    var song: Song! {
-        didSet {
-            if summary != nil {
-                configureSummary()
-            }
-        }
-    }
+    var song: Song!
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -53,6 +47,7 @@ class SongController: UIViewController, UITableViewDataSource, UITableViewDelega
             let segment = song.getSegments()[indexPath.row]
             song.removeSegment(segment: segment)
             segmentTableView.deleteRows(at: [indexPath], with: .automatic)
+            configureSummary()
         }
     }
 

@@ -9,8 +9,8 @@
 import Foundation
 
 class User: StorageObserverDelegate, Shareable {
+
     var id: String?
-    var finishSetUp: Bool = false
 
     var username: String
     var email: String

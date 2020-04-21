@@ -11,6 +11,11 @@ import Foundation
 class CloudStorage: DatabaseObserver {
 
     private let database = Database()
+    private let recordingStorage = RecordingCloudStorage()
+
+    init() {
+        database.recordingStorageDelegate = recordingStorage
+    }
 
     func update(operation: Operation, object: Shareable) -> String {
         switch operation {

@@ -9,7 +9,6 @@
 import Foundation
 
 class Song: Equatable, Codable, Shareable, StorageObservable {
-
     private var segments: [SongSegment]
     var name: String
     var id: String?
@@ -41,7 +40,6 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
         ]
     }
 
-    private var segmentsReference = "segments"
     init (name: String) {
         self.name = name
         self.segments = []

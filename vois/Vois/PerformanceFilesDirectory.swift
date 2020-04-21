@@ -108,31 +108,6 @@ class PerformanceFilesDirectory {
         return getAllFileUrlsInDirectory(url: url, includeDirectory: false)
     }
 
-    /*
-    func saveRecording(for userName: String, performanceName: String,
-                              songName: String, segmentName: String) throws {
-        /*guard let url = getRecordingUrl(for: userName, performanceName: performanceName,
-                                        songName: songName, segmentName: segmentName) else {
-            throw PerformanceFilesDirectoryError.unsuccessfullSaving
-        }
-
-        guard let tempUrl = getTemporaryRecordingUrl(for: userName) else {
-            throw PerformanceFilesDirectoryError.unsuccessfullSaving
-        }*/
-        do {
-            //try FileManager.default.moveItem(at: tempUrl, to: url)
-            let cloudFileName = UUID().uuidString + "_" + segmentName
-            let firebaseStorageAdapter = FirebaseStorageAdapter()
-
-            /*firebaseStorageAdapter.uploadFile(
-                from: url,
-                to: "recordings/" + cloudFileName
-            )*/
-        } catch {
-            throw PerformanceFilesDirectoryError.unsuccessfullSaving
-        }
-    }*/
-
     static func removeAllUsers() {
         try? FileManager.default.removeItem(at: documentDirectoryURL)
     }
