@@ -34,6 +34,8 @@ class SignupViewController: UIViewController {
                     guard let userName = Auth.auth().currentUser?.email, let uid = Auth.auth().currentUser?.uid else {
                         return
                     }
+                    //FirestoreAdapter.writeObject(inCollection: userName, withId: "uid", data: uid)
+                    self.updateEmailsToUIDs(email: userName, uid: uid)
                     UserSession.login(userName: userName, uid: uid)
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
                 } else {
@@ -46,5 +48,10 @@ class SignupViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func updateEmailsToUIDs(email: String, uid: String) {
+        let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
+        emailsToUIDs.document(email).setData(["uid": uid])
     }
 }

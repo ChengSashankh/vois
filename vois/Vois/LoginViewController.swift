@@ -24,6 +24,7 @@ class LoginViewController: UIViewController {
                 guard let userName = Auth.auth().currentUser?.email, let uid = Auth.auth().currentUser?.uid else {
                     return
                 }
+                self.updateEmailsToUIDs(email: userName, uid: uid)
                 UserSession.login(userName: userName, uid: uid)
                 self.performSegue(withIdentifier: "loginToHome", sender: self)
             } else {
@@ -35,5 +36,10 @@ class LoginViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+    }
+    
+    private func updateEmailsToUIDs(email: String, uid: String) {
+        let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
+        emailsToUIDs.document(email).setData(["uid": uid])
     }
 }
