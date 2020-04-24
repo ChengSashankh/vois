@@ -57,7 +57,9 @@ class RecordingTableController: UITableViewController {
 
         viewController.recording = recording
         viewController.recordingList = segment.getRecordings()
-        self.navigationController?.pushViewController(viewController, animated: true)
+        recording.updateRecording {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 
     private func presentShareRecordingController(for recording: Recording) {

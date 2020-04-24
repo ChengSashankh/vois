@@ -33,7 +33,7 @@ class FirebaseStorageAdapter {
         return storage.reference().child(fullPath)
     }
 
-    func downloadFile(from: String, localFilePath: URL, successHandler: (()->Void)? = nil, failureHandler: (()->Void)? = nil) {
+    func downloadFile(from: String, localFilePath: URL, successHandler: (() -> Void)? = nil, failureHandler: (()->Void)? = nil) {
         let cloudFileReference = getReference(toPath: from)
         let downloadTask = cloudFileReference.write(toFile: localFilePath)
 
@@ -54,8 +54,6 @@ class FirebaseStorageAdapter {
 
         uploadTask.observe(.failure) { snapshot in
             if let error = snapshot.error {
-                print(from)
-                print(to)
                 print("Failed due to error: \(error)")
             }
         }

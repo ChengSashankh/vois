@@ -32,10 +32,11 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        recordingList.forEach { $0.updateRecording(handler: nil) }
         displayLink = CADisplayLink(target: self, selector: #selector(step))
         displayLink.add(to: .current, forMode: .default)
         self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
-        recordingList: recordingList.map { $0.filePath })
+                                       recordingList: recordingList.map { $0.filePath })
         uiSlider.minimumValue = 0.0
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSlider.setValue(0.0, animated: false)

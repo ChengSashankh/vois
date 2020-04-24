@@ -58,8 +58,7 @@ extension FDWaveformView {
         playbackDelegate.textCommentButtons.removeAll()
     }
 
-    @objc
-    private func showComment(sender: TextCommentButton) {
+    @objc func showComment(sender: TextCommentButton) {
         guard let author = sender.author, let text = sender.text, let delegate = sender.delegate else {
             return
         }
@@ -70,8 +69,7 @@ extension FDWaveformView {
         delegate.present(alert, animated: true)
     }
 
-    @objc
-    private func removeComment(sender: TextCommentButton) {
+    @objc func removeComment(sender: TextCommentButton) {
         guard let delegate = sender.delegate as? FDPlaybackDelegate else {
             return
         }

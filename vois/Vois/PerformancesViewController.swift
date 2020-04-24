@@ -91,6 +91,7 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         case .delete:
             performances.removePerformance(at: indexPath.row)
             performancesView.deleteRows(at: [indexPath], with: .automatic)
+            configureSubtitle()
         default:
             break
         }

@@ -17,9 +17,20 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
 
     var id: String?
 
+    private var updated = false
     var filePath: URL {
-        storageObserverDelegate?.convertToAbsoluteUrl(url: uniqueFilePath) ?? uniqueFilePath
+        return storageObserverDelegate?.convertToAbsoluteUrl(url: uniqueFilePath) ?? uniqueFilePath
     }
+
+    func updateRecording(handler: (() -> Void)?) {
+        if !updated {
+            storageObserverDelegate?.download(recording: self, successHandler: handler, failureHandler: handler)
+            updated = true
+        } else {
+            handler?()
+        }
+    }
+
     var name: String
 
     var storageObserverDelegate: StorageObserverDelegate? {
@@ -58,9 +69,9 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
     var dictionary: [String: Any] {
         return [
             "name": name,
-            "filePath": filePath.path,
-            "audioComments": audioComments.compactMap { $0.upload()},
-            "textComments": textComments.compactMap {$0.upload()}
+            "filePath": uniqueFilePath.path,
+            "audioComments": audioComments.compactMap { $0.upload() },
+            "textComments": textComments.compactMap { $0.upload() }
         ]
     }
     private let audioCommentsReference = "audioComments"
@@ -73,14 +84,15 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         self.name = name
     }
 
-    convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+    init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
         guard let name = dictionary["name"] as? String,
-            let filePath = dictionary["filePath"] as? String,
-            let audioCommentsReferences = dictionary["textComments"] as? [String],
-            let textCommentsReferences = dictionary["audioComments"] as? [String] else {
+            let path = dictionary["filePath"] as? String,
+            let audioCommentsReferences = dictionary["audioComments"] as? [String],
+            let textCommentsReferences = dictionary["textComments"] as? [String] else {
                 return nil
         }
-        self.init(name: name, filePath: URL(fileURLWithPath: filePath))
+        self.name = name
+        self.uniqueFilePath = URL(fileURLWithPath: path)
         self.id = id
         self.audioComments = audioCommentsReferences.compactMap { AudioComment(reference: $0, storageObserverDelegate: storageObserverDelegate) }
         self.textComments = textCommentsReferences.compactMap {

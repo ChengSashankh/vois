@@ -52,6 +52,10 @@ class CloudStorage: DatabaseObserver {
         }
     }
 
+    func download(recording: Recording, successHandler: (() -> Void)? = nil, failureHandler: (() -> Void)? = nil) {
+        recordingStorage.download(recording: recording, successHandler: successHandler, failureHandler: failureHandler)
+    }
+
     func initializationRead(reference: String) -> [String: Any] {
         return database.initializationReadObject(reference: reference)
     }
