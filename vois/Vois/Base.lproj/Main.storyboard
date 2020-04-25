@@ -1022,9 +1022,8 @@
                                     <segue destination="gkJ-3K-n6D" kind="show" id="wg9-wZ-nHh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNh-dD-8W0" userLabel="Text Comment Button">
-                                <rect key="frame" x="194" y="527" width="27.666666666666668" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNh-dD-8W0" userLabel="Text Comment Button">
+                                <rect key="frame" x="193.33333333333334" y="527" width="27.666666666666657" height="24"/>
                                 <state key="normal" image="text.bubble.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
@@ -1044,7 +1043,9 @@
                             <constraint firstItem="GuD-cI-zCT" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="T7Y-ZK-DGI"/>
                             <constraint firstItem="uKt-Fn-hbE" firstAttribute="centerX" secondItem="tCn-oq-K48" secondAttribute="centerX" id="UK7-GR-Rps"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerX" secondItem="cRZ-xX-oKY" secondAttribute="centerX" id="Xgd-S5-MRQ"/>
+                            <constraint firstItem="iNh-dD-8W0" firstAttribute="top" secondItem="tCn-oq-K48" secondAttribute="bottom" constant="67" id="YA5-1k-9az"/>
                             <constraint firstItem="fOO-mA-dvw" firstAttribute="top" secondItem="1FZ-R6-0VD" secondAttribute="top" id="Zns-ke-U4e"/>
+                            <constraint firstItem="iNh-dD-8W0" firstAttribute="centerX" secondItem="yy9-eX-J6c" secondAttribute="centerX" id="a9R-JC-Nb1"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="centerY" secondItem="yy9-eX-J6c" secondAttribute="centerY" id="f6n-sC-eSv"/>
                             <constraint firstItem="GuD-cI-zCT" firstAttribute="top" secondItem="fOO-mA-dvw" secondAttribute="bottom" constant="70.5" id="hZn-dP-Kch"/>
                             <constraint firstItem="tCn-oq-K48" firstAttribute="top" secondItem="uKt-Fn-hbE" secondAttribute="bottom" constant="28" id="i7c-Hk-3ks"/>

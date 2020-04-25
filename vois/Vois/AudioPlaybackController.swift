@@ -149,4 +149,25 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             textComment: $0,
             delegate: self) })
     }
+
+    @objc func showComment(_ sender: TextCommentButton) {
+        guard let author = sender.author, let text = sender.text, let delegate = sender.delegate else {
+            return
+        }
+
+        let alert = UIAlertController(title: "Comment by " + author, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.removeComment(sender: sender)
+        }
+        alert.addAction(action)
+        alert.addAction(deleteAction)
+        present(alert, animated: true)
+    }
+
+    private func removeComment(sender: TextCommentButton) {
+        sender.removeFromSuperview()
+        textCommentButtons.removeAll(where: { $0 == sender })
+        recording.removeTextComment(textComment: TextComment(timeStamp: sender.timeStamp!, author: sender.author!, text: sender.text!) )
+    }
 }
