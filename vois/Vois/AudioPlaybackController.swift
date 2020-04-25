@@ -130,7 +130,7 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         audioPlayer.pause()
 
         controller.addCommentClosure = { text in
-            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
+            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: UserSession.currentUsername ?? "Reviewer", text: text)
             self.recording.addTextComment(textComment: comment)
             self.uiWaveformView.addComment(
                 audioLength: self.audioPlayer.audioLength,

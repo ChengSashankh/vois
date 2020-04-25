@@ -32,6 +32,10 @@ class CloudStorage: DatabaseObserver {
         database.readObject(with: reference, completionHandler)
     }
 
+    func setupForReviewing(_ completionHandler: (() -> Void)? = nil) {
+        self.database.setup(for: ["comments"], completionHandler)
+    }
+
     func setup(for username: String, email: String, _ completionHandler: ((User) -> Void)?) {
         database.getUser(email: email) { data in
             if let userData = data {

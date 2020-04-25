@@ -161,16 +161,22 @@ class Database {
         readCollection(at: 0)
     }
 
-    private func readCollection(at index: Int) {
-        if index >= collectionNames.count {
+    func setup(for collections: [String], _ completionHandler: (() -> Void)? = nil) {
+        setupCompletionHandler = completionHandler
+        readCollection(at: 0, collections: collections)
+    }
+
+    private func readCollection(at index: Int, collections: [String] =
+        ["users", "performances", "songs", "songSegments", "recordings", "comments"]) {
+        if index >= collections.count {
             setupCompletionHandler?()
             return
         }
-        database.readObject(in: collectionNames[index]) { (documents: ([(String,[String: Any])])) in
+        database.readObject(in: collections[index]) { (documents: ([(String,[String: Any])])) in
             for document in documents {
                 self.databaseCopy[document.0] = document.1
             }
-            self.readCollection(at: index + 1)
+            self.readCollection(at: index + 1, collections: collections)
         }
     }
 

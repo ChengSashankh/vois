@@ -94,13 +94,14 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         self.name = name
         self.uniqueFilePath = URL(fileURLWithPath: path)
         self.id = id
-        self.audioComments = audioCommentsReferences.compactMap { AudioComment(reference: $0, storageObserverDelegate: storageObserverDelegate) }
+        self.audioComments = audioCommentsReferences
+            .compactMap { AudioComment(reference: $0, storageObserverDelegate: storageObserverDelegate) }
         self.textComments = textCommentsReferences.compactMap {
             TextComment(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }
     }
 
-    required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
+    convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
         let data = storageObserverDelegate.initializationRead(reference: reference)
         self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
     }

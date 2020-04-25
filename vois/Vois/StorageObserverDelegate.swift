@@ -8,13 +8,18 @@
 
 import Foundation
 
-protocol StorageObserverDelegate {
+protocol StorageObserverDelegate: LocalStorageObserverDelegate, CloudStorageObserverDelegate {
     func update(operation: Operation, object: StorageObservable)
+}
+
+protocol LocalStorageObserverDelegate {
     func generateNewRecordingFilePath() -> URL?
     func removeRecording(at url: URL) -> Bool
     func convertToAbsoluteUrl(url: URL) -> URL
     func convertToRelativeUrl(url: URL) -> URL
+}
 
+protocol CloudStorageObserverDelegate {
     func upload(object: Shareable) -> String
     func read(reference: String, _ completionHandler: (([String: Any]) -> Void)?)
 

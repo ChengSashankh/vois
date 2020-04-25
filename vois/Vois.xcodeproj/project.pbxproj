@@ -71,6 +71,8 @@
 		CA3D280324239EFE006509C5 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D280224239EFE006509C5 /* SongCell.swift */; };
 		CA6B07F12434F8DB00C4956E /* NewSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */; };
 		CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9152802431AFAE009DA0DB /* UserSession.swift */; };
+		CAAF27C82453DFA700BE9F36 /* RecordingReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27C72453DFA700BE9F36 /* RecordingReview.swift */; };
+		CAAF27CA2453F64A00BE9F36 /* ReviewingStorageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27C92453F64A00BE9F36 /* ReviewingStorageDelegate.swift */; };
 		CAB700FE243B56E8009CFADA /* ShareRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */; };
 		CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */; };
 		CAB7010924403CD4009CFADA /* StorageObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010824403CD4009CFADA /* StorageObserver.swift */; };
@@ -169,6 +171,8 @@
 		CA3D280224239EFE006509C5 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		CA6B07F02434F8DB00C4956E /* NewSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSongViewController.swift; sourceTree = "<group>"; };
 		CA9152802431AFAE009DA0DB /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		CAAF27C72453DFA700BE9F36 /* RecordingReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingReview.swift; sourceTree = "<group>"; };
+		CAAF27C92453F64A00BE9F36 /* ReviewingStorageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewingStorageDelegate.swift; sourceTree = "<group>"; };
 		CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRecordingController.swift; sourceTree = "<group>"; };
 		CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CAB7010824403CD4009CFADA /* StorageObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageObserver.swift; sourceTree = "<group>"; };
@@ -347,6 +351,7 @@
 				CA214CE224470A300034D58D /* Shareable.swift */,
 				CAE8747A24485E9000A27C8F /* StorageObservable.swift */,
 				CAE8747C244B6B9A00A27C8F /* RecordingCloudStorage.swift */,
+				CAAF27C92453F64A00BE9F36 /* ReviewingStorageDelegate.swift */,
 			);
 			name = Storage;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 				6C7F96CF241D0870009C6E91 /* Recording.swift */,
 				C8D201772426488700409CF4 /* RecordingTable.swift */,
 				2462DD43243B5EF200C4C94A /* Serializable.swift */,
+				CAAF27C72453DFA700BE9F36 /* RecordingReview.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -677,9 +683,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF27CA2453F64A00BE9F36 /* ReviewingStorageDelegate.swift in Sources */,
 				6C7F96EF241E6522009C6E91 /* SignupViewController.swift in Sources */,
 				6C52E029241E943400E60EAB /* StartViewController.swift in Sources */,
 				24C36136241DFC070047EC46 /* RecordingController.swift in Sources */,
+				CAAF27C82453DFA700BE9F36 /* RecordingReview.swift in Sources */,
 				CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */,
 				CAE8747B24485E9000A27C8F /* StorageObservable.swift in Sources */,
 				C8D2017E24265A2800409CF4 /* AudioPlaybackController.swift in Sources */,
