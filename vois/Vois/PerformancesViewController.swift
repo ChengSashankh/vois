@@ -8,12 +8,15 @@
 
 import UIKit
 
-class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
+    var filteredTableData = [Performance]()
+    var searching = false
+    var performances: Performances!
+
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
-
     @IBOutlet weak var subtitle: UILabel!
-
     @IBOutlet weak var performancesView: UITableView! {
         didSet {
             performancesView.delegate = self
@@ -27,10 +30,13 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         searchBar.layer.borderColor = UIColor.white.cgColor
     }
 
-    var performances: Performances!
-
     private func configureSubtitle() {
         subtitle.text = "\(performances.numOfPerformances) performances"
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +46,12 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         performances = user?.performances ?? Performances()
         performancesView.reloadData()
         configureSubtitle()
+    }
+
+    @IBAction func onCancelButtonClick(_ sender: Any) {
+        searching = false
+        searchBar.endEditing(true)
+        performancesView.reloadData()
     }
 
     @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
@@ -61,7 +73,11 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return performances.numOfPerformances
+        if searching {
+            return filteredTableData.count
+        } else {
+            return performances.numOfPerformances
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,7 +85,12 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         guard let performanceCell = cell as? PerformanceCell else {
             return cell
         }
-        let performance = performances.getPerformances(at: indexPath.row)
+
+        var performance = performances.getPerformances(at: indexPath.row)
+
+        if searching {
+            performance = filteredTableData[indexPath.row]
+        }
 
         performanceCell.title?.text = performance.name
 
@@ -95,6 +116,15 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         default:
             break
         }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredTableData = performances.getPerformances().filter {
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+
+        searching = true
+        performancesView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -65,7 +65,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let songVC = segue.destination as? SongController, let index = sender as? Int else {
+        guard let songVC = segue.destination as? SongViewController, let index = sender as? Int else {
             return
         }
         songVC.song = performance.getSongs()[index]
