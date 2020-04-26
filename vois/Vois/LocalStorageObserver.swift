@@ -12,7 +12,6 @@ class LocalStorage: LocalStorageObserver {
     let localStorage: PerformanceFilesDirectory
     let recordingStorage: RecordingStorage
     let userName: String
-    let database = FirestoreAdapter()
 
     init(userName: String) {
         self.userName = userName
