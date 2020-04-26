@@ -13,7 +13,8 @@ import FDWaveformView
 class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     private var displayLink: CADisplayLink!
-    var fileURL: URL!
+    var recording: Recording!
+    var recordingList: [Recording]!
     var audioPlayer: AudioPlayer!
     var textCommentButtons = [TextCommentButton]()
 
@@ -23,21 +24,25 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
     @IBOutlet private var uiWaveformView: FDWaveformView!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        uiSongLabel.text = recording.name
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        recordingList.forEach { $0.updateRecording(handler: nil) }
+        displayLink = CADisplayLink(target: self, selector: #selector(step))
+        displayLink.add(to: .current, forMode: .default)
+        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
+                                       recordingList: recordingList.map { $0.filePath })
         uiSlider.minimumValue = 0.0
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSlider.setValue(0.0, animated: false)
-
-        uiSongLabel.text = audioPlayer.audioName()
-
-        displayLink = CADisplayLink(target: self, selector: #selector(step))
-        displayLink.add(to: .current, forMode: .default)
-
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         uiWaveformView.progressColor = .cyan
         uiWaveformView.wavesColor = .blue
-
         refreshView()
     }
 
@@ -46,15 +51,9 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             guard let audioEditVC = segue.destination as? AudioEditController else {
                 return
             }
-            audioEditVC.setAudioURL(url: self.fileURL, recordingList: self.audioPlayer.recordings)
+            audioEditVC.setAudioURL(url: recording.filePath, recordingList: self.audioPlayer.recordings)
         }
     }
-
-    func setAudioURL(url: URL, recordingList: [URL]) {
-        self.fileURL = url
-        self.audioPlayer = AudioPlayer(audioFileURL: fileURL, recordingList: recordingList)
-    }
-
     @IBAction private func forwardEnd(_ sender: UIButton) {
         audioPlayer.forwardEnd()
         audioPlayer.next()
@@ -92,10 +91,14 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         }
     }
 
+    private func getCurrentRecording() -> Recording? {
+        recordingList.first { $0.filePath == audioPlayer.getAudioURL() }
+    }
+
     private func refresh() {
         audioPlayer.updatePlayer()
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
-        uiSongLabel.text = audioPlayer.audioName()
+        uiSongLabel.text = getCurrentRecording()?.name ?? audioPlayer.audioName()
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         refreshView()
@@ -127,30 +130,44 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         audioPlayer.pause()
 
         controller.addCommentClosure = { text in
-            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
-            RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
+            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: UserSession.currentUsername ?? "Reviewer", text: text)
+            self.recording.addTextComment(textComment: comment)
             self.uiWaveformView.addComment(
                 audioLength: self.audioPlayer.audioLength,
                 textComment: comment,
                 delegate: self)
             self.audioPlayer.playFrom(time: self.audioPlayer.currentTime)
-            do {
-                try RecordingTable.saveRecordingsToStorage()
-            } catch {
-                //print("RIP")
-            }
         }
         present(controller, animated: true)
     }
 
     private func refreshView() {
-        //print(textCommentButtons)
         uiWaveformView.removeTextCommentButtons(from: self)
-        let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
+        let textComments = recording.getTextComments()
         textComments.forEach({ self.uiWaveformView.addComment(
             audioLength: audioPlayer.audioLength,
             textComment: $0,
             delegate: self) })
-        //print(textCommentButtons)
+    }
+
+    @objc func showComment(_ sender: TextCommentButton) {
+        guard let author = sender.author, let text = sender.text, let delegate = sender.delegate else {
+            return
+        }
+
+        let alert = UIAlertController(title: "Comment by " + author, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.removeComment(sender: sender)
+        }
+        alert.addAction(action)
+        alert.addAction(deleteAction)
+        present(alert, animated: true)
+    }
+
+    private func removeComment(sender: TextCommentButton) {
+        sender.removeFromSuperview()
+        textCommentButtons.removeAll(where: { $0 == sender })
+        recording.removeTextComment(textComment: TextComment(timeStamp: sender.timeStamp!, author: sender.author!, text: sender.text!) )
     }
 }

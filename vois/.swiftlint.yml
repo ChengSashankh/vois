@@ -72,6 +72,7 @@ opt_in_rules:
 disabled_rules:
   - todo
   - type_name
+  - weak_delegate
 
 line_length:
   warning: 120

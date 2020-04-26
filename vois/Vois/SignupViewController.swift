@@ -34,10 +34,9 @@ class SignupViewController: UIViewController {
                     guard let userName = Auth.auth().currentUser?.email, let uid = Auth.auth().currentUser?.uid else {
                         return
                     }
-                    //FirestoreAdapter.writeObject(inCollection: userName, withId: "uid", data: uid)
                     self.updateEmailsToUIDs(email: userName, uid: uid)
-                    UserSession.login(userName: userName, uid: uid)
-                    self.performSegue(withIdentifier: "signupToHome", sender: self)
+                    UserSession.login(username: self.email.text!, email: self.email.text!) {
+                        self.performSegue(withIdentifier: "signupToHome", sender: self) }
                 } else {
                     let alertController = UIAlertController(title: "Errpr",
                                                             message: error?.localizedDescription,

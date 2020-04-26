@@ -56,17 +56,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-    private func getUrl(from parameters: [String: String]) -> URL? {
-        guard let user = parameters["user"], let performance = parameters["performance"],
-            let song = parameters["song"], let recording = parameters["recording"] else {
-                return nil
+    private func startReviewing(recording: Recording) {
+        guard let audioPlaybackVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: "AudioPlaybackController") as? AudioPlaybackController else {
+            return
         }
-        //Should download recording from filestore
-        return PerformanceFilesDirectory.getRecordingUrl(
-            for: user,
-            performanceName: performance,
-            songName: song,
-            segmentName: recording)
+        audioPlaybackVC.recording = recording
+        audioPlaybackVC.recordingList = [recording]
+
+        guard let splitVC = window?.rootViewController as? UISplitViewController else {
+            return
+        }
+        splitVC.present(audioPlaybackVC, animated: false)
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -78,18 +79,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             parameters[$0.name] = $0.value
         }
 
-        guard let recordingUrl = getUrl(from: parameters) else {
+        guard let user = parameters["creater"],
+            let recordingId = parameters["recording"] else {
+                return
+        }
+
+        guard let reviewer = UserSession.user else {
             return
         }
-        guard let audioPlaybackVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(identifier: "AudioPlaybackController") as? AudioPlaybackController else {
-            return
+
+        let cloudStorage = CloudStorage()
+        let storageObserverDelegate = ReviewingStorageDelegate(reviewer: reviewer, cloudStorage: cloudStorage)
+        cloudStorage.setupForReviewing {
+            cloudStorage.read(reference: recordingId) { data in
+                guard let recording = RecordingReview(dictionary: data, uid: recordingId,
+                                                      storageObserverDelegate: cloudStorage) else {
+                    return
+                }
+                recording.storageObserverDelegate = storageObserverDelegate
+                recording.updateRecording {
+                    self.startReviewing(recording: recording)
+                }
+            }
         }
-        audioPlaybackVC.setAudioURL(url: recordingUrl, recordingList: [recordingUrl])
-        guard let splitVC = window?.rootViewController as? UISplitViewController else {
-            return
-        }
-        splitVC.present(audioPlaybackVC, animated: false)
     }
 
 }

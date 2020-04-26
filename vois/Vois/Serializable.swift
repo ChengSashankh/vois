@@ -9,6 +9,5 @@
 import Foundation
 
 protocol Serializable {
-    var uid: String { get set }
     var dictionary: [String: Any] { get }
 }

@@ -12,7 +12,7 @@ import XCTest
 class CommentTest: XCTestCase {
     let audioComment = AudioComment(timeStamp: 1_584_204_199,
                                     author: "John Doe",
-                                    filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+                                    filePath: URL(fileURLWithPath: "/recording / audio.mp3"))
     let textComment = TextComment(timeStamp: 1_584_204_199,
                                   author: "John Doe",
                                   text: "Nice pitch!")

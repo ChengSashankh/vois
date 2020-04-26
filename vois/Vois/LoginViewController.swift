@@ -25,8 +25,10 @@ class LoginViewController: UIViewController {
                     return
                 }
                 self.updateEmailsToUIDs(email: userName, uid: uid)
-                UserSession.login(userName: userName, uid: uid)
-                self.performSegue(withIdentifier: "loginToHome", sender: self)
+                UserSession.login(username: self.email.text!, email: self.email.text!) {
+                    self.performSegue(withIdentifier: "loginToHome", sender: self)
+                }
+
             } else {
                 let alertController = UIAlertController(title: "Errpr",
                                                         message: error?.localizedDescription,

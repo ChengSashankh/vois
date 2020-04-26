@@ -8,14 +8,24 @@
 
 import Foundation
 
-class Performance: Equatable, Codable, Serializable {
+class Performance: Equatable, Codable, Shareable, StorageObservable {
+
     private var songs: [Song]
     var name: String
     var date: Date?
-    var uid: String
+    var uid: String?
     private var ownerUID: String
     private var editorUIDs: [String]
-    
+
+    var storageObserverDelegate: StorageObserverDelegate? {
+        didSet {
+            for song in songs {
+                song.storageObserverDelegate = storageObserverDelegate
+            }
+            uid = upload()
+        }
+    }
+
     var hasNoSongs: Bool {
         return songs.isEmpty
     }
@@ -24,22 +34,15 @@ class Performance: Equatable, Codable, Serializable {
         return songs.count
     }
 
-    var dictionary: [String: Any] {
-        return [
-            "songs": songs,
-            "name": name,
-            "date": date,
-            "uid": uid,
-            "ownerUID": ownerUID,
-            "editorUIDs": editorUIDs
-        ]
-    }
-
-    convenience init (name: String, ownerUID: String, date: Date?) {
-        self.init(name: name, ownerUID: ownerUID)
+    init (name: String, date: Date?) {
+        self.name = name
+        self.songs = []
         self.date = date
+        self.ownerUID = UserSession.currentUID ?? "No UID Found"
+        self.editorUIDs = [ownerUID]
+        self.uid = UUID().uuidString
     }
-
+    
     init (name: String, ownerUID: String) {
         self.name = name
         self.songs = []
@@ -49,8 +52,30 @@ class Performance: Equatable, Codable, Serializable {
         self.uid = UUID().uuidString
     }
 
+    convenience init?(dictionary: [String: Any], uid: String, storageObserverDelegate: DatabaseObserver) {
+        guard let name = dictionary["name"] as? String,
+            let songsReferences = dictionary["songs"] as? [String] else {
+                return nil
+        }
+
+        let date = dictionary["data"] as? Date
+        self.init(name: name, date: date)
+        self.uid = uid
+        self.songs = songsReferences.compactMap {
+            Song(reference: $0, storageObserverDelegate: storageObserverDelegate)
+        }
+    }
+
+    required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
+        let data = storageObserverDelegate.initializationRead(reference: reference)
+        self.init(dictionary: data, uid: reference, storageObserverDelegate: storageObserverDelegate)
+    }
+
+
     func addSong(song: Song) {
         self.songs.append(song)
+        song.storageObserverDelegate = storageObserverDelegate
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func updateSong(oldSong: Song, newSong: Song) {
@@ -58,6 +83,9 @@ class Performance: Equatable, Codable, Serializable {
             return
         }
         self.songs[index] = newSong
+        newSong.storageObserverDelegate = storageObserverDelegate
+        _ = storageObserverDelegate?.update(operation: .delete, object: oldSong)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func removeSong(song: Song) {
@@ -65,6 +93,8 @@ class Performance: Equatable, Codable, Serializable {
             return
         }
         self.songs.remove(at: index)
+        storageObserverDelegate?.update(operation: .delete, object: song)
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
 
     func getSongs() -> [Song] {
@@ -72,7 +102,11 @@ class Performance: Equatable, Codable, Serializable {
     }
 
     func removeAllSongs() {
+        self.songs.forEach {
+            storageObserverDelegate?.update(operation: .delete, object: $0)
+        }
         self.songs = []
+        storageObserverDelegate?.update(operation: .update, object: self)
     }
     
     func addEditor(uid: String) {
@@ -119,15 +153,18 @@ class Performance: Equatable, Codable, Serializable {
         try container.encode(editorUIDs, forKey: .editorUIDs)
     }
 
-    func encodeToJson() throws -> Data {
-        return try JSONEncoder().encode(self)
+    var dictionary: [String: Any] {
+        return [
+            "name": name,
+            "date": date?.toString ?? "",
+            "songs": songs.compactMap { $0.upload() }
+        ]
     }
 
-    convenience init?(json: Data) {
-        guard let newValue = try? JSONDecoder().decode(Performance.self, from: json) else {
-            return nil
-        }
-        self.init(name: newValue.name, ownerUID: newValue.ownerUID, date: newValue.date)
-        self.songs = newValue.songs
-       }
+    private var songsReference = "songs"
+    
+    func upload() -> String? {
+        uid = storageObserverDelegate?.upload(object: self) ?? uid
+        return uid
+    }
 }
