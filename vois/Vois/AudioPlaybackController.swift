@@ -143,7 +143,11 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
         controller.addCommentClosure = { text in
             let comment = TextComment(timeStamp: self.audioPlayer.currentTime,
                                       author: UserSession.currentUsername ?? "Reviewer", text: text)
-            self.recording.addTextComment(textComment: comment)
+
+            for otherRecording in self.recordingList {
+                otherRecording.addTextComment(textComment: comment)
+            }
+
             self.uiWaveformView.addTextComment(author: comment.author, text: comment.text,
                                                timeStamp: comment.timeStamp, delegate: self)
             self.uiWaveformView.setNeedsDisplay()
@@ -281,7 +285,11 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
         let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
             let audioComment = AudioComment(timeStamp: self.audioPlayer.currentTime,
                                             author: self.commenter ?? "Reviewer", filePath: audioUrl)
-            self.recording.addAudioComment(audioComment: audioComment)
+
+            for otherRecording in self.recordingList {
+                otherRecording.addAudioComment(audioComment: audioComment)
+            }
+
             self.uiWaveformView.addAudioComment(author: audioComment.author,
                                                 filePath: audioComment.filePath, timeStamp: audioComment.timeStamp)
             self.uiWaveformView.setNeedsDisplay()
