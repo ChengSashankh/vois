@@ -188,8 +188,8 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
 
     @IBAction private func createPerformance(_ sender: Any) {
         guard let name = eventName else {
-            return
-        }
+                return
+            }
         let performance = Performance(name: name, date: date)
         for song in songs {
             performance.addSong(song: song)

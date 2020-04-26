@@ -27,10 +27,10 @@ class Database {
     }
 
     func updateObject(object: Shareable) -> String {
-        if object.id == nil {
+        if object.uid == nil {
             return createObject(object: object)
         } else {
-            return database.updateObject(with: object.id!, newData: object.dictionary)
+            return database.updateObject(with: object.uid!, newData: object.dictionary)
         }
     }
 
@@ -57,7 +57,7 @@ class Database {
     }
 
     private func checkReferencesLeft(to object: Shareable, falseHandler: (() -> Void)?) {
-        guard let id = object.id else {
+        guard let uid = object.uid else {
             return
         }
         for collection in collectionNames {
@@ -65,7 +65,7 @@ class Database {
                 for index in 0..<objects.count {
                     let currentObject = objects[index]
                     for (_, value) in currentObject {
-                        guard let references = value as? [String], references.contains(id) else {
+                        guard let references = value as? [String], references.contains(uid) else {
                             continue
                         }
                         return
@@ -100,7 +100,7 @@ class Database {
     }
 
     private func removeAllReferences(to object: Shareable) {
-        guard let id = object.id else {
+        guard let uid = object.uid else {
             return
         }
         for collection in collectionNames {
@@ -108,11 +108,11 @@ class Database {
                 for index in 0..<objects.count {
                     let currentObject = objects[index]
                     for (key, value) in currentObject {
-                        guard var references = value as? [String], references.contains(id),
+                        guard var references = value as? [String], references.contains(uid),
                             let currentId = currentObject["id"] as? String else {
                             continue
                         }
-                        references.removeAll { $0 == id }
+                        references.removeAll { $0 == uid }
                         _ = self.database.updateObject(with: currentId, newData: [key: references])
                     }
                 }
@@ -138,19 +138,19 @@ class Database {
     }
 
     func remove(object: Shareable, removeReferences: Bool = true) -> String {
-        guard let id = object.id else {
+        guard let uid = object.uid else {
             return ""
         }
         removeAllReferences(to: object)
         if removeReferences {
-            removeObject(with: id)
+            removeObject(with: uid)
         } else {
-            database.deleteObject(with: id)
+            database.deleteObject(with: uid)
             if let recording = object as? Recording {
                 recordingStorageDelegate?.remove(recording: recording)
             }
         }
-        return id
+        return uid
     }
 
     var databaseCopy = [String: [String: Any]]()

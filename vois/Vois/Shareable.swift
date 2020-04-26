@@ -9,6 +9,6 @@
 import Foundation
 
 protocol Shareable: Serializable {
-    var id: String? { get set }
+    var uid: String? { get set }
     func upload() -> String?
 }

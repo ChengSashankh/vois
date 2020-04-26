@@ -29,4 +29,8 @@ class UserSession {
     static var currentUserEmail: String? {
         user?.email
     }
+
+    static var currentUID: String? {
+        UserDefaults.standard.value(forKey: "current-uid") as? String
+    }
 }

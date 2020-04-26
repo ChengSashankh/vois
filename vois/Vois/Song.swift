@@ -9,9 +9,9 @@
 import Foundation
 
 class Song: Equatable, Codable, Shareable, StorageObservable {
+    var uid: String?
     private var segments: [SongSegment]
     var name: String
-    var id: String?
 
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
@@ -36,13 +36,15 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
     var dictionary: [String: Any] {
         return [
             "segments": segments.compactMap { $0.upload() },
-            "name": name
+            "name": name,
+            "uid": uid
         ]
     }
 
     init (name: String) {
         self.name = name
         self.segments = []
+        self.uid = UUID().uuidString
         _ = upload()
     }
 
@@ -52,7 +54,7 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
                 return nil
         }
         self.init(name: name)
-        self.id = id
+        self.uid = uid
         self.segments = segmentReferences.compactMap {
             SongSegment(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }
@@ -108,9 +110,9 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
 
     func upload() -> String? {
         for segment in segments {
-            segment.id = segment.upload()
+            segment.uid = segment.upload()
         }
-        id = storageObserverDelegate?.upload(object: self) ?? id
-        return id
+        uid = storageObserverDelegate?.upload(object: self) ?? uid
+        return uid
     }
 }

@@ -13,16 +13,19 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
     private var songs: [Song]
     var name: String
     var date: Date?
-    var id: String?
+    var uid: String?
+    private var ownerUID: String
+    private var editorUIDs: [String]
 
     var storageObserverDelegate: StorageObserverDelegate? {
         didSet {
             for song in songs {
                 song.storageObserverDelegate = storageObserverDelegate
             }
-            id = upload()
+            uid = upload()
         }
     }
+
     var hasNoSongs: Bool {
         return songs.isEmpty
     }
@@ -35,14 +38,21 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.name = name
         self.songs = []
         self.date = date
+        self.ownerUID = UserSession.currentUID ?? "No UID Found"
+        self.editorUIDs = [ownerUID]
+        self.uid = UUID().uuidString
     }
-
-    init (name: String) {
+    
+    init (name: String, ownerUID: String) {
         self.name = name
         self.songs = []
+        self.uid = UUID().uuidString
+        self.ownerUID = ownerUID
+        self.editorUIDs = [ownerUID]
+        self.uid = UUID().uuidString
     }
 
-    convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+    convenience init?(dictionary: [String: Any], uid: String, storageObserverDelegate: DatabaseObserver) {
         guard let name = dictionary["name"] as? String,
             let songsReferences = dictionary["songs"] as? [String] else {
                 return nil
@@ -50,7 +60,7 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
 
         let date = dictionary["data"] as? Date
         self.init(name: name, date: date)
-        self.id = id
+        self.uid = uid
         self.songs = songsReferences.compactMap {
             Song(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }
@@ -58,7 +68,7 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
 
     required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
         let data = storageObserverDelegate.initializationRead(reference: reference)
-        self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
+        self.init(dictionary: data, uid: reference, storageObserverDelegate: storageObserverDelegate)
     }
 
     func addSong(song: Song) {
@@ -97,6 +107,17 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.songs = []
         storageObserverDelegate?.update(operation: .update, object: self)
     }
+    
+    func addEditor(uid: String) {
+        self.editorUIDs.append(uid)
+    }
+    
+    func removeEditor(uid: String) {
+        guard let index = self.editorUIDs.firstIndex(of: uid) else {
+            return
+        }
+        self.editorUIDs.remove(at: index)
+    }
 
     static func == (lhs: Performance, rhs: Performance) -> Bool {
         return lhs.name == rhs.name
@@ -108,14 +129,18 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         case songs
         case name
         case date
+        case ownerUID
+        case editorUIDs
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        songs = try values.decode([Song].self, forKey: .songs)
-        name = try values.decode(String.self, forKey: .name)
-        date = try? values.decode(Date.self, forKey: .date)
-        self.id = UUID().uuidString
+        self.songs = try values.decode([Song].self, forKey: .songs)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.date = try? values.decode(Date.self, forKey: .date)
+        self.ownerUID = try values.decode(String.self, forKey: .ownerUID)
+        self.editorUIDs = try values.decode([String].self, forKey: .editorUIDs)
+        self.uid = UUID().uuidString
     }
 
     func encode(to encoder: Encoder) throws {
@@ -123,6 +148,8 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         try container.encode(songs, forKey: .songs)
         try container.encode(name, forKey: .name)
         try? container.encode(date, forKey: .date)
+        try container.encode(ownerUID, forKey: .ownerUID)
+        try container.encode(editorUIDs, forKey: .editorUIDs)
     }
 
     var dictionary: [String: Any] {
@@ -136,8 +163,8 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
     private var songsReference = "songs"
 
     func upload() -> String? {
-        id = storageObserverDelegate?.upload(object: self) ?? id
-        return id
+        uid = storageObserverDelegate?.upload(object: self) ?? uid
+        return uid
     }
 
     func getPendingSongs() -> [Song] {

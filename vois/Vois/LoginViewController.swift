@@ -21,9 +21,14 @@ class LoginViewController: UIViewController {
     @IBAction private func logInAction (_ sender: Any) {
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { _, error in
             if error == nil {
+                guard let userName = Auth.auth().currentUser?.email, let uid = Auth.auth().currentUser?.uid else {
+                    return
+                }
+                self.updateEmailsToUIDs(email: userName, uid: uid)
                 UserSession.login(username: self.email.text!, email: self.email.text!) {
                     self.performSegue(withIdentifier: "loginToHome", sender: self)
                 }
+
             } else {
                 let alertController = UIAlertController(title: "Errpr",
                                                         message: error?.localizedDescription,
@@ -33,5 +38,10 @@ class LoginViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+    }
+    
+    private func updateEmailsToUIDs(email: String, uid: String) {
+        let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
+        emailsToUIDs.document(email).setData(["uid": uid])
     }
 }
