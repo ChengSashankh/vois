@@ -53,7 +53,7 @@
 		C8D20184242672AD00409CF4 /* RecordingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D20183242672AD00409CF4 /* RecordingList.swift */; };
 		C8D2018724274D2F00409CF4 /* FDWaveformView in Frameworks */ = {isa = PBXBuildFile; productRef = C8D2018624274D2F00409CF4 /* FDWaveformView */; };
 		C8D3F0B3242764D200593F3A /* TextCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D3F0B2242764D200593F3A /* TextCommentController.swift */; };
-		C8D95A6224276EDA002ADE88 /* FDWaveForm+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */; };
+		C8D95A6224276EDA002ADE88 /* FDWaveFormWIthCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A6124276EDA002ADE88 /* FDWaveFormWIthCommentView.swift */; };
 		C8D95A64242776D6002ADE88 /* TextCommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A63242776D6002ADE88 /* TextCommentButton.swift */; };
 		C8D95A6624277EDC002ADE88 /* FDPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */; };
 		CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA118DE02420C6270098BF29 /* CreatePerformanceTableViewController.swift */; };
@@ -74,6 +74,8 @@
 		CA9152812431AFAE009DA0DB /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9152802431AFAE009DA0DB /* UserSession.swift */; };
 		CAAF27C82453DFA700BE9F36 /* RecordingReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27C72453DFA700BE9F36 /* RecordingReview.swift */; };
 		CAAF27CA2453F64A00BE9F36 /* ReviewingStorageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27C92453F64A00BE9F36 /* ReviewingStorageDelegate.swift */; };
+		CAAF27CC2455368400BE9F36 /* AudioCommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27CB2455368400BE9F36 /* AudioCommentButton.swift */; };
+		CAAF27D02455451500BE9F36 /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF27CF2455451500BE9F36 /* CommentButton.swift */; };
 		CAB700FE243B56E8009CFADA /* ShareRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */; };
 		CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */; };
 		CAB7010924403CD4009CFADA /* StorageObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010824403CD4009CFADA /* StorageObserver.swift */; };
@@ -153,7 +155,7 @@
 		C8D2018124265ED600409CF4 /* Listenable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listenable.swift; sourceTree = "<group>"; };
 		C8D20183242672AD00409CF4 /* RecordingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingList.swift; sourceTree = "<group>"; };
 		C8D3F0B2242764D200593F3A /* TextCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentController.swift; sourceTree = "<group>"; };
-		C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FDWaveForm+Comment.swift"; sourceTree = "<group>"; };
+		C8D95A6124276EDA002ADE88 /* FDWaveFormWIthCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDWaveFormWIthCommentView.swift; sourceTree = "<group>"; };
 		C8D95A63242776D6002ADE88 /* TextCommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCommentButton.swift; sourceTree = "<group>"; };
 		C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaybackDelegate.swift; sourceTree = "<group>"; };
 		CA118DE02420C6270098BF29 /* CreatePerformanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePerformanceTableViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,8 @@
 		CA9152802431AFAE009DA0DB /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		CAAF27C72453DFA700BE9F36 /* RecordingReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingReview.swift; sourceTree = "<group>"; };
 		CAAF27C92453F64A00BE9F36 /* ReviewingStorageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewingStorageDelegate.swift; sourceTree = "<group>"; };
+		CAAF27CB2455368400BE9F36 /* AudioCommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCommentButton.swift; sourceTree = "<group>"; };
+		CAAF27CF2455451500BE9F36 /* CommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentButton.swift; sourceTree = "<group>"; };
 		CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRecordingController.swift; sourceTree = "<group>"; };
 		CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CAB7010824403CD4009CFADA /* StorageObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageObserver.swift; sourceTree = "<group>"; };
@@ -435,8 +439,9 @@
 			isa = PBXGroup;
 			children = (
 				C8D95A63242776D6002ADE88 /* TextCommentButton.swift */,
+				CAAF27CB2455368400BE9F36 /* AudioCommentButton.swift */,
 				C8D95A6524277EDC002ADE88 /* FDPlaybackDelegate.swift */,
-				C8D95A6124276EDA002ADE88 /* FDWaveForm+Comment.swift */,
+				C8D95A6124276EDA002ADE88 /* FDWaveFormWIthCommentView.swift */,
 				CA3D27FE24226C8F006509C5 /* DatePickerCell.swift */,
 				CA11DE0D241FC7280030598D /* PerformanceCell.swift */,
 				CA118DE22420C69E0098BF29 /* EventNameCell.swift */,
@@ -444,6 +449,7 @@
 				CA118DE62420C6D40098BF29 /* SongNameCell.swift */,
 				CA3D280224239EFE006509C5 /* SongCell.swift */,
 				CAB7010C24407472009CFADA /* SegmentCell.swift */,
+				CAAF27CF2455451500BE9F36 /* CommentButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -686,6 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF27D02455451500BE9F36 /* CommentButton.swift in Sources */,
 				CAAF27CA2453F64A00BE9F36 /* ReviewingStorageDelegate.swift in Sources */,
 				6C7F96EF241E6522009C6E91 /* SignupViewController.swift in Sources */,
 				6C52E029241E943400E60EAB /* StartViewController.swift in Sources */,
@@ -736,9 +743,10 @@
 				C8D2018024265E5800409CF4 /* AudioPlayer.swift in Sources */,
 				24F6794A241E31570075F344 /* PlaybackController.swift in Sources */,
 				CA355A6B24420E0900306934 /* DatabaseObserver.swift in Sources */,
-				C8D95A6224276EDA002ADE88 /* FDWaveForm+Comment.swift in Sources */,
+				C8D95A6224276EDA002ADE88 /* FDWaveFormWIthCommentView.swift in Sources */,
 				6C49965924340106004B03F5 /* AudioEditController.swift in Sources */,
 				6C7F96CC241D0854009C6E91 /* Performance.swift in Sources */,
+				CAAF27CC2455368400BE9F36 /* AudioCommentButton.swift in Sources */,
 				24C1DC292434CCC000D961B7 /* FirestoreAdapter.swift in Sources */,
 				6C7F96D2241D0883009C6E91 /* SongSegment.swift in Sources */,
 				CACC0D91241CC25C006D2E68 /* SceneDelegate.swift in Sources */,
