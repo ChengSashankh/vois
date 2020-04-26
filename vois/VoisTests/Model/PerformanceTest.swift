@@ -11,7 +11,7 @@ import XCTest
 
 class PerformanceTest: XCTestCase {
     let performance = Performance(name: "Performance", date: Date(timeIntervalSince1970: 123_456_789))
-    let practice = Performance(from: "Practice")
+    let practice = Performance(name: "Practice", ownerUID: "OwnerUID")
     let songOne = Song(name: "SongOne")
     let songTwo = Song(name: "SongTwo")
 

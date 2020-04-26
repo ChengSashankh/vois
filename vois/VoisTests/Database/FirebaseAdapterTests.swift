@@ -12,8 +12,8 @@ class FirebaseAdapterTests: XCTestCase {
 
     func testReadMethod() {
         var firebaseAdapter = FirestoreAdapter()
-        print("Should be able to see the tests here")
-        print(firebaseAdapter.textComments)
+        //print("Should be able to see the tests here")
+        //print(firebaseAdapter.textComments)
     }
 
     func testUpdateMethod() {
