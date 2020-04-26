@@ -18,6 +18,7 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
     private var eventName: String?
     private var date: Date?
     private var isShowingDatePicker = false
+    var performances: Performances!
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -193,11 +194,7 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         for song in songs {
             performance.addSong(song: song)
         }
-        guard let userName = UserSession.currentUserName else {
-            return
-        }
-        print("E")
-        try? PerformanceFilesDirectory.savePerformanceFile(name: name, with: performance.encodeToJson(), for: userName)
+        performances.addPerformance(performance: performance)
         navigationController?.popViewController(animated: true)
     }
 }

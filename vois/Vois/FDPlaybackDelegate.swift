@@ -11,4 +11,5 @@ import FDWaveformView
 
 protocol FDPlaybackDelegate: FDWaveformViewDelegate {
     var textCommentButtons: [TextCommentButton] { get set }
+    var audioCommentButtons: [AudioCommentButton] { get set }
 }

@@ -10,32 +10,29 @@ import UIKit
 import AVFoundation
 import Charts
 
-class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
-    UITableViewDelegate, UITableViewDataSource, ChartViewDelegate {
+class RecordingViewController: UIViewController, AVAudioRecorderDelegate, ChartViewDelegate {
 
-    var performanceName: String!
-    var songName: String!
-
+    var segment: SongSegment!
+    var recordingFilePath: URL!
     var recordingController: RecordingController!
-    var playbackController: PlaybackController!
     var recordingCount = 0
     var recordingDurationTimer: Timer!
     var recordingPowerTimer: Timer!
-    var recordings: [URL]!
     var xIndex: Int!
 
     @IBOutlet private var uiLineChartView: LineChartView!
     @IBOutlet private var uiRecordButton: UIButton!
     @IBOutlet private var uiTimeLabel: UILabel!
-    @IBOutlet private var uiTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        recordingController = RecordingController()
-
-        refreshRecordings()
         setUpLineChart()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.recordingFilePath = segment.generateRecordingUrl()!
+        recordingController = RecordingController(recordingFilePath: recordingFilePath)
     }
 
     @IBAction private func onRecordButtonTap(_ sender: UIButton) {
@@ -54,10 +51,9 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
     func showSaveModal() {
         let saveViewController: SaveViewController? =
             storyboard!.instantiateViewController(withIdentifier: "saveViewController") as? SaveViewController
-        saveViewController!.performanceName = performanceName
-        saveViewController!.songName = songName
         saveViewController!.delegate = self
-        saveViewController!.filePath = recordingController.audioRecorder.url
+        saveViewController!.filePath = recordingFilePath
+        saveViewController!.segment = segment
         saveViewController!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         self.present(saveViewController!, animated: true, completion: nil)
     }
@@ -128,44 +124,9 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate,
         clearTimerAndWaveform()
     }
 
-    func refreshRecordings() {
-        guard let userName = UserSession.currentUserName else {
-            return
-        }
-        recordings = PerformanceFilesDirectory.getRecordingUrls(
-            for: userName,
-            performanceName: performanceName,
-            songName: songName)
-    }
-
     func clearTimerAndWaveform() {
         setUpLineChart()
         updateRecordingDuration()
-        reloadTableData()
-    }
-
-    func reloadTableData() {
-        uiTableView.reloadData()
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recordings.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = recordings[indexPath.row].lastPathComponent
-        cell.textLabel?.textAlignment = .center
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        do {
-            playbackController = try PlaybackController(recordingFileName: recordings[indexPath.row])
-            playbackController.play()
-        } catch {
-            displayErrorAlert(title: "Oops", message: "Something went wrong during playback")
-        }
     }
 
     func configureLineChartView() {

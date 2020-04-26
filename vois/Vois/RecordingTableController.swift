@@ -10,26 +10,11 @@ import Foundation
 import UIKit
 
 class RecordingTableController: UITableViewController {
-    var recordingPaths = [URL]()
 
-    var performanceName: String!
-    var songName: String!
+    var segment: SongSegment!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadRecordings()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-
-    func loadRecordings() {
-        guard let userName = UserSession.currentUserName else {
-            return
-        }
-        let recordingPaths = RecordingTable.fetchRecordings(
-            for: userName,
-            performanceName: performanceName,
-            songName: songName)
-        self.recordingPaths = recordingPaths
+    @IBAction func recording(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "Recording", sender: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,27 +22,69 @@ class RecordingTableController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recordingPaths.count
+        segment.getRecordings().count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "cell"
+        let cellIdentifier = "RecordingCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        let text = recordingPaths[indexPath.row]
-        cell.textLabel?.text = text.lastPathComponent
-        cell.textLabel?.textAlignment = .center
 
+        guard let recordingCell = cell as? RecordingCell else {
+            return cell
+        }
+
+        let recording = segment.getRecordings()[indexPath.row]
+        recordingCell.recordingNameLabel.text = recording.name
+        recordingCell.playbackDelegate = { self.playback(recording: recording) }
+        recordingCell.shareDelegate = {
+            self.presentShareRecordingController(for: recording)
+        }
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            segment.removeRecording(recording: segment.getRecordings()[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+
+    private func playback(recording: Recording) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: "AudioPlaybackController") as? AudioPlaybackController else {
             return
         }
-        let url = recordingPaths[indexPath.row]
-        viewController.setAudioURL(url: url, recordingList: recordingPaths)
-        self.navigationController?.pushViewController(viewController, animated: true)
+
+        viewController.recording = recording
+        viewController.recordingList = segment.getRecordings()
+        recording.updateRecording {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+
+    private func presentShareRecordingController(for recording: Recording) {
+        let link = getShareRecordingLink(for: recording)
+        let shareController = ShareRecordingController(title: nil, message: link, preferredStyle: .alert)
+        shareController.copyHandler = { self.dismiss(animated: false) }
+        present(shareController, animated: true)
+    }
+
+    private func getShareRecordingLink(for recording: Recording) -> String {
+        return "vois://feedback?recording=\(recording.id ?? "")&creater=\(UserSession.currentUsername ?? "")"
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let recordingVC = segue.destination as? RecordingViewController,
+            let filePath = segment.generateRecordingUrl() else {
+            return
+        }
+        recordingVC.segment = segment
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = segment.name
+        tableView.reloadData()
     }
 
 }

@@ -55,7 +55,7 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, isEqualTo: whereValueIs)
-            .getDocuments() { querySnapshot, error in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
@@ -72,7 +72,7 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, in: whereValueIn)
-            .getDocuments() { querySnapshot, error in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
@@ -89,7 +89,7 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, isLessThan: whereValueLessThan)
-            .getDocuments() { querySnapshot, error in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {
@@ -106,7 +106,7 @@ class DatabaseController {
         firestore
             .collection(inCollection)
             .whereField(field, isGreaterThan: whereValueGreaterThan)
-            .getDocuments() { querySnapshot, error in
+            .getDocuments { querySnapshot, error in
                 if let error = error {
                     // TODO Handle error
                 } else {

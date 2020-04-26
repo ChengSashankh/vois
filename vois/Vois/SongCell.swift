@@ -21,26 +21,6 @@ class SongCell: UITableViewCell {
         bounds.width * SongCell.cornerRadiusToWidth
     }
 
-    @IBOutlet weak var title: UILabel!
-
-    @IBOutlet weak var dateTime: UILabel!
-
-    var startRecording: ((String) -> Void)?
-    var startPlayback: ((String) -> Void)?
-    var shareRecording: ((String) -> Void)?
-
-    @IBAction func startRecording(_ sender: UIButton) {
-        startRecording?(songNameLabel.text!)
-    }
-
-    @IBAction func playback(_ sender: UIButton) {
-        startPlayback?(songNameLabel.text!)
-    }
-
-    @IBAction func share(_ sender: UIButton) {
-        shareRecording?(songNameLabel.text!)
-    }
-
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 

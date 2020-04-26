@@ -14,14 +14,14 @@ class CommentTest: XCTestCase {
     let audioComment = AudioComment(
         timeStamp: 1584204199,
         author: "John Doe",
-        filePath: URL(fileURLWithPath: "/recording/audio.mp3")
+        filePath: URL(fileURLWithPath: "/recording / audio.mp3")
     )
 
     let textComment = TextComment(timeStamp: 1584204199,
 =======
     let audioComment = AudioComment(timeStamp: 1_584_204_199,
                                     author: "John Doe",
-                                    filePath: URL(fileURLWithPath: "/recording/audio.mp3"))
+                                    filePath: URL(fileURLWithPath: "/recording / audio.mp3"))
     let textComment = TextComment(timeStamp: 1_584_204_199,
 >>>>>>> d219b25cc48572af0cd4a35ce69d9f944149cccb
                                   author: "John Doe",

@@ -21,8 +21,9 @@ class LoginViewController: UIViewController {
     @IBAction private func logInAction (_ sender: Any) {
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { _, error in
             if error == nil {
-                UserSession.login(userName: self.email.text!)
-                self.performSegue(withIdentifier: "loginToHome", sender: self)
+                UserSession.login(username: self.email.text!, email: self.email.text!) {
+                    self.performSegue(withIdentifier: "loginToHome", sender: self)
+                }
             } else {
                 let alertController = UIAlertController(title: "Errpr",
                                                         message: error?.localizedDescription,

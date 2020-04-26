@@ -8,45 +8,52 @@
 
 import Foundation
 
-class TextComment: Comment, Equatable, Serializable {
+class TextComment: Comment, Equatable, Codable, Shareable, StorageObservable {
+
+    var id: String?
+
     var text: String
     var timeStamp: Double
     var author: String
-    var id: String
+
+    var storageObserverDelegate: StorageObserverDelegate? {
+        didSet {
+            _ = upload()
+        }
+    }
 
     var dictionary: [String: Any] {
         [
             "timeStamp": timeStamp,
             "author": author,
-            "id": id,
             "text": text
         ]
     }
 
-    init (timeStamp: Double, author: String, text: String, id: String) {
+    init (timeStamp: Double, author: String, text: String) {
         self.timeStamp = timeStamp
         self.author = author
         self.text = text
+    }
+
+    convenience init?(dictionary: [String: Any], id: String) {
+        guard let timeStamp = dictionary["timeStamp"] as? Double,
+            let author = dictionary["author"] as? String,
+            let text = dictionary["text"] as? String
+            else { return nil }
+        self.init(timeStamp: timeStamp, author: author, text: text)
         self.id = id
     }
 
-    convenience init(timeStamp: Double, author: String, text: String) {
-        self.init(
-            timeStamp: timeStamp,
-            author: author,
-            text: text,
-            id: UUID().uuidString
-        )
+    required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
+        let data = storageObserverDelegate.initializationRead(reference: reference)
+        self.init(dictionary: data, id: reference)
     }
 
-    convenience init?(dictionary: [String : Any]) {
-        guard let timeStamp = dictionary["timeStamp"] as? Double,
-            let author = dictionary["author"] as? String,
-            let text = dictionary["text"] as? String,
-            let id = dictionary["id"] as? String
-            else { return nil }
-
-        self.init(timeStamp: timeStamp, author: author, text: text, id: id)
+    enum CodingKeys: String, CodingKey {
+        case timeStamp
+        case author
+        case text
     }
 
     static func == (lhs: TextComment, rhs: TextComment) -> Bool {
@@ -54,4 +61,10 @@ class TextComment: Comment, Equatable, Serializable {
             && lhs.author == rhs.author
             && lhs.text == rhs.text
     }
+
+    func upload() -> String? {
+        id = storageObserverDelegate?.upload(object: self) ?? id
+        return id
+    }
+
 }

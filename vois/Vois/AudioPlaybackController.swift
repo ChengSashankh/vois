@@ -9,35 +9,49 @@
 import Foundation
 import UIKit
 import FDWaveformView
+import AVFoundation
 
-class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
+class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioRecorderDelegate {
 
     private var displayLink: CADisplayLink!
-    var fileURL: URL!
+    var recording: Recording!
+    var recordingList: [Recording]!
+    var creater: String?
+    var commenter: String?
     var audioPlayer: AudioPlayer!
     var textCommentButtons = [TextCommentButton]()
+    var audioCommentButtons = [AudioCommentButton]()
 
     @IBOutlet private var uiSlider: UISlider!
     @IBOutlet private var uiSongLabel: UILabel!
     @IBOutlet private var playPauseButton: UIButton!
 
-    @IBOutlet private var uiWaveformView: FDWaveformView!
+    @IBOutlet weak var uiWaveformView: FDWaveformWithCommentView! {
+        didSet {
+            uiWaveformView.playbackDelegate = self
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        uiSongLabel.text = recording.name
+        commenter = UserSession.currentUsername
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        recordingList.forEach { $0.updateRecording(handler: nil) }
+        displayLink = CADisplayLink(target: self, selector: #selector(step))
+        displayLink.add(to: .current, forMode: .default)
+        self.audioPlayer = AudioPlayer(audioFileURL: recording.filePath,
+                                       recordingList: recordingList.map { $0.filePath })
         uiSlider.minimumValue = 0.0
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
         uiSlider.setValue(0.0, animated: false)
-
-        uiSongLabel.text = audioPlayer.audioName()
-
-        displayLink = CADisplayLink(target: self, selector: #selector(step))
-        displayLink.add(to: .current, forMode: .default)
-
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         uiWaveformView.progressColor = .cyan
         uiWaveformView.wavesColor = .blue
-
         refreshView()
     }
 
@@ -46,15 +60,9 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
             guard let audioEditVC = segue.destination as? AudioEditController else {
                 return
             }
-            audioEditVC.setAudioURL(url: self.fileURL, recordingList: self.audioPlayer.recordings)
+            audioEditVC.setAudioURL(url: recording.filePath, recordingList: self.audioPlayer.recordings)
         }
     }
-
-    func setAudioURL(url: URL, recordingList: [URL]) {
-        self.fileURL = url
-        self.audioPlayer = AudioPlayer(audioFileURL: fileURL, recordingList: recordingList)
-    }
-
     @IBAction private func forwardEnd(_ sender: UIButton) {
         audioPlayer.forwardEnd()
         audioPlayer.next()
@@ -92,10 +100,14 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
         }
     }
 
+    private func getCurrentRecording() -> Recording? {
+        recordingList.first { $0.filePath == audioPlayer.getAudioURL() }
+    }
+
     private func refresh() {
         audioPlayer.updatePlayer()
         uiSlider.maximumValue = Float(audioPlayer.audioLength)
-        uiSongLabel.text = audioPlayer.audioName()
+        uiSongLabel.text = getCurrentRecording()?.name ?? audioPlayer.audioName()
         refreshButtonImage()
         uiWaveformView.audioURL = audioPlayer.getAudioURL()
         refreshView()
@@ -126,31 +138,153 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate {
 
         audioPlayer.pause()
 
+        controller.commenter = commenter
+        controller.creater = creater ?? commenter
         controller.addCommentClosure = { text in
-            let comment = TextComment(timeStamp: self.audioPlayer.currentTime, author: "Reviewer", text: text)
-            RecordingTable.addTextComment(nameOfRecording: self.audioPlayer.audioName(), comment: comment)
-            self.uiWaveformView.addComment(
-                audioLength: self.audioPlayer.audioLength,
-                textComment: comment,
-                delegate: self)
+            let comment = TextComment(timeStamp: self.audioPlayer.currentTime,
+                                      author: UserSession.currentUsername ?? "Reviewer", text: text)
+            self.recording.addTextComment(textComment: comment)
+            self.uiWaveformView.addTextComment(author: comment.author, text: comment.text,
+                                               timeStamp: comment.timeStamp, delegate: self)
+            self.uiWaveformView.setNeedsDisplay()
             self.audioPlayer.playFrom(time: self.audioPlayer.currentTime)
-            do {
-                try RecordingTable.saveRecordingsToStorage()
-            } catch {
-                //print("RIP")
-            }
         }
         present(controller, animated: true)
     }
 
     private func refreshView() {
-        //print(textCommentButtons)
+        uiWaveformView.audioLength = audioPlayer.audioLength
         uiWaveformView.removeTextCommentButtons(from: self)
-        let textComments = RecordingTable.getTextComments(nameOfRecording: audioPlayer.audioName())
-        textComments.forEach({ self.uiWaveformView.addComment(
-            audioLength: audioPlayer.audioLength,
-            textComment: $0,
-            delegate: self) })
-        //print(textCommentButtons)
+        let textComments = recording.getTextComments()
+        textComments.forEach({ comment in
+            self.uiWaveformView.addTextComment(author: comment.author, text: comment.text,
+                                               timeStamp: comment.timeStamp, delegate: self)
+        })
+        let audioComments = recording.getAudioComments()
+        audioComments.forEach( { comment in
+            self.uiWaveformView.addAudioComment(author: comment.author,
+                                                filePath: comment.filePath, timeStamp: comment.timeStamp)
+        })
     }
+
+    @objc func showComment(_ sender: TextCommentButton) {
+        guard let author = sender.author, let text = sender.text, let delegate = sender.delegate else {
+            return
+        }
+
+        let alert = UIAlertController(title: "Comment by " + author, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.removeComment(sender: sender)
+        }
+        alert.addAction(action)
+        alert.addAction(deleteAction)
+        present(alert, animated: true)
+    }
+
+    private var audioCommentPlayer: AudioPlayer?
+
+    @objc func showAudioComment(_ sender: AudioCommentButton) {
+        guard let audioComment = recording.getAudioComments().first(where: { $0.filePath == sender.filePath }) else {
+            return
+        }
+        audioPlayer.pause()
+        let author = sender.author
+
+        audioComment.updateRecording {
+            let alert = UIAlertController(title: "Comment by " + (author ?? "Reviewer"),
+                                          message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                self.removeComment(sender: sender)
+            }
+            self.audioCommentPlayer = AudioPlayer(audioFileURL: audioComment.filePath,
+                                             recordingList: [audioComment.filePath])
+            alert.addAction(action)
+            alert.addAction(deleteAction)
+            self.present(alert, animated: true)
+            self.audioCommentPlayer?.play()
+        }
+    }
+
+    private func removeComment(sender: CommentButton) {
+        sender.removeFromSuperview()
+        if let textCommentButton = sender as? TextCommentButton {
+            textCommentButtons.removeAll(where: { $0 == sender })
+            recording.removeTextComment(textComment:
+            TextComment(timeStamp: textCommentButton.timeStamp!, author: textCommentButton.author!, text: textCommentButton.text!) )
+        } else if let audioCommentButton = sender as? AudioCommentButton {
+            audioCommentButtons.removeAll(where: { $0 == sender })
+
+            recording.removeAudioComment(audioComment: AudioComment(timeStamp: audioCommentButton.timeStamp,
+                                                                    author: audioCommentButton.author, filePath: audioCommentButton.filePath))
+        }
+    }
+
+    var recordingController: RecordingController!
+    var audioCommentfilePath: URL!
+
+    private let recordButtonImageName = "Record Button.png"
+    private let stopButtonImageName = "Stop Button.png"
+
+    @IBOutlet weak var audioCommentButton: UIButton! {
+        didSet {
+            let longPressGestureRecognizer =
+                UILongPressGestureRecognizer(target: self, action: #selector(handleAudioComment(sender:)))
+            audioCommentButton.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @objc private func handleAudioComment(sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            guard let url = recording.generateAudioCommentUrl() else {
+                return
+            }
+            audioPlayer.pause()
+            recordingController = RecordingController(recordingFilePath: url)
+            self.audioCommentfilePath = url
+            startRecording()
+            audioCommentButton.setImage(UIImage(named: stopButtonImageName), for: .normal)
+        case .ended:
+            stopRecording()
+            audioCommentButton.setImage(UIImage(named: recordButtonImageName), for: .normal)
+            showAudioCommentSaveController(for: audioCommentfilePath)
+        default:
+            break
+        }
+    }
+
+    private func startRecording() {
+        if !recordingController.startRecording(recorderDelegate: self) {
+            displayErrorAlert(title: "Oops", message: "Could not start recording")
+        }
+    }
+
+    func displayErrorAlert(title: String, message: String) {
+           let uiErrorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+           uiErrorAlert.addAction(UIAlertAction(title: "Okay", style: .cancel,handler: nil))
+           present(uiErrorAlert, animated: true, completion: nil)
+       }
+
+    private func stopRecording() {
+        recordingController.stopRecording()
+    }
+
+    private func showAudioCommentSaveController(for audioUrl: URL) {
+        let audioCommentSaveController = UIAlertController(title: "Do you want to save this comment?", message: nil, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            let audioComment = AudioComment(timeStamp: self.audioPlayer.currentTime, author: self.commenter ?? "Reviewer", filePath: audioUrl)
+            self.recording.addAudioComment(audioComment: audioComment)
+            self.uiWaveformView.addAudioComment(author: audioComment.author, filePath: audioComment.filePath, timeStamp: audioComment.timeStamp)
+            self.uiWaveformView.setNeedsDisplay()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.recording.removeAudioComment(at: audioUrl)
+        }
+        audioCommentSaveController.addAction(saveAction)
+        audioCommentSaveController.addAction(cancelAction)
+        present(audioCommentSaveController, animated: true)
+    }
+
 }

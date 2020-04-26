@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 
 class ProfileViewController: UIViewController {
+
+    @IBOutlet weak var username: UILabel!
+
     @IBAction func closeMasterViewController(_ sender: UIBarButtonItem) {
         guard let displayModeBarButton = splitViewController?.displayModeButtonItem,
             let displayAction = displayModeBarButton.action else {
@@ -25,6 +28,7 @@ class ProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        username.text = UserSession.currentUsername
 
         if let displayMode = splitViewController?.displayMode, displayMode == .allVisible {
             splitViewController?.preferredDisplayMode = .primaryHidden
