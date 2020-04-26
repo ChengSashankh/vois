@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     private func updateEmailsToUIDs(email: String, uid: String) {
         let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
         emailsToUIDs.document(email).setData(["uid": uid])
