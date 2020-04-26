@@ -41,11 +41,10 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.ownerUID = UserSession.currentUID ?? "No UID Found"
         self.editorUIDs = [ownerUID]
     }
-    
+
     init (name: String, ownerUID: String) {
         self.name = name
         self.songs = []
-        self.uid = UUID().uuidString
         self.ownerUID = ownerUID
         self.editorUIDs = [ownerUID]
     }
@@ -55,7 +54,6 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
             let songsReferences = dictionary["songs"] as? [String] else {
                 return nil
         }
-
         let date = dictionary["data"] as? Date
         self.init(name: name, date: date)
         self.uid = uid
@@ -68,7 +66,6 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         let data = storageObserverDelegate.initializationRead(reference: reference)
         self.init(dictionary: data, uid: reference, storageObserverDelegate: storageObserverDelegate)
     }
-
 
     func addSong(song: Song) {
         self.songs.append(song)
@@ -106,11 +103,11 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.songs = []
         storageObserverDelegate?.update(operation: .update, object: self)
     }
-    
+
     func addEditor(uid: String) {
         self.editorUIDs.append(uid)
     }
-    
+
     func removeEditor(uid: String) {
         guard let index = self.editorUIDs.firstIndex(of: uid) else {
             return

@@ -31,10 +31,6 @@ class SignupViewController: UIViewController {
         } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { _, error in
                 if error == nil {
-                    guard let userName = Auth.auth().currentUser?.email, let uid = Auth.auth().currentUser?.uid else {
-                        return
-                    }
-                    self.updateEmailsToUIDs(email: userName, uid: uid)
                     UserSession.login(username: self.email.text!, email: self.email.text!) {
                         self.performSegue(withIdentifier: "signupToHome", sender: self) }
                 } else {
@@ -47,10 +43,5 @@ class SignupViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func updateEmailsToUIDs(email: String, uid: String) {
-        let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
-        emailsToUIDs.document(email).setData(["uid": uid])
     }
 }

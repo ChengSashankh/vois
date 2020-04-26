@@ -96,8 +96,15 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         self.present(alert, animated: true, completion: nil)
     }
 
+    private func promptUserNotFound() {
+        let alert = UIAlertController(title: "User Not Found",
+                                      message: "Check if email is correct.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     private func addEditor(email: String) {
-        
         let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs").document(email)
 
         emailsToUIDs.getDocument { document, _ in
@@ -105,21 +112,24 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
                 guard let uid = document.data()?["uid"] as? String else {
                     return
                 }
-                self.performance.addEditor(uid: uid)
+                self.performance.addEditor(uid: String(uid.dropFirst(6)))
 
-                let users = Firestore.firestore().collection("users").document(uid)
+                let users = Firestore.firestore().collection("users").document(String(uid.dropFirst(6)))
 
                 users.getDocument { document, _ in
                     if let document = document, document.exists {
                         guard var performances = document.data()?["performances"] as? [String] else {
                             return
                         }
-                        print(self.performance.uid)
-                        performances.append("performances/" + (self.performance.uid ?? ""))
+                        guard let performanceUID = self.performance.uid else {
+                            return
+                        }
+                        performances.append(performanceUID)
                         users.updateData(["performances": performances])
                     }
                 }
             } else {
+                self.promptUserNotFound()
                 print("No UID associated with this email.")
             }
         }

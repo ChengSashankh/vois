@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class CloudStorage: DatabaseObserver {
 
@@ -40,6 +41,7 @@ class CloudStorage: DatabaseObserver {
         database.getUser(email: email) { data in
             if let userData = data {
                 self.database.setup {
+                    self.updateEmailsToUIDs(email: email, uid: userData.1)
                     if let user = User(dictionary: userData.0, uid: userData.1, cloudStorage: self) {
                         completionHandler?(user)
                         return
@@ -54,6 +56,11 @@ class CloudStorage: DatabaseObserver {
                 completionHandler?(user)
             }
         }
+    }
+
+    private func updateEmailsToUIDs(email: String, uid: String) {
+        let emailsToUIDs = Firestore.firestore().collection("emailsToUIDs")
+        emailsToUIDs.document(email).setData(["uid": uid])
     }
 
     func download(recording: Recording, successHandler: (() -> Void)? = nil, failureHandler: (() -> Void)? = nil) {
