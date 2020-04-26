@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SongController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SongViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var summary: UILabel!
 
     @IBOutlet weak var segmentTableView: UITableView! {
@@ -19,6 +19,7 @@ class SongController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     var song: Song!
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
