@@ -53,7 +53,7 @@ class AudioComment: Recording, Comment {
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {
         return lhs.timeStamp == rhs.timeStamp
             && lhs.author == rhs.author
-            && lhs.filePath == rhs.filePath
+            && lhs.uniqueFilePath == rhs.uniqueFilePath
     }
 
     override var dictionary: [String: Any] {

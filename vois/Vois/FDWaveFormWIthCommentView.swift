@@ -55,6 +55,7 @@ class FDWaveformWithCommentView: FDWaveformView {
         button.author = author
         button.filePath = filePath
         button.timeStamp = timeStamp
+        button.addTarget(delegate, action: #selector(AudioPlaybackController.showAudioComment(_:)), for: .touchUpInside)
         playbackDelegate.audioCommentButtons.append(button)
     }
 

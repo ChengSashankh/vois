@@ -182,11 +182,43 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
         present(alert, animated: true)
     }
 
-    private func removeComment(sender: TextCommentButton) {
+    private var audioCommentPlayer: AudioPlayer?
+
+    @objc func showAudioComment(_ sender: AudioCommentButton) {
+        guard let audioComment = recording.getAudioComments().first(where: { $0.filePath == sender.filePath }) else {
+            return
+        }
+        audioPlayer.pause()
+        let author = sender.author
+
+        audioComment.updateRecording {
+            let alert = UIAlertController(title: "Comment by " + (author ?? "Reviewer"),
+                                          message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                self.removeComment(sender: sender)
+            }
+            self.audioCommentPlayer = AudioPlayer(audioFileURL: audioComment.filePath,
+                                             recordingList: [audioComment.filePath])
+            alert.addAction(action)
+            alert.addAction(deleteAction)
+            self.present(alert, animated: true)
+            self.audioCommentPlayer?.play()
+        }
+    }
+
+    private func removeComment(sender: CommentButton) {
         sender.removeFromSuperview()
-        textCommentButtons.removeAll(where: { $0 == sender })
-        recording.removeTextComment(textComment:
-            TextComment(timeStamp: sender.timeStamp!, author: sender.author!, text: sender.text!) )
+        if let textCommentButton = sender as? TextCommentButton {
+            textCommentButtons.removeAll(where: { $0 == sender })
+            recording.removeTextComment(textComment:
+            TextComment(timeStamp: textCommentButton.timeStamp!, author: textCommentButton.author!, text: textCommentButton.text!) )
+        } else if let audioCommentButton = sender as? AudioCommentButton {
+            audioCommentButtons.removeAll(where: { $0 == sender })
+
+            recording.removeAudioComment(audioComment: AudioComment(timeStamp: audioCommentButton.timeStamp,
+                                                                    author: audioCommentButton.author, filePath: audioCommentButton.filePath))
+        }
     }
 
     var recordingController: RecordingController!
