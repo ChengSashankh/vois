@@ -26,16 +26,37 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     var performance: Performance!
+    var songs = [Song]()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         nameLabel.text = performance.name
-        countDownLabel.text = performance.date?.timeIntervalSinceNow.toDayHour
+        countDownLabel.text = performance.date?.toString
+        completionIndicator.progress = Float(performance.getCompleteSongs().count) / Float(performance.numOfSongs)
+        songs = performance.getSongs()
+        filterControl.selectedSegmentIndex = 0
+        songTableView.reloadData()
+    }
+
+    @IBAction func filter(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            songs = performance.getSongs()
+            songTableView.reloadData()
+        case 1:
+            songs = performance.getPendingSongs()
+            songTableView.reloadData()
+        case 2:
+            songs = performance.getCompleteSongs()
+            songTableView.reloadData()
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return performance.numOfSongs
+        return songs.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,7 +64,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         guard let songCell = cell as? SongCell else {
             return cell
         }
-        songCell.songNameLabel.text = performance.getSongs()[indexPath.row].name
+        songCell.songNameLabel.text = songs[indexPath.row].name
 
         return songCell
     }
@@ -52,7 +73,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
                    forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            let song = performance.getSongs()[indexPath.row]
+            let song = songs[indexPath.row]
             performance.removeSong(song: song)
             songTableView.deleteRows(at: [indexPath], with: .automatic)
         default:
@@ -68,7 +89,7 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         guard let songVC = segue.destination as? SongViewController, let index = sender as? Int else {
             return
         }
-        songVC.song = performance.getSongs()[index]
+        songVC.song = songs[index]
 
     }
 
@@ -76,6 +97,8 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
         let newSongController = NewSongViewController(title: nil, message: nil, preferredStyle: .alert)
         newSongController.addSong = { songName in
             self.performance.addSong(song: Song(name: songName))
+            self.songs = self.performance.getSongs()
+            self.filterControl.selectedSegmentIndex = 0
             self.songTableView.reloadData()
         }
         present(newSongController, animated: true)

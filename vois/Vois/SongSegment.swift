@@ -50,7 +50,6 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
         return uid
     }
 
-
     init (name: String) {
         self.name = name
         self.recordings = []

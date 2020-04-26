@@ -10,7 +10,7 @@ import Foundation
 
 protocol RecordingCloudStorageDelegate {
     func upload(recording: Recording)
-    func download(recording: Recording, successHandler: (()->Void)?, failureHandler: (() -> Void)?)
+    func download(recording: Recording, successHandler: (() -> Void)?, failureHandler: (() -> Void)?)
     func remove(recording: Recording)
     func remove(recording reference: String)
 }

@@ -42,7 +42,8 @@ class RecordingTableController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             segment.removeRecording(recording: segment.getRecordings()[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -74,8 +75,7 @@ class RecordingTableController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let recordingVC = segue.destination as? RecordingViewController,
-            let filePath = segment.generateRecordingUrl() else {
+        guard let recordingVC = segue.destination as? RecordingViewController else {
             return
         }
         recordingVC.segment = segment

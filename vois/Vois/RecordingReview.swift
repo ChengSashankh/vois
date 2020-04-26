@@ -15,6 +15,7 @@ class RecordingReview: Recording {
     override init?(dictionary: [String : Any], uid: String, storageObserverDelegate: DatabaseObserver) {
         super.init(dictionary: dictionary, uid: uid, storageObserverDelegate: storageObserverDelegate)
     }
+
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
