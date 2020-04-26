@@ -170,7 +170,8 @@ class CreatePerformanceTableViewController: UITableViewController, UITextFieldDe
         songNameCell.setEditingMode()
         songNameCell.endEditingHandler = { songName in
             songNameCell.setNonEditingMode()
-            self.songs[indexPath.row].name = songName
+            self.songs.append(Song(name: songName))
+//            self.songs[indexPath.row].name = songName
         }
     }
 
