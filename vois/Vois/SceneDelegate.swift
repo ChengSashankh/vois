@@ -93,7 +93,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storageObserverDelegate = ReviewingStorageDelegate(reviewer: reviewer, cloudStorage: cloudStorage)
         cloudStorage.setupForReviewing {
             cloudStorage.read(reference: recordingId) { data in
-                guard let recording = RecordingReview(dictionary: data, id: recordingId,
+                guard let recording = RecordingReview(dictionary: data, uid: recordingId,
                                                       storageObserverDelegate: cloudStorage) else {
                     return
                 }

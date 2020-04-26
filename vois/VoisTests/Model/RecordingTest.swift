@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import Vois
-
+/*
 class RecordingTest: XCTestCase {
     let recording = Recording(filePath: URL(fileURLWithPath: "/recording/audio_one.mp3"))
     let audioCommentOne = AudioComment(timeStamp: 1_584_204_199,
@@ -179,3 +179,4 @@ class RecordingTest: XCTestCase {
         XCTAssertTrue(recording.hasNoComments)
     }
 }
+*/

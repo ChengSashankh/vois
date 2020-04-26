@@ -9,9 +9,7 @@
 import Foundation
 
 class TextComment: Comment, Equatable, Codable, Shareable, StorageObservable {
-
-    var id: String?
-
+    var uid: String?
     var text: String
     var timeStamp: Double
     var author: String
@@ -36,18 +34,18 @@ class TextComment: Comment, Equatable, Codable, Shareable, StorageObservable {
         self.text = text
     }
 
-    convenience init?(dictionary: [String: Any], id: String) {
+    convenience init?(dictionary: [String: Any], uid: String) {
         guard let timeStamp = dictionary["timeStamp"] as? Double,
             let author = dictionary["author"] as? String,
             let text = dictionary["text"] as? String
             else { return nil }
         self.init(timeStamp: timeStamp, author: author, text: text)
-        self.id = id
+        self.uid = uid
     }
 
     required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
         let data = storageObserverDelegate.initializationRead(reference: reference)
-        self.init(dictionary: data, id: reference)
+        self.init(dictionary: data, uid: reference)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -63,8 +61,8 @@ class TextComment: Comment, Equatable, Codable, Shareable, StorageObservable {
     }
 
     func upload() -> String? {
-        id = storageObserverDelegate?.upload(object: self) ?? id
-        return id
+        uid = storageObserverDelegate?.upload(object: self) ?? uid
+        return uid
     }
 
 }

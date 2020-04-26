@@ -40,7 +40,7 @@ class CloudStorage: DatabaseObserver {
         database.getUser(email: email) { data in
             if let userData = data {
                 self.database.setup {
-                    if let user = User(dictionary: userData.0, id: userData.1, cloudStorage: self) {
+                    if let user = User(dictionary: userData.0, uid: userData.1, cloudStorage: self) {
                         completionHandler?(user)
                         return
                     } else {

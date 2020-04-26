@@ -16,6 +16,7 @@ class AudioComment: Recording, Comment {
         self.timeStamp = timeStamp
         self.author = author
         super.init(name: author, filePath: filePath)
+
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -24,7 +25,7 @@ class AudioComment: Recording, Comment {
         case timeStamp
     }
 
-    override init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+    override init?(dictionary: [String: Any], uid: String, storageObserverDelegate: DatabaseObserver) {
         guard let timeStamp = dictionary["timeStamp"] as? Double,
             let author = dictionary["author"] as? String,
             let filePath = dictionary["filepath"] as? String else {
@@ -33,13 +34,21 @@ class AudioComment: Recording, Comment {
         self.timeStamp = timeStamp
         self.author = author
         super.init(name: author, filePath: URL(fileURLWithPath: filePath))
-        self.id = id
+        self.uid = uid
         self.uniqueFilePath = URL(fileURLWithPath: filePath)
     }
 
     required convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
         let data = storageObserverDelegate.initializationRead(reference: reference)
-        self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
+        self.init(dictionary: data, uid: reference, storageObserverDelegate: storageObserverDelegate)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: AudioComment.CodingKeys.self)
+        author = try values.decode(String.self, forKey: .author)
+        timeStamp = try values.decode(Double.self, forKey: .timeStamp)
+        super.init(name: author, filePath: URL(fileURLWithPath: ""))
+        uniqueFilePath = try values.decode(URL.self, forKey: .uniqueFilePath)
     }
 
     required init(from decoder: Decoder) throws {

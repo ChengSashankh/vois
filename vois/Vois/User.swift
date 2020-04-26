@@ -9,9 +9,7 @@
 import Foundation
 
 class User: StorageObserverDelegate, Shareable {
-
-    var id: String?
-
+    var uid: String?
     var username: String
     var email: String
     var performances: Performances
@@ -31,7 +29,7 @@ class User: StorageObserverDelegate, Shareable {
         _ = upload()
     }
 
-    init?(dictionary: [String: Any], id: String, cloudStorage: CloudStorage) {
+    init?(dictionary: [String: Any], uid: String, cloudStorage: CloudStorage) {
         guard let username = dictionary["username"] as? String,
             let email = dictionary["email"] as? String,
             let performancesReferences = dictionary["performances"] as? [String] else {
@@ -39,7 +37,7 @@ class User: StorageObserverDelegate, Shareable {
         }
         self.username = username
         self.email = email
-        self.id = id
+        self.uid = uid
         self.localStorageObserver = LocalStorage(userName: username)
         let performancesList = performancesReferences.compactMap {
             Performance(reference: $0, storageObserverDelegate: cloudStorage)
@@ -96,8 +94,8 @@ class User: StorageObserverDelegate, Shareable {
     }
 
     func upload() -> String? {
-        id = cloudStorageObserver.update(operation: .update, object: self)
-        return id
+        uid = cloudStorageObserver.update(operation: .update, object: self)
+        return uid
     }
 
     func read(reference: String, _ completionHandler: (([String: Any]) -> Void)? = nil) {

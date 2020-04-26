@@ -9,11 +9,13 @@
 import Foundation
 
 class Recording: Equatable, Codable, Shareable, StorageObservable {
+    var uid: String?
+    
 
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
-
     var uniqueFilePath: URL
+    var cloudReference: String?
 
     var id: String?
 
@@ -84,7 +86,7 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         self.name = name
     }
 
-    init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
+    init?(dictionary: [String: Any], uid: String, storageObserverDelegate: DatabaseObserver) {
         guard let name = dictionary["name"] as? String,
             let path = dictionary["filePath"] as? String,
             let audioCommentsReferences = dictionary["audioComments"] as? [String],
@@ -93,7 +95,7 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         }
         self.name = name
         self.uniqueFilePath = URL(fileURLWithPath: path)
-        self.id = id
+        self.uid = uid
         self.audioComments = audioCommentsReferences
             .compactMap { AudioComment(reference: $0, storageObserverDelegate: storageObserverDelegate) }
         self.textComments = textCommentsReferences.compactMap {
@@ -103,7 +105,7 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
 
     convenience init?(reference: String, storageObserverDelegate: DatabaseObserver) {
         let data = storageObserverDelegate.initializationRead(reference: reference)
-        self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
+        self.init(dictionary: data, uid: reference, storageObserverDelegate: storageObserverDelegate)
     }
 
     /* AudioComment API */

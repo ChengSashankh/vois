@@ -9,7 +9,7 @@
 import Foundation
 
 class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservable {
-    var id: String?
+    var uid: String?
     private var recordings: [Recording]
     var name: String
     var storageObserverDelegate: StorageObserverDelegate? {
@@ -46,14 +46,15 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
         for recording in recordings {
             _ = recording.upload()
         }
-        id = storageObserverDelegate?.upload(object: self) ?? id
-        return id
+        uid = storageObserverDelegate?.upload(object: self) ?? uid
+        return uid
     }
 
 
     init (name: String) {
         self.name = name
         self.recordings = []
+        self.uid = UUID().uuidString
     }
 
     convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
@@ -62,7 +63,7 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
                 return nil
         }
         self.init(name: name)
-        self.id = id
+        self.uid = uid
         self.recordings = recordingReferences.compactMap {
             Recording(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }
