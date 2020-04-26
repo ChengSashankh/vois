@@ -8,8 +8,12 @@
 
 import UIKit
 
-class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+
     var filteredTableData = [Performance]()
+    var searching = false
+
+    @IBOutlet weak var cancelButton: UIButton!
 
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -23,8 +27,15 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
-    var isSearchBarEmpty: Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
+//    var isSearchBarEmpty: Bool {
+//      return searchController.searchBar.text?.isEmpty ?? true
+//    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredTableData = performances.getPerformances().filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        searching = true
+        performancesView.reloadData()
+        print (filteredTableData)
     }
 
     func filterContentForSearchText(_ searchText: String) {
@@ -40,13 +51,13 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         searchBar.layer.borderColor = UIColor.white.cgColor
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForSearchText(searchBar.text!)
-    }
+//    func updateSearchResults(for searchController: UISearchController) {
+//        let searchBar = self.searchBar!
+//        filterContentForSearchText(searchBar.text!)
+//    }
 
     var performances: Performances!
-    let searchController = UISearchController(searchResultsController: nil)
+//    let searchController = UISearchController(searchResultsController: nil)
 
     private func configureSubtitle() {
         subtitle.text = "\(performances.numOfPerformances) performances"
@@ -54,12 +65,13 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
 
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = ""
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+//        searchController.searchResultsUpdater = self
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.searchBar.placeholder = "Hello world"
+//        navigationItem.searchController = searchController
+//        definesPresentationContext = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +81,12 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         performances = user?.performances ?? Performances()
         performancesView.reloadData()
         configureSubtitle()
+    }
+
+    @IBAction func onCancelButtonClick(_ sender: Any) {
+        searching = false
+        searchBar.endEditing(true)
+        performancesView.reloadData()
     }
 
     @IBAction func openMasterViewController(_ sender: UIBarButtonItem) {
@@ -90,7 +108,11 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return performances.numOfPerformances
+        if searching {
+            return filteredTableData.count
+        } else {
+            return performances.numOfPerformances
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,7 +120,12 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         guard let performanceCell = cell as? PerformanceCell else {
             return cell
         }
-        let performance = performances.getPerformances(at: indexPath.row)
+
+        var performance = performances.getPerformances(at: indexPath.row)
+
+        if searching {
+            performance = filteredTableData[indexPath.row]
+        }
 
         performanceCell.title?.text = performance.name
 
