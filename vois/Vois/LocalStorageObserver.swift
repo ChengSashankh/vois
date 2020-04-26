@@ -81,8 +81,19 @@ extension Song {
     var allRecordings: [Recording] {
         var recordings = [Recording]()
         for segment in self.getSegments() {
-            recordings.append(contentsOf: segment.getRecordings())
+            recordings.append(contentsOf: segment.allRecordings)
         }
         return recordings
+    }
+}
+
+extension SongSegment {
+    var allRecordings: [Recording] {
+        var allRecordings = [Recording]()
+        for recording in self.getRecordings() {
+            allRecordings.append(recording)
+            allRecordings.append(contentsOf: recording.getAudioComments())
+        }
+        return allRecordings
     }
 }

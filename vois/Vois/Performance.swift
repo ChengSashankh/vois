@@ -139,4 +139,12 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         id = storageObserverDelegate?.upload(object: self) ?? id
         return id
     }
+
+    func getPendingSongs() -> [Song] {
+        songs.filter { $0.allRecordings.isEmpty  }
+    }
+
+    func getCompleteSongs() -> [Song] {
+        songs.filter { !$0.allRecordings.isEmpty }
+    }
 }
