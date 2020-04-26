@@ -22,7 +22,7 @@ class ReviewingStorageDelegate: StorageObserverDelegate {
         guard let shareableObject = object as? Shareable else {
             return
         }
-        cloudStorageObserver.update(operation: operation, object: shareableObject)
+        _ = cloudStorageObserver.update(operation: operation, object: shareableObject)
     }
 
     func generateNewRecordingFilePath() -> URL? {
@@ -50,13 +50,13 @@ class ReviewingStorageDelegate: StorageObserverDelegate {
         return cloudStorageObserver.update(operation: .update, object: object)
     }
 
-    func read(reference: String, _ completionHandler: (([String : Any]) -> Void)?) {
+    func read(reference: String, _ completionHandler: (([String: Any]) -> Void)?) {
         cloudStorageObserver.read(reference: reference, completionHandler)
     }
 
     func download(recording: Recording, successHandler: (() -> Void)?, failureHandler: (() -> Void)?) {
-        cloudStorageObserver.download(recording: recording, successHandler: successHandler, failureHandler: failureHandler)
+        cloudStorageObserver.download(recording: recording,
+                                      successHandler: successHandler, failureHandler: failureHandler)
     }
-
 
 }

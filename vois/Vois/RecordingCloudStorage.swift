@@ -24,8 +24,8 @@ class RecordingCloudStorage: RecordingCloudStorageDelegate {
         guard let reference = recording.id else {
             return
         }
-        cloud.downloadFile(from: reference + recordingExtension,
-                           localFilePath: recording.filePath, successHandler: successHandler, failureHandler: failureHandler)
+        cloud.downloadFile(from: reference + recordingExtension, localFilePath: recording.filePath,
+                           successHandler: successHandler, failureHandler: failureHandler)
     }
 
     func remove(recording: Recording) {

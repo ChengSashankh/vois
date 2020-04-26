@@ -6,7 +6,6 @@
 //  Copyright © 2020 Vois. All rights reserved.
 //
 
-
 import UIKit
 
 class CommentButton: UIButton {

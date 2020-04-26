@@ -36,7 +36,7 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
     var dictionary: [String: Any] {
         return [
             "segments": segments.compactMap { $0.upload() },
-            "name": name,
+            "name": name
         ]
     }
 

@@ -173,7 +173,8 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
 
     func removeAllTextComments() {
         self.textComments.forEach {
-            storageObserverDelegate?.update(operation: .delete, object: $0) }
+            storageObserverDelegate?.update(operation: .delete, object: $0)
+        }
         self.textComments = []
         storageObserverDelegate?.update(operation: .update, object: self)
     }

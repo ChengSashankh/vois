@@ -114,6 +114,7 @@ class User: StorageObserverDelegate, Shareable {
     private let performancesReference = "performances"
 
     func download(recording: Recording, successHandler: (() -> Void)? = nil, failureHandler: (() -> Void)? = nil) {
-        cloudStorageObserver.download(recording: recording, successHandler: successHandler, failureHandler: failureHandler)
+        cloudStorageObserver.download(recording: recording, successHandler: successHandler,
+                                      failureHandler: failureHandler)
     }
 }

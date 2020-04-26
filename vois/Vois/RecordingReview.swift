@@ -12,7 +12,7 @@ class RecordingReview: Recording {
 
     let reviewer = UserSession.currentUsername ?? "Reviewer"
 
-    override init?(dictionary: [String : Any], id: String, storageObserverDelegate: DatabaseObserver) {
+    override init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
         super.init(dictionary: dictionary, id: id, storageObserverDelegate: storageObserverDelegate)
     }
     required init(from decoder: Decoder) throws {

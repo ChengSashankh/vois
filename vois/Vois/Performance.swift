@@ -61,7 +61,6 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.init(dictionary: data, id: reference, storageObserverDelegate: storageObserverDelegate)
     }
 
-
     func addSong(song: Song) {
         self.songs.append(song)
         song.storageObserverDelegate = storageObserverDelegate
@@ -135,7 +134,7 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
     }
 
     private var songsReference = "songs"
-    
+
     func upload() -> String? {
         id = storageObserverDelegate?.upload(object: self) ?? id
         return id

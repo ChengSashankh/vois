@@ -82,7 +82,8 @@ class FirestoreAdapter {
         return documentToAdd.path
     }
 
-    func readObject(inCollection: String, withId: String, _ completionHandler: (([String: Any]) -> Void)? = nil) throws {
+    func readObject(inCollection: String, withId: String,
+                    _ completionHandler: (([String: Any]) -> Void)? = nil) throws {
         let documentReference = connection.collection(inCollection).document(withId)
 
         documentReference.getDocument { document, _ in
@@ -112,7 +113,7 @@ class FirestoreAdapter {
         }
     }
 
-    func readObject(in collection: String, _ completionHandler: (([[String: Any]]) -> Void)? = nil){
+    func readObject(in collection: String, _ completionHandler: (([[String: Any]]) -> Void)? = nil) {
         connection.collection(collection).getDocuments { querySnapshot, err in
             var documents = [[String: Any]]()
             if let err = err {
@@ -126,14 +127,14 @@ class FirestoreAdapter {
         }
     }
 
-    func readObject(in collection: String, _ completionHandler: (([(String,[String: Any])]) -> Void)? = nil){
+    func readObject(in collection: String, _ completionHandler: (([(String, [String: Any])]) -> Void)? = nil) {
         connection.collection(collection).getDocuments { querySnapshot, err in
-            var documents = [(String,[String: Any])]()
+            var documents = [(String, [String: Any])]()
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    documents.append((document.reference.path,document.data()))
+                    documents.append((document.reference.path, document.data()))
                 }
             }
             completionHandler?(documents)
@@ -160,7 +161,8 @@ class FirestoreAdapter {
         connection.document(path).delete()
     }
 
-    func query(inCollection: String, field: String, whereValueIs: Any, _ completitionHandler: ((([String: Any], String)?) -> Void)? = nil) {
+    func query(inCollection: String, field: String, whereValueIs: Any,
+               _ completitionHandler: ((([String: Any], String)?) -> Void)? = nil) {
 
         connection
             .collection(inCollection)
@@ -171,7 +173,9 @@ class FirestoreAdapter {
                     completitionHandler?(nil)
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
-                    completitionHandler?(!queryResults.isEmpty ? (queryResults[0], querySnapshot!.documents[0].reference.path) : nil)
+                    completitionHandler?(!queryResults.isEmpty ?
+                        (queryResults[0], querySnapshot!.documents[0].reference.path)
+                        : nil)
                 }
             }
     }
@@ -183,7 +187,7 @@ class FirestoreAdapter {
             .collection(inCollection)
             .whereField(field, in: whereValueIn)
             .getDocuments { querySnapshot, error in
-                if let error = error {
+                if error != nil {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }
@@ -200,7 +204,7 @@ class FirestoreAdapter {
             .collection(inCollection)
             .whereField(field, isLessThan: whereValueLessThan)
             .getDocuments { querySnapshot, error in
-                if let error = error {
+                if error != nil {
                     // TODO Handle error
                 } else {
                     queryResults = querySnapshot!.documents.map { $0.data() }

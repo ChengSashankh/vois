@@ -161,14 +161,15 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
                                                timeStamp: comment.timeStamp, delegate: self)
         })
         let audioComments = recording.getAudioComments()
-        audioComments.forEach( { comment in
+        audioComments.forEach({ comment in
             self.uiWaveformView.addAudioComment(author: comment.author,
                                                 filePath: comment.filePath, timeStamp: comment.timeStamp)
         })
     }
 
-    @objc func showComment(_ sender: TextCommentButton) {
-        guard let author = sender.author, let text = sender.text, let delegate = sender.delegate else {
+    @objc
+    func showComment(_ sender: TextCommentButton) {
+        guard let author = sender.author, let text = sender.text else {
             return
         }
 
@@ -184,7 +185,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
 
     private var audioCommentPlayer: AudioPlayer?
 
-    @objc func showAudioComment(_ sender: AudioCommentButton) {
+    @objc
+    func showAudioComment(_ sender: AudioCommentButton) {
         guard let audioComment = recording.getAudioComments().first(where: { $0.filePath == sender.filePath }) else {
             return
         }
@@ -212,12 +214,13 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
         if let textCommentButton = sender as? TextCommentButton {
             textCommentButtons.removeAll(where: { $0 == sender })
             recording.removeTextComment(textComment:
-            TextComment(timeStamp: textCommentButton.timeStamp!, author: textCommentButton.author!, text: textCommentButton.text!) )
+            TextComment(timeStamp: textCommentButton.timeStamp!,
+                        author: textCommentButton.author!, text: textCommentButton.text!) )
         } else if let audioCommentButton = sender as? AudioCommentButton {
             audioCommentButtons.removeAll(where: { $0 == sender })
 
-            recording.removeAudioComment(audioComment: AudioComment(timeStamp: audioCommentButton.timeStamp,
-                                                                    author: audioCommentButton.author, filePath: audioCommentButton.filePath))
+            recording.removeAudioComment(audioComment: AudioComment(
+                timeStamp: audioCommentButton.timeStamp, author: audioCommentButton.author, filePath: audioCommentButton.filePath))
         }
     }
 
@@ -235,7 +238,8 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
         }
     }
 
-    @objc private func handleAudioComment(sender: UILongPressGestureRecognizer) {
+    @objc
+    private func handleAudioComment(sender: UILongPressGestureRecognizer) {
         switch sender.state {
         case .began:
             guard let url = recording.generateAudioCommentUrl() else {
@@ -263,7 +267,7 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
 
     func displayErrorAlert(title: String, message: String) {
            let uiErrorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-           uiErrorAlert.addAction(UIAlertAction(title: "Okay", style: .cancel,handler: nil))
+           uiErrorAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
            present(uiErrorAlert, animated: true, completion: nil)
        }
 
@@ -272,15 +276,18 @@ class AudioPlaybackController: UIViewController, FDPlaybackDelegate, AVAudioReco
     }
 
     private func showAudioCommentSaveController(for audioUrl: URL) {
-        let audioCommentSaveController = UIAlertController(title: "Do you want to save this comment?", message: nil, preferredStyle: .alert)
+        let audioCommentSaveController = UIAlertController(title: "Do you want to save this comment?",
+                                                           message: nil, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            let audioComment = AudioComment(timeStamp: self.audioPlayer.currentTime, author: self.commenter ?? "Reviewer", filePath: audioUrl)
+            let audioComment = AudioComment(timeStamp: self.audioPlayer.currentTime,
+                                            author: self.commenter ?? "Reviewer", filePath: audioUrl)
             self.recording.addAudioComment(audioComment: audioComment)
-            self.uiWaveformView.addAudioComment(author: audioComment.author, filePath: audioComment.filePath, timeStamp: audioComment.timeStamp)
+            self.uiWaveformView.addAudioComment(author: audioComment.author,
+                                                filePath: audioComment.filePath, timeStamp: audioComment.timeStamp)
             self.uiWaveformView.setNeedsDisplay()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            self.recording.removeAudioComment(at: audioUrl)
+            _ = self.recording.removeAudioComment(at: audioUrl)
         }
         audioCommentSaveController.addAction(saveAction)
         audioCommentSaveController.addAction(cancelAction)
