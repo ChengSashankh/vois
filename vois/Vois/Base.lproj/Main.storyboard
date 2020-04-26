@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZFB-cQ-pb9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZFB-cQ-pb9">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -400,26 +400,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LqV-kI-ZGo">
-                                <rect key="frame" x="140.66666666666666" y="153" width="132.99999999999997" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="db0-7e-Uel">
+                                <rect key="frame" x="0.0" y="88" width="414" height="57"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zZh-NO-rRM" userLabel="Log Out">
-                                <rect key="frame" x="155" y="430" width="105" height="104"/>
+                                <rect key="frame" x="155" y="142" width="105" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="LOG OUT"/>
+                                <state key="normal" title="Log Out"/>
                                 <connections>
                                     <action selector="logOutAction:" destination="0rG-TC-mAR" eventType="touchUpInside" id="s3t-1N-JvX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LqV-kI-ZGo">
+                                <rect key="frame" x="141" y="98" width="133" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="centerX" secondItem="ufi-Ux-ux7" secondAttribute="centerX" id="BYQ-8x-pxl"/>
-                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="top" secondItem="8sO-k0-fHs" secondAttribute="top" constant="65" id="Xt6-Mv-t5v"/>
+                            <constraint firstItem="db0-7e-Uel" firstAttribute="leading" secondItem="8sO-k0-fHs" secondAttribute="leading" id="1x9-VG-nIV"/>
+                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="centerY" secondItem="db0-7e-Uel" secondAttribute="centerY" id="5bs-tI-obx"/>
+                            <constraint firstItem="db0-7e-Uel" firstAttribute="top" secondItem="8sO-k0-fHs" secondAttribute="top" id="61E-PS-HAE"/>
+                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="centerX" secondItem="db0-7e-Uel" secondAttribute="centerX" id="EQs-m2-J4v"/>
+                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="top" secondItem="8sO-k0-fHs" secondAttribute="top" constant="10" id="FqR-d0-c8Y"/>
+                            <constraint firstItem="LqV-kI-ZGo" firstAttribute="centerX" secondItem="zZh-NO-rRM" secondAttribute="centerX" id="oYj-Ig-tsb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8sO-k0-fHs"/>
                     </view>
@@ -437,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0rG-TC-mAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1906" y="3303"/>
+            <point key="canvasLocation" x="-1907.2463768115942" y="3302.6785714285711"/>
         </scene>
         <!--Performance View Controller-->
         <scene sceneID="LIU-G8-gJW">
