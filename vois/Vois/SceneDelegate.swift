@@ -56,13 +56,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-    private func startReviewing(recording: Recording) {
+    private func startReviewing(recording: Recording, by user: String) {
         guard let audioPlaybackVC = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "AudioPlaybackController") as? AudioPlaybackController else {
             return
         }
         audioPlaybackVC.recording = recording
         audioPlaybackVC.recordingList = [recording]
+        audioPlaybackVC.creater = user
 
         guard let splitVC = window?.rootViewController as? UISplitViewController else {
             return
@@ -98,7 +99,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
                 recording.storageObserverDelegate = storageObserverDelegate
                 recording.updateRecording {
-                    self.startReviewing(recording: recording)
+                    self.startReviewing(recording: recording, by: user)
                 }
             }
         }

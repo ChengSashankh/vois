@@ -13,7 +13,7 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
 
-    private var uniqueFilePath: URL
+    var uniqueFilePath: URL
 
     var id: String?
 
@@ -189,7 +189,7 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
             && lhs.textComments == rhs.textComments
     }
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case uniqueFilePath
         case name
         case textComments
@@ -222,5 +222,13 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         }
         id = storageObserverDelegate?.upload(object: self) ?? id
         return id
+    }
+
+    func generateAudioCommentUrl() -> URL? {
+        storageObserverDelegate?.generateNewRecordingFilePath()
+    }
+
+    func removeAudioComment(at url: URL) -> Bool {
+        storageObserverDelegate?.removeRecording(at: url) ?? false
     }
 }

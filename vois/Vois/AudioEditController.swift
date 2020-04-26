@@ -11,10 +11,12 @@ import AVFoundation
 import FDWaveformView
 
 class AudioEditController: UIViewController, FDPlaybackDelegate, UITextFieldDelegate {
+
     var fileURL: URL!
     var audioPlayer: AudioPlayer!
     private var displayLink: CADisplayLink!
     var textCommentButtons = [TextCommentButton]()
+    var audioCommentButtons = [AudioCommentButton]()
     private var minimumValue: Float = 0.0
     private var maximumValue: Float = 0.0
 

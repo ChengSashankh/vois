@@ -122,7 +122,7 @@ class Database {
 
     private func removeObject(with id: String) {
         database.readObject(with: id) { data in
-            for (_,val) in data {
+            for (_, val) in data {
                 guard let references = val as? [String] else {
                     continue
                 }
@@ -172,7 +172,7 @@ class Database {
             setupCompletionHandler?()
             return
         }
-        database.readObject(in: collections[index]) { (documents: ([(String,[String: Any])])) in
+        database.readObject(in: collections[index]) { (documents: ([(String, [String: Any])])) in
             for document in documents {
                 self.databaseCopy[document.0] = document.1
             }
@@ -208,10 +208,10 @@ class Database {
             return "songs"
         case is SongSegment:
             return "songSegments"
-        case is Recording:
-            return "recordings"
         case is Comment:
             return "comments"
+        case is Recording:
+            return "recordings"
         default:
             return ""
         }

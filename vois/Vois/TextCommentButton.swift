@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-class TextCommentButton: UIButton {
-    var text: String?
-    var author: String?
-    var timeStamp: Double?
-    weak var delegate: UIViewController?
+class TextCommentButton: CommentButton {
+    var text: String!
+    var author: String!
+    weak var delegate: UIViewController!
 }
