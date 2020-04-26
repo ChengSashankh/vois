@@ -8,11 +8,13 @@
 
 import XCTest
 @testable import Vois
-/*
+
 class SongSegmentTest: XCTestCase {
     let segment = SongSegment(name: "SongSegment")
-    let recordingOne = Recording(from: URL(fileURLWithPath: "/recording/audio_one.mp3"))
-    let recordingTwo = Recording(from: URL(fileURLWithPath: "/recording/audio_two.mp3"))
+    let recordingOne = Recording(name: "Recording One",
+                                 filePath: URL(fileURLWithPath: "/recording/audio_one.mp3"))
+    let recordingTwo = Recording(name: "Recording Two",
+                                 filePath: URL(fileURLWithPath: "/recording/audio_two.mp3"))
 
     func testNoRecordings() {
         XCTAssertTrue(segment.hasNoRecordings)
@@ -87,4 +89,3 @@ class SongSegmentTest: XCTestCase {
         XCTAssertTrue(segment.hasNoRecordings)
     }
 }
-*/

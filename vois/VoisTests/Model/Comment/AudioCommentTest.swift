@@ -36,14 +36,8 @@ class AudioCommentTest: XCTestCase {
     }
 
     func testUnequalComment() {
-        XCTAssertNotEqual(comment, unequalCommentOne)
-        XCTAssertNotEqual(comment, unequalCommentTwo)
-        XCTAssertNotEqual(comment, unequalCommentThree)
-    }
-
-    func testSetFilePath() {
-        comment.filePath = URL(fileURLWithPath: "/recording/song.mp3")
-        XCTAssertEqual(comment.filePath, URL(fileURLWithPath: "/recording/song.mp3"))
-        XCTAssertNotEqual(comment.filePath, URL(fileURLWithPath: "/recording/audio.mp3"))
+        XCTAssertFalse(comment == unequalCommentOne)
+        XCTAssertFalse(comment == unequalCommentTwo)
+        XCTAssertFalse(comment == unequalCommentThree)
     }
 }

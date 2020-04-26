@@ -10,13 +10,10 @@ import Foundation
 
 class Recording: Equatable, Codable, Shareable, StorageObservable {
     var uid: String?
-    
-
     private var audioComments: [AudioComment]
     private var textComments: [TextComment]
     var uniqueFilePath: URL
     var cloudReference: String?
-
     var id: String?
 
     private var updated = false
