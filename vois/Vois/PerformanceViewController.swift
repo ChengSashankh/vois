@@ -113,7 +113,6 @@ class PerformanceViewController: UIViewController, UITableViewDelegate, UITableV
                     return
                 }
                 self.performance.addEditor(uid: String(uid.dropFirst(6)))
-
                 let users = Firestore.firestore().collection("users").document(String(uid.dropFirst(6)))
 
                 users.getDocument { document, _ in

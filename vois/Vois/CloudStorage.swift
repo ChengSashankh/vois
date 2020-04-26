@@ -53,6 +53,7 @@ class CloudStorage: DatabaseObserver {
                 }
             } else {
                 let user = User(username: username, email: email)
+                self.updateEmailsToUIDs(email: email, uid: user.uid ?? "")
                 completionHandler?(user)
             }
         }
