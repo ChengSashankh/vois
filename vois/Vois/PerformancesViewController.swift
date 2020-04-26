@@ -12,13 +12,11 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
 
     var filteredTableData = [Performance]()
     var searching = false
+    var performances: Performances!
 
     @IBOutlet weak var cancelButton: UIButton!
-
     @IBOutlet weak var searchBar: UISearchBar!
-
     @IBOutlet weak var subtitle: UILabel!
-
     @IBOutlet weak var performancesView: UITableView! {
         didSet {
             performancesView.delegate = self
@@ -27,37 +25,10 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
-//    var isSearchBarEmpty: Bool {
-//      return searchController.searchBar.text?.isEmpty ?? true
-//    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredTableData = performances.getPerformances().filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        searching = true
-        performancesView.reloadData()
-        print (filteredTableData)
-    }
-
-    func filterContentForSearchText(_ searchText: String) {
-        filteredTableData = performances.getPerformances().filter { (performance: Performance) -> Bool in
-            return performance.name.lowercased().contains(searchText.lowercased())
-        }
-
-        performancesView.reloadData()
-    }
-
     private func configureSearchBar() {
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.white.cgColor
     }
-
-//    func updateSearchResults(for searchController: UISearchController) {
-//        let searchBar = self.searchBar!
-//        filterContentForSearchText(searchBar.text!)
-//    }
-
-    var performances: Performances!
-//    let searchController = UISearchController(searchResultsController: nil)
 
     private func configureSubtitle() {
         subtitle.text = "\(performances.numOfPerformances) performances"
@@ -66,12 +37,6 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-
-//        searchController.searchResultsUpdater = self
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        searchController.searchBar.placeholder = "Hello world"
-//        navigationItem.searchController = searchController
-//        definesPresentationContext = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -151,6 +116,15 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         default:
             break
         }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredTableData = performances.getPerformances().filter {
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+
+        searching = true
+        performancesView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
