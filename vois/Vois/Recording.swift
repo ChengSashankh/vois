@@ -225,4 +225,12 @@ class Recording: Equatable, Codable, Shareable, StorageObservable {
         id = storageObserverDelegate?.upload(object: self) ?? id
         return id
     }
+
+    func generateAudioCommentUrl() -> URL? {
+        storageObserverDelegate?.generateNewRecordingFilePath()
+    }
+
+    func removeAudioComment(at url: URL) -> Bool {
+        storageObserverDelegate?.removeRecording(at: url) ?? false
+    }
 }

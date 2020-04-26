@@ -10,7 +10,29 @@ import Foundation
 import UIKit
 
 class TextCommentController: UIViewController, UITextFieldDelegate {
+
+    var commenter: String?
+    var creater: String?
+
     @IBOutlet var uiComment: UITextField!
+    @IBOutlet weak var message: UILabel!
+
+    private func configureTitle() {
+        guard let commenter = commenter, let creater = creater else {
+            message.text = "Comment"
+            return
+        }
+        if commenter == creater {
+            message.text = "Comment to myself"
+        } else {
+            message.text = "Comment to \(creater) by \(commenter)"
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureTitle()
+    }
 
     var addCommentClosure: ((String) -> Void)?
 

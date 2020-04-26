@@ -16,6 +16,7 @@ class AudioComment: Recording, Comment {
         self.timeStamp = timeStamp
         self.author = author
         super.init(name: author, filePath: filePath)
+
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -50,9 +51,25 @@ class AudioComment: Recording, Comment {
         uniqueFilePath = try values.decode(URL.self, forKey: .uniqueFilePath)
     }
 
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: AudioComment.CodingKeys.self)
+        author = try values.decode(String.self, forKey: .author)
+        timeStamp = try values.decode(Double.self, forKey: .timeStamp)
+        super.init(name: author, filePath: URL(fileURLWithPath: ""))
+        uniqueFilePath = try values.decode(URL.self, forKey: .uniqueFilePath)
+    }
+
     static func == (lhs: AudioComment, rhs: AudioComment) -> Bool {
         return lhs.timeStamp == rhs.timeStamp
             && lhs.author == rhs.author
-            && lhs.filePath == rhs.filePath
+            && lhs.uniqueFilePath == rhs.uniqueFilePath
     }
+
+    override var dictionary: [String: Any] {
+           [
+               "timeStamp": timeStamp,
+               "author": author,
+               "filepath": uniqueFilePath.path
+           ]
+       }
 }
