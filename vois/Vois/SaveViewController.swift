@@ -22,6 +22,18 @@ class SaveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         recordingController = delegate?.recordingController
+        uiTextField.text = getDefaultAttemptFileName()
+    }
+
+    func getDefaultAttemptFileName() -> String {
+        return "Attempt-" + getCurrentDateTimeString()
+    }
+
+    func getCurrentDateTimeString() -> String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return format.string(from: date)
     }
 
     func displayErrorAlert(title: String, message: String) {

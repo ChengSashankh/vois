@@ -54,7 +54,6 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
     init (name: String) {
         self.name = name
         self.recordings = []
-        self.uid = UUID().uuidString
     }
 
     convenience init?(dictionary: [String: Any], id: String, storageObserverDelegate: DatabaseObserver) {
@@ -63,7 +62,6 @@ class SongSegment: Equatable, Codable, Serializable, Shareable, StorageObservabl
                 return nil
         }
         self.init(name: name)
-        self.uid = uid
         self.recordings = recordingReferences.compactMap {
             Recording(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }

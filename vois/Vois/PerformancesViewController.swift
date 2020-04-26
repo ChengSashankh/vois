@@ -8,7 +8,8 @@
 
 import UIKit
 
-class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PerformancesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+    var filteredTableData = [Performance]()
 
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -22,15 +23,43 @@ class PerformancesViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+
+    func filterContentForSearchText(_ searchText: String) {
+        filteredTableData = performances.getPerformances().filter { (performance: Performance) -> Bool in
+            return performance.name.lowercased().contains(searchText.lowercased())
+        }
+
+        performancesView.reloadData()
+    }
+
     private func configureSearchBar() {
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.white.cgColor
     }
 
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+
     var performances: Performances!
+    let searchController = UISearchController(searchResultsController: nil)
 
     private func configureSubtitle() {
         subtitle.text = "\(performances.numOfPerformances) performances"
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = ""
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
 
     override func viewWillAppear(_ animated: Bool) {

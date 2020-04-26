@@ -40,7 +40,6 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.date = date
         self.ownerUID = UserSession.currentUID ?? "No UID Found"
         self.editorUIDs = [ownerUID]
-        self.uid = UUID().uuidString
     }
     
     init (name: String, ownerUID: String) {
@@ -49,7 +48,6 @@ class Performance: Equatable, Codable, Shareable, StorageObservable {
         self.uid = UUID().uuidString
         self.ownerUID = ownerUID
         self.editorUIDs = [ownerUID]
-        self.uid = UUID().uuidString
     }
 
     convenience init?(dictionary: [String: Any], uid: String, storageObserverDelegate: DatabaseObserver) {

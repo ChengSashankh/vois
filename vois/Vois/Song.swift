@@ -44,7 +44,6 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
     init (name: String) {
         self.name = name
         self.segments = []
-        self.uid = UUID().uuidString
         _ = upload()
     }
 
@@ -54,7 +53,6 @@ class Song: Equatable, Codable, Shareable, StorageObservable {
                 return nil
         }
         self.init(name: name)
-        self.uid = uid
         self.segments = segmentReferences.compactMap {
             SongSegment(reference: $0, storageObserverDelegate: storageObserverDelegate)
         }

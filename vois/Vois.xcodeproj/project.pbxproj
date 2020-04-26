@@ -80,7 +80,7 @@
 		CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */; };
 		CAB7010924403CD4009CFADA /* StorageObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010824403CD4009CFADA /* StorageObserver.swift */; };
 		CAB7010D24407472009CFADA /* SegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010C24407472009CFADA /* SegmentCell.swift */; };
-		CAB7010F244074DD009CFADA /* SongController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010E244074DD009CFADA /* SongController.swift */; };
+		CAB7010F244074DD009CFADA /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7010E244074DD009CFADA /* SongViewController.swift */; };
 		CAB70111244075AF009CFADA /* NewSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB70110244075AF009CFADA /* NewSegmentController.swift */; };
 		CAB7011324407D9B009CFADA /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7011224407D9B009CFADA /* RecordingCell.swift */; };
 		CAB701152440B007009CFADA /* RecordingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB701142440B007009CFADA /* RecordingStorage.swift */; };
@@ -182,7 +182,7 @@
 		CAB70102244030FC009CFADA /* PerformanceFilesDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceFilesDirectory.swift; sourceTree = "<group>"; };
 		CAB7010824403CD4009CFADA /* StorageObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageObserver.swift; sourceTree = "<group>"; };
 		CAB7010C24407472009CFADA /* SegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentCell.swift; sourceTree = "<group>"; };
-		CAB7010E244074DD009CFADA /* SongController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongController.swift; sourceTree = "<group>"; };
+		CAB7010E244074DD009CFADA /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
 		CAB70110244075AF009CFADA /* NewSegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSegmentController.swift; sourceTree = "<group>"; };
 		CAB7011224407D9B009CFADA /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
 		CAB701142440B007009CFADA /* RecordingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStorage.swift; sourceTree = "<group>"; };
@@ -268,7 +268,6 @@
 		6C49965524304D15004B03F5 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				CA9152802431AFAE009DA0DB /* UserSession.swift */,
 				6C49965624304D33004B03F5 /* User.swift */,
 			);
 			name = User;
@@ -397,7 +396,6 @@
 				CACC0D9C241CC260006D2E68 /* Info.plist */,
 				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
 				6CC66A632442E37B0065CA16 /* NotificationsDelegate.swift */,
-				CA91527E2430A60A009DA0DB /* PerformanceFilesDirectory.swift */,
 				CA9152802431AFAE009DA0DB /* UserSession.swift */,
 			);
 			path = Vois;
@@ -476,7 +474,7 @@
 				CAB700FD243B56E8009CFADA /* ShareRecordingController.swift */,
 				CAB70110244075AF009CFADA /* NewSegmentController.swift */,
 				CAB7011224407D9B009CFADA /* RecordingCell.swift */,
-				CAB7010E244074DD009CFADA /* SongController.swift */,
+				CAB7010E244074DD009CFADA /* SongViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -711,7 +709,7 @@
 				C8D201782426488700409CF4 /* RecordingTable.swift in Sources */,
 				C8D2018224265ED600409CF4 /* Listenable.swift in Sources */,
 				6C7F96D8241D0D3D009C6E91 /* TextComment.swift in Sources */,
-				CAB7010F244074DD009CFADA /* SongController.swift in Sources */,
+				CAB7010F244074DD009CFADA /* SongViewController.swift in Sources */,
 				CA214CE924474C300034D58D /* LocalStorageObserver.swift in Sources */,
 				6C52E02D241E94D600E60EAB /* HomeViewController.swift in Sources */,
 				CACC0D8F241CC25C006D2E68 /* AppDelegate.swift in Sources */,
