@@ -16,19 +16,14 @@ extension Dictionary {
 }
 
 class LastFMAPInterface {
-    var apiKey: String
+    var baseParams = [
+        "api_key": "5a83c80e13a39002a4c841b72cf8427d",
+        "format": "json"
+    ]
     var rootUrl = "https://ws.audioscrobbler.com/2.0/"
 
-    init(apiKey: String) {
-        self.apiKey = apiKey
-    }
-
-    convenience init() {
-        self.init(apiKey: "")
-    }
-
-    func setApiKey(newKey: String) {
-        apiKey = newKey
+    func setBaseParams(newParams: [String: String]) {
+        baseParams = newParams
     }
 
     func parseTopTracksResponse(asString: String) -> TopTracksAPIResponse? {
@@ -74,11 +69,10 @@ class LastFMAPInterface {
 
     func getTopTracks(completionHandler: @escaping (_ response: TopTracksAPIResponse?) -> Void) {
         let url = "https://ws.audioscrobbler.com/2.0/"
-        let options = [
-            "method": "chart.gettoptracks",
-            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
-            "format": "json"
+        var options = [
+            "method": "chart.gettoptracks"
         ]
+        options.merge(toMerge: baseParams)
 
         var completeRequestString = url + "?"
 
@@ -104,11 +98,10 @@ class LastFMAPInterface {
 
     func getTopArtists(completionHandler: @escaping (_ response: TopArtistsAPIResponse?) -> Void) {
         let url = "https://ws.audioscrobbler.com/2.0/"
-        let options = [
-            "method": "chart.gettopartists",
-            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
-            "format": "json"
+        var options = [
+            "method": "chart.gettopartists"
         ]
+        options.merge(toMerge: baseParams)
 
         var completeRequestString = url + "?"
 
@@ -134,12 +127,11 @@ class LastFMAPInterface {
 
     func getTopTracksByRegion(country: String, completionHandler: @escaping (_ response: TopTracksAPIResponse?) -> Void) {
         let url = "https://ws.audioscrobbler.com/2.0/"
-        let options = [
+        var options = [
             "country": country,
-            "method": "geo.gettoptracks",
-            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
-            "format": "json"
+            "method": "geo.gettoptracks"
         ]
+        options.merge(toMerge: baseParams)
 
         var completeRequestString = url + "?"
 
@@ -165,13 +157,12 @@ class LastFMAPInterface {
 
     func getTopArtistsByRegion(country: String, completionHandler: @escaping (_ response: TopRegionalArtistsAPIResponse?) -> Void) {
         let url = "https://ws.audioscrobbler.com/2.0/"
-        let options = [
+        var options = [
             "country": country,
-            "method": "geo.gettopartists",
-            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
-            "format": "json"
+            "method": "geo.gettopartists"
         ]
-
+        options.merge(toMerge: baseParams)
+        
         var completeRequestString = url + "?"
 
         for (key, value) in options {

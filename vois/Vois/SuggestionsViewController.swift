@@ -52,6 +52,34 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
         )
     }
 
+    func setSongList(newSongList: [Track]) {
+        self.songList = newSongList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
+    func setArtistList(newArtistList: [TrackArtist]) {
+        self.artistList = newArtistList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
+    func setRegionalSongList(newSongList: [Track]) {
+        self.regionalSongList = newSongList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
+    func setRegionalArtistList(newArtistList: [TrackArtist]) {
+        self.regionalArtistList = newArtistList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
     @objc
     func refreshTable() {
         uiTableView.reloadData()
@@ -86,34 +114,6 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
                 let newArtistList = response!.topartists.artist
               self.setRegionalArtistList(newArtistList: newArtistList)
             }
-        }
-    }
-
-    func setSongList(newSongList: [Track]) {
-        self.songList = newSongList
-        DispatchQueue.main.async {
-            self.uiTableView.reloadData()
-        }
-    }
-
-    func setArtistList(newArtistList: [TrackArtist]) {
-        self.artistList = newArtistList
-        DispatchQueue.main.async {
-            self.uiTableView.reloadData()
-        }
-    }
-
-    func setRegionalSongList(newSongList: [Track]) {
-        self.regionalSongList = newSongList
-        DispatchQueue.main.async {
-            self.uiTableView.reloadData()
-        }
-    }
-
-    func setRegionalArtistList(newArtistList: [TrackArtist]) {
-        self.regionalArtistList = newArtistList
-        DispatchQueue.main.async {
-            self.uiTableView.reloadData()
         }
     }
 
