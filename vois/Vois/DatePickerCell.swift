@@ -13,6 +13,8 @@ class DatePickerCell: UITableViewCell {
     @IBOutlet weak var datePicker: UIDatePicker! {
         didSet {
             datePicker.addTarget(self, action: #selector(dateValueChanged(_:)), for: .valueChanged)
+
+            datePicker.minimumDate = Date()
         }
     }
 
