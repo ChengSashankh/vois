@@ -11,6 +11,8 @@
 		2451F3F5241E717900884AEE /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451F3F4241E717900884AEE /* SaveViewController.swift */; };
 		2457614724399937000BD648 /* FirebaseAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457614624399937000BD648 /* FirebaseAdapterTests.swift */; };
 		2462DD44243B5EF200C4C94A /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462DD43243B5EF200C4C94A /* Serializable.swift */; };
+		2462F74A246302860017C202 /* LastFMAPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462F749246302860017C202 /* LastFMAPInterface.swift */; };
+		2462F74C246315690017C202 /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462F74B246315690017C202 /* SuggestionsViewController.swift */; };
 		247466E4243AE3C100ED6DBA /* FirebaseStorageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247466E3243AE3C100ED6DBA /* FirebaseStorageAdapter.swift */; };
 		247466E6243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247466E5243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift */; };
 		24C1DC272434CA1100D961B7 /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C1DC262434CA1100D961B7 /* DatabaseAdapter.swift */; };
@@ -113,6 +115,8 @@
 		2451F3F4241E717900884AEE /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		2457614624399937000BD648 /* FirebaseAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdapterTests.swift; sourceTree = "<group>"; };
 		2462DD43243B5EF200C4C94A /* Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
+		2462F749246302860017C202 /* LastFMAPInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastFMAPInterface.swift; sourceTree = "<group>"; };
+		2462F74B246315690017C202 /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		247466E3243AE3C100ED6DBA /* FirebaseStorageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapter.swift; sourceTree = "<group>"; };
 		247466E5243AE65000ED6DBA /* FirebaseStorageAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageAdapterTests.swift; sourceTree = "<group>"; };
 		24C1DC262434CA1100D961B7 /* DatabaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				CACC0D8E241CC25C006D2E68 /* AppDelegate.swift */,
 				6CC66A632442E37B0065CA16 /* NotificationsDelegate.swift */,
 				CA9152802431AFAE009DA0DB /* UserSession.swift */,
+				2462F749246302860017C202 /* LastFMAPInterface.swift */,
+				2462F74B246315690017C202 /* SuggestionsViewController.swift */,
 			);
 			path = Vois;
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 				24C36134241DFB8C0047EC46 /* RecordingViewController.swift in Sources */,
 				CA214CE5244742A50034D58D /* Database.swift in Sources */,
 				CAB70103244030FD009CFADA /* PerformanceFilesDirectory.swift in Sources */,
+				2462F74A246302860017C202 /* LastFMAPInterface.swift in Sources */,
 				CAB701152440B007009CFADA /* RecordingStorage.swift in Sources */,
 				CAB7011324407D9B009CFADA /* RecordingCell.swift in Sources */,
 				C8D20184242672AD00409CF4 /* RecordingList.swift in Sources */,
@@ -757,6 +764,7 @@
 				CA11DE0C241FB2850030598D /* ProfileViewController.swift in Sources */,
 				CAB700FE243B56E8009CFADA /* ShareRecordingController.swift in Sources */,
 				CA118DE12420C6270098BF29 /* CreatePerformanceTableViewController.swift in Sources */,
+				2462F74C246315690017C202 /* SuggestionsViewController.swift in Sources */,
 				6C7F96E2241D3EF3009C6E91 /* Performances.swift in Sources */,
 				CA11DE0A241F74820030598D /* PerformancesViewController.swift in Sources */,
 				CA3D280124234FF5006509C5 /* PerformanceViewController.swift in Sources */,
