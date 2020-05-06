@@ -15,55 +15,6 @@ extension Dictionary {
     }
 }
 
-struct TopTracksAPIResponse: Decodable {
-    var tracks: TrackList
-}
-
-struct TrackList: Decodable {
-    var track: [Track]
-}
-
-struct Track: Decodable {
-    var name: String
-    var duration: String
-    var playcount: String
-    var listeners: String
-    var mbid: String
-    var url: String
-    var artist: TrackArtist
-}
-
-struct TrackStreamable: Decodable {
-    var text: String
-    var fulltrack: String
-}
-
-struct TrackArtist: Decodable {
-    var name: String
-    var mbid: String
-    var url: String
-}
-
-struct TrackImage: Decodable {
-    var text: String
-    var size: String
-}
-
-struct TrackListAttributes: Decodable {
-    var page: String
-    var perPage: String
-    var totalPages: String
-    var total: String
-}
-
-struct TopArtistsAPIResponse: Decodable {
-    var artists: ArtistsList
-}
-
-struct ArtistsList: Decodable {
-    var artist: [TrackArtist]
-}
-
 class LastFMAPInterface {
     var apiKey: String
     var rootUrl = "https://ws.audioscrobbler.com/2.0/"
@@ -105,6 +56,20 @@ class LastFMAPInterface {
 
         return apiResponse
     }
+
+    func parseRegionalTopArtistsResponse(asString: String) -> TopRegionalArtistsAPIResponse? {
+        let stringData = asString.data(using: .utf8)
+        let apiResponse: TopRegionalArtistsAPIResponse?
+
+        do {
+            apiResponse = try JSONDecoder().decode(TopRegionalArtistsAPIResponse.self, from: stringData!)
+        } catch {
+            return nil
+        }
+
+        return apiResponse
+    }
+
 
 
     func getTopTracks(completionHandler: @escaping (_ response: TopTracksAPIResponse?) -> Void) {
@@ -166,4 +131,67 @@ class LastFMAPInterface {
            }.resume()
         }
     }
+
+    func getTopTracksByRegion(country: String, completionHandler: @escaping (_ response: TopTracksAPIResponse?) -> Void) {
+        let url = "https://ws.audioscrobbler.com/2.0/"
+        let options = [
+            "country": country,
+            "method": "geo.gettoptracks",
+            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
+            "format": "json"
+        ]
+
+        var completeRequestString = url + "?"
+
+        for (key, value) in options {
+            completeRequestString += (key + "=" + value + "&")
+        }
+
+        if completeRequestString.last == Character("&") {
+            completeRequestString = String(completeRequestString.dropLast())
+        }
+
+        if let url = URL(string: completeRequestString) {
+           URLSession.shared.dataTask(with: url) { data, _, _ in
+              if let data = data {
+                 if let jsonString = String(data: data, encoding: .utf8) {
+                    let apiResponse = self.parseTopTracksResponse(asString: jsonString)
+                    completionHandler(apiResponse)
+                 }
+              }
+           }.resume()
+        }
+    }
+
+    func getTopArtistsByRegion(country: String, completionHandler: @escaping (_ response: TopRegionalArtistsAPIResponse?) -> Void) {
+        let url = "https://ws.audioscrobbler.com/2.0/"
+        let options = [
+            "country": country,
+            "method": "geo.gettopartists",
+            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
+            "format": "json"
+        ]
+
+        var completeRequestString = url + "?"
+
+        for (key, value) in options {
+            completeRequestString += (key + "=" + value + "&")
+        }
+
+        if completeRequestString.last == Character("&") {
+            completeRequestString = String(completeRequestString.dropLast())
+        }
+
+        if let url = URL(string: completeRequestString) {
+           URLSession.shared.dataTask(with: url) { data, _, _ in
+              if let data = data {
+                 if let jsonString = String(data: data, encoding: .utf8) {
+                    let apiResponse = self.parseRegionalTopArtistsResponse(asString: jsonString)
+                    completionHandler(apiResponse)
+                 }
+              }
+           }.resume()
+        }
+    }
+
 }

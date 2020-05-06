@@ -1194,7 +1194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFD-ev-mID" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1682.608695652174" y="1812.7232142857142"/>
+            <point key="canvasLocation" x="1716" y="1787"/>
         </scene>
         <!--Suggestions View Controller-->
         <scene sceneID="ECO-hv-g1h">
@@ -1234,34 +1234,47 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eu0-fh-VhI">
-                                <rect key="frame" x="130" y="185" width="155" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eu0-fh-VhI">
+                                <rect key="frame" x="239" y="182" width="155" height="32"/>
                                 <segments>
                                     <segment title="Songs"/>
                                     <segment title="Artists"/>
                                 </segments>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="DfK-fd-CdH">
+                                <rect key="frame" x="20" y="182" width="131" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="131" id="j19-By-spp"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="SG"/>
+                                    <segment title="Global"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="eu0-fh-VhI" firstAttribute="top" secondItem="wJi-0H-PVl" secondAttribute="bottom" constant="25" id="26G-tU-Wgi"/>
-                            <constraint firstItem="wJi-0H-PVl" firstAttribute="leading" secondItem="Fhq-5K-tEL" secondAttribute="leading" id="6TG-5V-zRe"/>
-                            <constraint firstItem="KcK-oy-W8I" firstAttribute="bottom" secondItem="Fhq-5K-tEL" secondAttribute="bottom" constant="19" id="6ac-J4-fJ1"/>
-                            <constraint firstItem="wJi-0H-PVl" firstAttribute="centerX" secondItem="eu0-fh-VhI" secondAttribute="centerX" id="JfS-nl-wg0"/>
-                            <constraint firstItem="Fhq-5K-tEL" firstAttribute="top" secondItem="eu0-fh-VhI" secondAttribute="bottom" constant="41" id="MIr-yW-O55"/>
-                            <constraint firstItem="eu0-fh-VhI" firstAttribute="leading" secondItem="KcK-oy-W8I" secondAttribute="leading" constant="130" id="dgU-3l-ceE"/>
-                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="trailing" secondItem="wJi-0H-PVl" secondAttribute="trailing" id="emW-aX-SP2"/>
-                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="trailing" secondItem="Lrk-92-gOv" secondAttribute="trailingMargin" id="fHu-bF-0GO"/>
-                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="leading" secondItem="wJi-0H-PVl" secondAttribute="leading" id="fZP-KE-D7y"/>
-                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="leading" secondItem="Lrk-92-gOv" secondAttribute="leadingMargin" id="l38-m1-lp3"/>
-                            <constraint firstItem="wJi-0H-PVl" firstAttribute="top" secondItem="5iz-Ja-Ksx" secondAttribute="bottom" constant="8" id="qFX-ma-woP"/>
-                            <constraint firstItem="wJi-0H-PVl" firstAttribute="trailing" secondItem="Fhq-5K-tEL" secondAttribute="trailing" id="rVI-Ba-2lT"/>
-                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="top" secondItem="KcK-oy-W8I" secondAttribute="top" constant="13" id="wV2-va-tLz"/>
+                            <constraint firstItem="wJi-0H-PVl" firstAttribute="top" secondItem="5iz-Ja-Ksx" secondAttribute="bottom" constant="8" id="969-OP-Yvk"/>
+                            <constraint firstItem="eu0-fh-VhI" firstAttribute="trailing" secondItem="Fhq-5K-tEL" secondAttribute="trailing" id="Ayf-ak-fkc"/>
+                            <constraint firstItem="Fhq-5K-tEL" firstAttribute="top" secondItem="DfK-fd-CdH" secondAttribute="bottom" constant="44" id="GMk-qU-5o7"/>
+                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="trailing" secondItem="Lrk-92-gOv" secondAttribute="trailingMargin" id="LkG-eq-a9T"/>
+                            <constraint firstItem="eu0-fh-VhI" firstAttribute="leading" secondItem="DfK-fd-CdH" secondAttribute="trailing" constant="88" id="Ozi-rl-qGj"/>
+                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="leading" secondItem="Lrk-92-gOv" secondAttribute="leadingMargin" id="PE1-OO-fqq"/>
+                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="trailing" secondItem="wJi-0H-PVl" secondAttribute="trailing" id="SMC-nY-FrU"/>
+                            <constraint firstItem="wJi-0H-PVl" firstAttribute="trailing" secondItem="eu0-fh-VhI" secondAttribute="trailing" id="Yny-4U-o5d"/>
+                            <constraint firstItem="wJi-0H-PVl" firstAttribute="leading" secondItem="DfK-fd-CdH" secondAttribute="leading" id="b9C-cq-hkH"/>
+                            <constraint firstItem="DfK-fd-CdH" firstAttribute="baseline" secondItem="eu0-fh-VhI" secondAttribute="baseline" id="oii-wr-cea"/>
+                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="leading" secondItem="wJi-0H-PVl" secondAttribute="leading" id="ppV-Wu-0Yr"/>
+                            <constraint firstItem="KcK-oy-W8I" firstAttribute="bottom" secondItem="Fhq-5K-tEL" secondAttribute="bottom" constant="19" id="uaj-bF-0EL"/>
+                            <constraint firstItem="DfK-fd-CdH" firstAttribute="top" secondItem="wJi-0H-PVl" secondAttribute="bottom" constant="22" id="xqa-Al-7jF"/>
+                            <constraint firstItem="5iz-Ja-Ksx" firstAttribute="top" secondItem="KcK-oy-W8I" secondAttribute="top" constant="13" id="y92-CX-uXC"/>
+                            <constraint firstItem="DfK-fd-CdH" firstAttribute="leading" secondItem="Fhq-5K-tEL" secondAttribute="leading" id="zJ5-7e-7lY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KcK-oy-W8I"/>
                     </view>
                     <navigationItem key="navigationItem" id="udJ-XT-ndF"/>
                     <connections>
+                        <outlet property="uiLocationPicker" destination="DfK-fd-CdH" id="F6d-e9-Hcy"/>
                         <outlet property="uiSegmentedControl" destination="eu0-fh-VhI" id="ByO-bq-gTY"/>
                         <outlet property="uiTableView" destination="Fhq-5K-tEL" id="2nf-Yj-kIc"/>
                     </connections>

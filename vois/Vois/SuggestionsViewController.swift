@@ -11,21 +11,45 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
     var songList: [Track]!
     var artistList: [TrackArtist]!
 
-    @IBOutlet weak var uiTableView: UITableView!
+    var regionalSongList: [Track]!
+    var regionalArtistList: [TrackArtist]!
 
+    var countryList = Locale.isoRegionCodes.compactMap {
+        Locale.current.localizedString(forRegionCode: $0)
+    }
+
+    @IBOutlet weak var uiTableView: UITableView!
+    @IBOutlet weak var uiLocationPicker: UISegmentedControl!
     @IBOutlet weak var uiSegmentedControl: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         songList = [Track]()
+        regionalSongList = [Track]()
+
+        artistList = [TrackArtist]()
+        regionalArtistList = [TrackArtist]()
+
         uiTableView.delegate = self
         uiTableView.dataSource = self
+
+        countryList = countryList.filter { !$0.contains(" ") }
 
         updateSongList()
         updateArtistList()
 
-        uiSegmentedControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        uiSegmentedControl.addTarget(
+            self,
+            action: #selector(refreshTable),
+            for: .valueChanged
+        )
+
+        uiLocationPicker.addTarget(
+            self,
+            action: #selector(refreshTable),
+            for: .valueChanged
+        )
     }
 
     @objc
@@ -41,6 +65,12 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
                 self.setSongList(newSongList: newSongList)
             }
         }
+        LastFMAPInterface().getTopTracksByRegion(country: "Singapore") { response in
+            if response != nil {
+                let newSongList = response!.tracks.track
+                self.setRegionalSongList(newSongList: newSongList)
+            }
+        }
     }
 
     @objc
@@ -49,6 +79,12 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
             if response != nil {
                 let newArtistList = response!.artists.artist
                 self.setArtistList(newArtistList: newArtistList)
+            }
+        }
+        LastFMAPInterface().getTopArtistsByRegion(country: "Singapore") { response in
+            if response != nil {
+                let newArtistList = response!.topartists.artist
+              self.setRegionalArtistList(newArtistList: newArtistList)
             }
         }
     }
@@ -67,11 +103,33 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
+    func setRegionalSongList(newSongList: [Track]) {
+        self.regionalSongList = newSongList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
+    func setRegionalArtistList(newArtistList: [TrackArtist]) {
+        self.regionalArtistList = newArtistList
+        DispatchQueue.main.async {
+            self.uiTableView.reloadData()
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if uiSegmentedControl.selectedSegmentIndex == 0 {
-            return songList.count
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                return regionalSongList.count
+            } else {
+                return songList.count
+            }
         } else {
-            return artistList.count
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                return regionalArtistList.count
+            } else {
+                return artistList.count
+            }
         }
     }
 
@@ -79,15 +137,29 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = uiTableView.dequeueReusableCell(withIdentifier: "Song", for: indexPath)
 
         if uiSegmentedControl.selectedSegmentIndex == 0 {
-            var cellLabelString = songList[indexPath.row].name.capitalized
-            cellLabelString += "   (\(songList[indexPath.row].artist.name))"
+            var song: Track?
 
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                song = regionalSongList[indexPath.row]
+            } else {
+                song = songList[indexPath.row]
+            }
+
+            let cellLabelString = "\(song!.name.capitalized)   (\(song!.artist.name))"
             cell.textLabel?.text = cellLabelString
         } else {
-            var cellLabelString = artistList[indexPath.row].name.capitalized
+            var artist: TrackArtist?
 
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                artist = regionalArtistList[indexPath.row]
+            } else {
+                artist = artistList[indexPath.row]
+            }
+
+            let cellLabelString = artist!.name.capitalized
             cell.textLabel?.text = cellLabelString
         }
+
         return cell
     }
 
@@ -95,9 +167,25 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
         var targetUrlString = ""
 
         if uiSegmentedControl.selectedSegmentIndex == 0 {
-            targetUrlString = songList[indexPath.row].url
+            var song: Track?
+
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                song = regionalSongList[indexPath.row]
+            } else {
+                song = songList[indexPath.row]
+            }
+
+            targetUrlString = song!.url
         } else {
-            targetUrlString = artistList[indexPath.row].url
+            var artist: TrackArtist?
+
+            if uiLocationPicker.selectedSegmentIndex == 0 {
+                artist = regionalArtistList[indexPath.row]
+            } else {
+                artist = artistList[indexPath.row]
+            }
+
+            targetUrlString = artist!.url
         }
 
         UIApplication.shared.open(
@@ -106,34 +194,4 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
             completionHandler: nil
         )
     }
-
-//    @objc
-//    func getLastFMTopSongs() {
-//        let url = "https://ws.audioscrobbler.com/2.0/"
-//        let options = [
-//            "method": "chart.gettoptracks",
-//            "api_key": "5a83c80e13a39002a4c841b72cf8427d",
-//            "format": "json"
-//        ]
-//
-//        var completeRequestString = url + "?"
-//
-//        for (key, value) in options {
-//            completeRequestString += (key + "=" + value + "&")
-//        }
-//
-//        if completeRequestString.last == Character("&") {
-//            completeRequestString = String(completeRequestString.dropLast())
-//        }
-//
-//        if let url = URL(string: completeRequestString) {
-//           URLSession.shared.dataTask(with: url) { data, _, _ in
-//              if let data = data {
-//                 if let jsonString = String(data: data, encoding: .utf8) {
-//                    print(jsonString)
-//                 }
-//              }
-//           }.resume()
-//        }
-//    }
 }
