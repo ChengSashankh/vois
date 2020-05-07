@@ -1197,10 +1197,10 @@
             </objects>
             <point key="canvasLocation" x="1716" y="1787"/>
         </scene>
-        <!--Suggestions View Controller-->
+        <!--Trending Songs View Controller-->
         <scene sceneID="ECO-hv-g1h">
             <objects>
-                <viewController id="F5q-c2-vUN" customClass="SuggestionsViewController" customModule="Vois" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="F5q-c2-vUN" customClass="TrendingSongsViewController" customModule="Vois" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lrk-92-gOv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
