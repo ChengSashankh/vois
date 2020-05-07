@@ -145,8 +145,9 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
                 song = songList[indexPath.row]
             }
 
-            let cellLabelString = "\(song!.name.capitalized)   (\(song!.artist.name))"
+            let cellLabelString = "\(indexPath.row + 1). \(song!.name.capitalized)   (\(song!.artist.name))"
             cell.textLabel?.text = cellLabelString
+            cell.textLabel?.textColor = .blue
         } else {
             var artist: TrackArtist?
 
@@ -156,8 +157,9 @@ class SuggestionsViewController: UIViewController, UITableViewDelegate, UITableV
                 artist = artistList[indexPath.row]
             }
 
-            let cellLabelString = artist!.name.capitalized
+            let cellLabelString = "\(indexPath.row + 1). \(artist!.name.capitalized)"
             cell.textLabel?.text = cellLabelString
+            cell.textLabel?.textColor = .blue
         }
 
         return cell
