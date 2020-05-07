@@ -19,7 +19,6 @@ class FirestoreAdapter {
     fileprivate func baseQuery() -> Query {
         return connection.collection("comments")
     }
-
     fileprivate var query: Query? {
         didSet {
             if let listener = listener {

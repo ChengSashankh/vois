@@ -47,8 +47,8 @@ class FirebaseStorageAdapter {
         }
     }
 
-    func uploadFile(from: URL, to: String) {
-        let storageReference = getReference(toPath: to)
+    func uploadFile(from: URL, toLocation: String) {
+        let storageReference = getReference(toPath: toLocation)
 
         //let storageReference = getReference(toPath: "test.m4a")
         let uploadTask = storageReference.putFile(from: from, metadata: nil)
@@ -65,8 +65,8 @@ class FirebaseStorageAdapter {
         }
     }
 
-    func deleteFile(at: String) {
-        let storageReference = getReference(toPath: at)
+    func deleteFile(atLocation: String) {
+        let storageReference = getReference(toPath: atLocation)
 
         storageReference.delete { error in
             if let error = error {
@@ -77,7 +77,7 @@ class FirebaseStorageAdapter {
         }
     }
 
-    func listFiles(at: String) -> [String] {
+    func listFiles(atLocation: String) -> [String] {
         let storageReference = getReference(toPath: "recordings")
 
         var items = [String]()

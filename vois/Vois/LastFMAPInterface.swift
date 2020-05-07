@@ -65,8 +65,6 @@ class LastFMAPInterface {
         return apiResponse
     }
 
-
-
     func getTopTracks(completionHandler: @escaping (_ response: TopTracksAPIResponse?) -> Void) {
         let url = "https://ws.audioscrobbler.com/2.0/"
         var options = [
@@ -162,7 +160,7 @@ class LastFMAPInterface {
             "method": "geo.gettopartists"
         ]
         options.merge(toMerge: baseParams)
-        
+
         var completeRequestString = url + "?"
 
         for (key, value) in options {

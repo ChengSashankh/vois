@@ -16,7 +16,7 @@ class RecordingCloudStorage: RecordingCloudStorageDelegate {
         guard let reference = recording.id else {
             return
         }
-        cloud.uploadFile(from: recording.filePath, to: reference + recordingExtension)
+        cloud.uploadFile(from: recording.filePath, toLocation: reference + recordingExtension)
     }
 
     func download(recording: Recording,
@@ -32,10 +32,10 @@ class RecordingCloudStorage: RecordingCloudStorageDelegate {
         guard let reference = recording.id else {
             return
         }
-        cloud.deleteFile(at: reference + recordingExtension)
+        cloud.deleteFile(atLocation: reference + recordingExtension)
     }
 
     func remove(recording reference: String) {
-        cloud.deleteFile(at: reference + recordingExtension)
+        cloud.deleteFile(atLocation: reference + recordingExtension)
     }
 }
